@@ -1,0 +1,57 @@
+.checklist_container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 1rem;
+}
+.form-item {
+    margin: 1rem 0rem 1rem 0rem;
+}
+.dropdown-contianer{
+    display: flex;
+    justify-content: space-evenly;
+}
+.btn-close {
+    margin-left: auto;
+}
+.add_new {
+    margin-top: auto;
+}
+.item_name, .item_format {
+    font-size: 12px;
+}
+.item_format {
+    margin-left: 0.5rem;
+}
+.checklist_item {
+    display: flex;
+    justify-content: space-between;
+    /*margin: 0.3rem 1rem 0.3rem 1rem;*/
+}
+.item_quantity_group {
+    display: flex;
+    max-width: 5rem;
+    height: 1.5rem;
+}
+.plusmin_btn {
+    line-height: 0rem;
+}
+.quantity_input {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    padding: 0;
+}
+
+/* Hide number controls in number input */
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.item_name_group {
+    display: flex;
+}
