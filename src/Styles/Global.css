@@ -1,6 +1,9 @@
 html, body {
     margin: 0px;
 }
+.app {
+    height: 100vh;
+}
 .button_primary {
     padding: 0.5rem 1rem 0.5rem 1rem;
     background: rgb(8, 23, 43);

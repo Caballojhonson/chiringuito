@@ -35,7 +35,7 @@ export default function Checklist_Main(props) {
 	);
 
 	return (
-		<div className="checklist_container">
+		<div>
 			{showNewItemForm ? Itemform : CheckList}
 		</div>
 	);

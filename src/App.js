@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import './App.css';
 import ChecklistMain from './Components/Checklist/ChecklistMain';
+import MainToolbar from './Components/UI/MainToolbar';
 import { data } from './data';
 import './Styles/Global.css';
 
@@ -16,6 +16,7 @@ function App() {
 	return (
 		<div className="App">
 			{stockItems && <ChecklistMain stockItems = {stockItems} />}
+      <MainToolbar />
 		</div>
 	);
 }

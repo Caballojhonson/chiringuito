@@ -1,0 +1,13 @@
+.toolbar_main {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0.5rem;
+    background-color: white;
+}
+.toolbar_icon {
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+}
