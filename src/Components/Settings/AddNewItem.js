@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export default function AddNewItem(props) {
     const [newProduct, setNewProduct] = useState({
+		id: props.newItemId,
         name: '',
         price: 0,
         format: '',
