@@ -1,25 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { data } from '../../data';
 import AddNewItem from './AddNewItem';
 
-export default function SettingsMain(props) {
+export default function SettingsMain() {
+	const stockBinId = '0d75777de94a'
+
 	const [showNewItemForm, setShowNewItemForm] = useState(false);
+	const [stockItems, setstockItems] = useState(null)
+
+
+	useEffect(() => {
+		data.getData(stockBinId).then(stock => setstockItems(stock))
+	  }, [])
+	
 
 	const toggleNewItemForm = () => {
 		setShowNewItemForm((prev) => !prev);
 	};
 
 	const addNewItem = (newObject) => {
-		const updatedStock = props.stockItems.concat(newObject);
-		data.overwriteBin(props.stockBinId, updatedStock);
+		if (stockItems) {
+		const updatedStock = stockItems.concat(newObject)
+		data.overwriteBin(stockBinId, updatedStock)
+		}
 	};
 
 	const Itemform = (
-		<AddNewItem closeForm={() => toggleNewItemForm()} addNewItem={addNewItem} newItemId={props.stockItems.length} />
+		stockItems && <AddNewItem closeForm={() => toggleNewItemForm()} addNewItem={addNewItem} newItemId={stockItems.length} />
 	);
 
 	return (
-		<div>
+		<div className="app">
 			{showNewItemForm ? (
 				Itemform
 			) : (

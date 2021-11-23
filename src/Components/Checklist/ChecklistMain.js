@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { data } from '../../data';
-
 import '../../Styles/Checklist.css';
 import ChecklistItem from './ChecklistItem';
 
 export default function Checklist_Main(props) {
+	const stockBinId = '0d75777de94a'
 	const orderBinId = 'a523dc4ff793';
+
+	const [stockItems, setStockItems] = useState(null)
 	const [order, setOrder] = useState([]);
+
+	useEffect(() => {
+		data.getData(stockBinId).then(stock => setStockItems(stock))
+	  }, [])
+	
 
 	const updateQuantity = (orderItem) => {
 
@@ -36,11 +43,9 @@ export default function Checklist_Main(props) {
 	};
 
 	const CheckList = (
-		<div className="checklist_container" 
-        style={props.isHidden ? {display: 'none'} : {display: 'flex'}}
-        >
+		<div className="checklist_container">
 			<h1>Checklist</h1>
-			{props.stockItems.map((item, i) => {
+			{stockItems && stockItems.map((item, i) => {
 				return (
 					<ChecklistItem
 						key={i}
@@ -56,5 +61,5 @@ export default function Checklist_Main(props) {
 		</div>
 	);
 
-	return <div>{CheckList}</div>;
+	return <div className="app">{CheckList}</div>;
 }

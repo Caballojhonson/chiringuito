@@ -80,8 +80,8 @@ const data = (() => {
 		getData,
 		printAllBins,
 		deleteAllBins,
-    logAllBins,
-    overwriteBin
+    	logAllBins,
+    	overwriteBin
 	};
 })();
 

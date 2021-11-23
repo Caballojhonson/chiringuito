@@ -1,9 +1,13 @@
+import { Routes, BrowserRouter, Route }  from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import ChecklistMain from './Components/Checklist/ChecklistMain';
 import SettingsMain from './Components/Settings/SettingsMain';
 import MainToolbar from './Components/UI/MainToolbar';
 import { data } from './data';
 import './Styles/Global.css';
+import HomeScreen from "./Components/Home/HomeScreen";
+import OrderScreen from "./Components/Orders/OrderScreen";
+import Loadscreen from "./Components/UI/Loadscreen";
 
 function App() {
   const stockBinId = '0d75777de94a'
@@ -16,22 +20,29 @@ function App() {
 
   const [stockItems, setstockItems] = useState(null)
   const [orders, setOrders] = useState(null)
-
-  const [homeIsHidden, setHomeIsHidden] = useState(true)
-  const [checklistIsHidden, setChecklistIsHidden] = useState(true)
-  const [ordersIsHidden, setOrdersIsHidden] = useState(true)
-  const [eventsIsHidden, setEventsIsHidden] = useState(true)
-  const [settingstIsHidden, setSettingsIsHidden] = useState(true)
-
-  const toggleChecklist = () => setChecklistIsHidden(prev => !prev)
   
 	return (
 		<div className="App">
-      {stockItems && <ChecklistMain isHidden={checklistIsHidden} stockItems = {stockItems} />}
-      {stockItems && <SettingsMain isHidden={settingstIsHidden} stockItems={stockItems} stockBinId = {stockBinId} />}
       <MainToolbar  />
+      
+      <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<HomeScreen />} />
+
+                <Route path="checklist">
+                  {stockItems ? <ChecklistMain stockItems= {stockItems} /> : <Loadscreen/>}
+                </Route>
+
+                <Route path="pedidos" element={<OrderScreen/>} />
+
+                <Route path="opciones"> 
+                  {stockItems ? <SettingsMain stockItems= {stockItems} stockBinId= {stockBinId} /> : <Loadscreen/>}
+                </Route>
+            </Routes>
+        </BrowserRouter>
+      
 		</div>
 	);
 }
 
-export default App;
+export default App; 
