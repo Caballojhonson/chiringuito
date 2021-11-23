@@ -36,7 +36,9 @@ export default function Checklist_Main(props) {
 	};
 
 	const CheckList = (
-		<div className="checklist_container">
+		<div className="checklist_container" 
+        style={props.isHidden ? {display: 'none'} : {display: 'flex'}}
+        >
 			<h1>Checklist</h1>
 			{props.stockItems.map((item, i) => {
 				return (

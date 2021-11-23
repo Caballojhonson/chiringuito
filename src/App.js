@@ -7,25 +7,29 @@ import './Styles/Global.css';
 
 function App() {
   const stockBinId = '0d75777de94a'
-  const [stockItems, setstockItems] = useState(null)
-  const [showSettings, setshowSettings] = useState(false)
-
-  const toggleSettings = () => {
-    setshowSettings(prev => !prev)
-  }
+  const orderBinId = 'a523dc4ff793';
 
   useEffect(() => {
     data.getData(stockBinId).then(stock => setstockItems(stock))
+    data.getData(orderBinId).then(orders => setOrders(orders))
   }, [])
 
-  //data.getData('a523dc4ff793').then(val => console.log(val))
-  //data.overwriteBin('a523dc4ff793', [])
+  const [stockItems, setstockItems] = useState(null)
+  const [orders, setOrders] = useState(null)
 
+  const [homeIsHidden, setHomeIsHidden] = useState(true)
+  const [checklistIsHidden, setChecklistIsHidden] = useState(true)
+  const [ordersIsHidden, setOrdersIsHidden] = useState(true)
+  const [eventsIsHidden, setEventsIsHidden] = useState(true)
+  const [settingstIsHidden, setSettingsIsHidden] = useState(true)
+
+  const toggleChecklist = () => setChecklistIsHidden(prev => !prev)
+  
 	return (
 		<div className="App">
-			{stockItems && <ChecklistMain stockItems = {stockItems} />}
-      {showSettings && <SettingsMain stockItems={stockItems} stockBinId = {stockBinId} />}
-      <MainToolbar toggleSettings = {toggleSettings} />
+      {stockItems && <ChecklistMain isHidden={checklistIsHidden} stockItems = {stockItems} />}
+      {stockItems && <SettingsMain isHidden={settingstIsHidden} stockItems={stockItems} stockBinId = {stockBinId} />}
+      <MainToolbar  />
 		</div>
 	);
 }
