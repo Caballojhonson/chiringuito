@@ -1,5 +1,8 @@
 const data = (() => {
 	const API_KEY = 'cb979a42-3bd7-11ec-b95c-0242ac110002';
+	const stockBinId = '0d75777de94a'
+  	const orderBinId = 'a523dc4ff793'
+	const supplierBinId = 'fc8ab6cfa458'
 
 	const createBin = async function (object) {
 		const response = await fetch('https://json.extendsclass.com/bin', {
@@ -81,7 +84,10 @@ const data = (() => {
 		printAllBins,
 		deleteAllBins,
     	logAllBins,
-    	overwriteBin
+    	overwriteBin,
+		stockBinId,
+		orderBinId,
+		supplierBinId
 	};
 })();
 

@@ -1,0 +1,39 @@
+.order_box_container {
+    margin:1.5rem;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.order_generation{
+    font-size: 11px;
+}
+.order_total {
+    font-size: 13px;
+}
+.supplier_box {
+    margin:1rem;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.supplier_name {
+    font-size:16px;
+}
+.order_item_container {
+
+}
+.order_supplier_total {
+    font-size: 13px;
+}
+.order_item {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    margin: 0px 0.5rem 0px 0.5rem;
+}
+.order_item_name {
+    font-size: 12px;
+}
+.order_item_quantity {
+    font-size: 12px;
+}
+.order_item_price {
+ font-size: 12px;
+}

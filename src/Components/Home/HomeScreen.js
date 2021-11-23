@@ -1,9 +1,10 @@
 import React from 'react'
+import georgieDann from '../../images/58198803.jpg'
 
 export default function HomeScreen() {
     return (
         <div className="app">
-            <h1>El chiringuito</h1>
+            <img className="home_img" src={georgieDann}></img>
         </div>
     )
 }

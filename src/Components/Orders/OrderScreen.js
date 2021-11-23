@@ -3,19 +3,22 @@ import { data } from '../../data';
 import '../../Styles/Orders.css'
 import OrderBox from './OrderBox'; 
 
-export default function OrderScreen() {
-    const orderBinId = 'a523dc4ff793';
-  
+export default function OrderScreen() {  
+    const [suppliers, setSuppliers] = useState(null)
     const [orders, setOrders] = useState(null)
 
     useEffect(() => {
-        data.getData(orderBinId).then(orders => setOrders(orders))
+        data.getData(data.orderBinId).then(orders => setOrders(orders))
+        data.getData(data.supplierBinId).then(suppliers => setSuppliers(suppliers))
       }, [])
 
     return (
         <div className="app">
-            {orders && orders.map(order => {
-                <OrderBox order={order} />
+            <h1>Pedidos</h1>
+            {orders && suppliers && orders.map((order, i) => {
+                return(
+                <OrderBox suppliers={suppliers} order={order} key={i} />
+                )
             })}
         </div>
     )

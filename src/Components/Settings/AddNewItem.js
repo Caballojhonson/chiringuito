@@ -86,12 +86,11 @@ export default function AddNewItem(props) {
 						aria-label="Small select"
 					>
 						<option defaultValue="">Proveedor</option>
-						<option value="Pania">Pania</option>
-						<option value="Heineken">Heineken</option>
-						<option value="Cocacola">Cocacola</option>
-						<option value="Plataforma">Plataforma</option>
-						<option value="Makro">Makro</option>
-						<option value="Otros">Otros</option>
+						{props.suppliers.map(item => {
+							return(
+							<option value={item.name}>{item.name}</option>
+							)
+						})}
 					</select>
 				</div>
 			</div>

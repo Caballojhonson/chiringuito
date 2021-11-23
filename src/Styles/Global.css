@@ -3,7 +3,10 @@ html, body {
     height: 100vh;
 }
 .app {
-    height: 100vh;
+    min-height: 100vh;
+}
+.home_img{
+    width: 100%;
 }
 .button_primary {
     padding: 0.5rem 1rem 0.5rem 1rem;
