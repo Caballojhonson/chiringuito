@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate }  from "react-router-dom";
 
 export default function AddNewItem(props) {
+	let navigate = useNavigate();
     const [newProduct, setNewProduct] = useState({
 		id: props.newItemId,
         name: '',
         price: 0,
         format: '',
-        provider: '',
+        supplier: '',
     })
 
     const handleChange = (e) => {
@@ -18,6 +20,7 @@ export default function AddNewItem(props) {
     const handleSubmit = () => {
         props.addNewItem(newProduct) 
         props.closeForm()
+		navigate('/checklist')
     }
 
 	return (
@@ -79,8 +82,8 @@ export default function AddNewItem(props) {
 
 				<div className="form-item">
 					<select
-						name="provider"
-                        value={newProduct.provider}
+						name="supplier"
+                        value={newProduct.supplier}
                         onChange={handleChange}
 						className="form-select form-select-sm"
 						aria-label="Small select"

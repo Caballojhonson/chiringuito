@@ -1,35 +1,49 @@
 .order_box_container {
     margin:1.5rem;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 3px;
+}
+.order_title {
+    text-align: center;
+    margin-top: 0.5rem;
 }
 .order_generation{
+    text-align: center;
     font-size: 11px;
+    margin-top: 0.3rem;
 }
 .order_total {
+    text-align: center;
     font-size: 13px;
 }
 .supplier_box {
-    margin:1rem;
-    border-radius: 5px;
+    margin:0.5rem;
+    border-radius: 2px;
     border: 1px solid black;
 }
 .supplier_name {
-    font-size:16px;
+    font-size:14px;
+    margin-left: 0.5rem;
+    text-align: center;
 }
 .order_item_container {
 
 }
 .order_supplier_total {
     font-size: 13px;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    text-decoration: underline;
+    text-align: end;
 }
 .order_item {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 3fr 2fr 1fr;
     margin: 0px 0.5rem 0px 0.5rem;
 }
-.order_item_name {
+.order_item_name, .order_item_quantity, .order_item_price  {
     font-size: 12px;
+    margin: 0px;
 }
 .order_item_quantity {
     font-size: 12px;

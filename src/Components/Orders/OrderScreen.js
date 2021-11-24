@@ -12,12 +12,15 @@ export default function OrderScreen() {
         data.getData(data.supplierBinId).then(suppliers => setSuppliers(suppliers))
       }, [])
 
+      //data.overwriteBin(data.stockBinId, []).then(val => console.log(val))
+      //data.overwriteBin(data.orderBinId, []).then(val => console.log(val))
+
     return (
         <div className="app">
-            <h1>Pedidos</h1>
+            <h1 className="order_title">Pedidos</h1>
             {orders && suppliers && orders.map((order, i) => {
                 return(
-                <OrderBox suppliers={suppliers} order={order} key={i} />
+                <OrderBox suppliers={suppliers} order={order} key={i} id={i} />
                 )
             })}
         </div>

@@ -3,6 +3,12 @@ import OrderItem from './OrderItem'
 
 export default function SupplierBox(props) {
   const {name, order} = props
+  const supplierTotal = () => {
+      const sum = order.reduce((a, b) => {
+         return parseFloat(a) + (parseFloat(b.price) * parseFloat(b.quantity))
+      }, 0)
+      return sum.toFixed(2) + '€'
+  }
     return (
         <div className="supplier_box">
             <h4 className="supplier_name">{name}</h4>
@@ -13,7 +19,7 @@ export default function SupplierBox(props) {
                     )
                 })}
             </div>
-            <h6 className="order_supplier_total">{'Total: ' + (order.reduce((a,b) => {return parseFloat(a) + parseFloat(b.price)}, 0)).toFixed(2) + '€'}</h6>
+            <h6 className="order_supplier_total">{supplierTotal()}</h6>
         </div>
     )
 }

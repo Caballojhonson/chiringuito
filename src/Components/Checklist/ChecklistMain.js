@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { data } from '../../data';
 import '../../Styles/Checklist.css';
 import ChecklistItem from './ChecklistItem';
 
 export default function Checklist_Main(props) {
+	let navigate = useNavigate();
 	const stockBinId = '0d75777de94a'
 	const orderBinId = 'a523dc4ff793';
 
@@ -32,13 +34,13 @@ export default function Checklist_Main(props) {
 		if (filteredOrders.length > 0) {
 			const newOrder = {
 				order: filteredOrders,
-				submittedBy: 'Tester',
+				submittedBy: 'Caballo',
 				submittedAt: new Date(),
 			};
 			const prevOrders = await data.getData(orderBinId);
 			const updatedOrders = prevOrders.concat(newOrder);
 			data.overwriteBin(orderBinId, updatedOrders);
-			data.getData('a523dc4ff793').then((val) => console.log(val));
+			navigate('/pedidos')
 		}
 	};
 
