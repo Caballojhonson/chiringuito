@@ -4,10 +4,9 @@ import { data } from '../../data';
 import '../../Styles/Checklist.css';
 import ChecklistItem from './ChecklistItem';
 
-export default function Checklist_Main(props) {
+export default function Checklist_Main() {
 	let navigate = useNavigate();
 	const stockBinId = '0d75777de94a'
-	const orderBinId = 'a523dc4ff793';
 
 	const [stockItems, setStockItems] = useState(null)
 	const [order, setOrder] = useState([]);
@@ -31,16 +30,22 @@ export default function Checklist_Main(props) {
 
 	const submitOrder = async () => {
 		const filteredOrders = order.filter((item) => item.quantity > 0);
+		const orderWithStatus = filteredOrders.map((item) => {
+			item.orderStatus = 'Pendiente'
+			item.paymentStatus = 'Pendiente de pago'
+			return item
+		})
 		if (filteredOrders.length > 0) {
 			const newOrder = {
-				order: filteredOrders,
+				order: orderWithStatus,
+				id: data.getid(),
 				submittedBy: 'Caballo',
 				submittedAt: new Date(),
 			};
-			const prevOrders = await data.getData(orderBinId);
+			const prevOrders = await data.getData(data.orderBinId);
 			const updatedOrders = prevOrders.concat(newOrder);
-			data.overwriteBin(orderBinId, updatedOrders);
-			navigate('/pedidos')
+			data.overwriteBin(data.orderBinId, updatedOrders)
+			.then(() => navigate('/pedidos'));
 		}
 	};
 

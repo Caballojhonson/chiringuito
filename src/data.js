@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 const data = (() => {
 	const API_KEY = 'cb979a42-3bd7-11ec-b95c-0242ac110002';
 	const stockBinId = '0d75777de94a'
@@ -76,6 +78,8 @@ const data = (() => {
 		getBins().then((bins) => bins.forEach((bin) => deleteBin(bin)));
 	};
 
+	const getid = () => uuid()
+
 	return {
 		createBin,
 		getBins,
@@ -87,7 +91,8 @@ const data = (() => {
     	overwriteBin,
 		stockBinId,
 		orderBinId,
-		supplierBinId
+		supplierBinId,
+		getid,
 	};
 })();
 

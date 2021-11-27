@@ -31,3 +31,16 @@ html, body {
     height: 100%;
     margin-top: auto;
 }
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(22, 23, 43, 0.404);
+}
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 40vh;
+}

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { data } from '../../data';
+//import { storage } from '../../storage';
 import '../../Styles/Orders.css'
 import OrderBox from './OrderBox'; 
 
@@ -10,17 +11,15 @@ export default function OrderScreen() {
     useEffect(() => {
         data.getData(data.orderBinId).then(orders => setOrders(orders))
         data.getData(data.supplierBinId).then(suppliers => setSuppliers(suppliers))
+        console.log('OrderScreen UseEffect')
       }, [])
-
-      //data.overwriteBin(data.stockBinId, []).then(val => console.log(val))
-      //data.overwriteBin(data.orderBinId, []).then(val => console.log(val))
 
     return (
         <div className="app">
             <h1 className="order_title">Pedidos</h1>
-            {orders && suppliers && orders.map((order, i) => {
+            {orders && suppliers && orders.map((order) => {
                 return(
-                <OrderBox suppliers={suppliers} order={order} key={i} id={i} />
+                <OrderBox suppliers={suppliers} order={order} key={order.id} id={order.id} />
                 )
             })}
         </div>

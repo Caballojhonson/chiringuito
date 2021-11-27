@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { data } from '../../data';
 import AddNewItem from './AddNewItem';
 import '../../Styles/Settings.css'
+import { useNavigate }  from "react-router-dom";
+
 
 export default function SettingsMain() {
+	let navigate = useNavigate();
+
 	const [showNewItemForm, setShowNewItemForm] = useState(false);
 	const [stockItems, setstockItems] = useState(null)
 	const [suppliers, setSuppliers] = useState(null)
@@ -23,6 +27,7 @@ export default function SettingsMain() {
 		if (stockItems) {
 		const updatedStock = stockItems.concat(newObject)
 		data.overwriteBin(data.stockBinId, updatedStock)
+		.then(() => navigate('/checklist'))
 		}
 	};
 

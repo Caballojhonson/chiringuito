@@ -1,6 +1,6 @@
 .order_box_container {
     margin:1.5rem;
-    border: 1px solid black;
+    border: 1px solid rgb(127, 139, 165);
     border-radius: 3px;
 }
 .order_title {
@@ -17,24 +17,35 @@
     font-size: 13px;
 }
 .supplier_box {
-    margin:0.5rem;
-    border-radius: 2px;
-    border: 1px solid black;
+    margin:0.2rem;
+    border-radius: 3px;
+    border: 1px solid rgb(195, 203, 221);
+    padding: 0.3rem;
+}
+.supplier_nameandstate{
+    display: flex;
+    justify-content: space-between;
+    margin:0.3rem 1rem 1rem 1rem;
+}
+.supplier_state_badge, .supplier_payment_state {
+    font-size: 11px;
+    cursor: pointer;
 }
 .supplier_name {
     font-size:14px;
-    margin-left: 0.5rem;
+    margin: 0px;
     text-align: center;
 }
-.order_item_container {
-
+.supplier_footer{
+    display: flex;
+    justify-content: space-between;
+    margin:1rem 1rem 0.3rem 1rem;
 }
 .order_supplier_total {
     font-size: 13px;
-    margin-right: 1rem;
-    margin-top: 1rem;
     text-decoration: underline;
     text-align: end;
+    margin: 0px;
 }
 .order_item {
     display: grid;
@@ -46,8 +57,11 @@
     margin: 0px;
 }
 .order_item_quantity {
-    font-size: 12px;
+    font-size: 11px;
 }
 .order_item_price {
  font-size: 12px;
+}
+.order_item_name {
+    font-size: 11px;
 }

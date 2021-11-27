@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate }  from "react-router-dom";
 
 export default function AddNewItem(props) {
-	let navigate = useNavigate();
     const [newProduct, setNewProduct] = useState({
 		id: props.newItemId,
         name: '',
@@ -20,7 +18,6 @@ export default function AddNewItem(props) {
     const handleSubmit = () => {
         props.addNewItem(newProduct) 
         props.closeForm()
-		navigate('/checklist')
     }
 
 	return (
