@@ -9,11 +9,16 @@ import MainToolbar from './Components/UI/MainToolbar';
 import { data } from './data';
 
 export default function Router() {
-	//storage.localStockItems.then(val => console.log(val))
     //data.overwriteBin(data.stockBinId, []).then(val => console.log(val))
     //data.overwriteBin(data.orderBinId, []).then(val => console.log(val))
 	//data.getData(data.orderBinId).then(val => console.log(val))
-
+	data.getData(data.financeBinId).then(val => console.log(val))
+	/*data.overwriteBin(data.financeBinId, {
+		suppliers: {
+			debts: []
+		}
+	})
+	*/
 	return (
 		<div className="app">
 			<BrowserRouter>

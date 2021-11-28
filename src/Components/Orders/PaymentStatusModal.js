@@ -1,22 +1,38 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 export default function PaymentStatusModal(props) {
-	const [paymentStatus, setPaymentStatus] = useState(null)
-    const [debt, setDebt] = useState(null)
-    const [debtInputVisible, setDebtInputVisible] = useState(false)
+	const [paymentStatus, setPaymentStatus] = useState(null);
+	const [debt, setDebt] = useState('');
+    const [isValid, setIsValid] = useState(true)
+	const [debtInputVisible, setDebtInputVisible] = useState(false);
 
-	const setPaymentStateAs = (state) => {
-		state && props.changeState(state);
+	const setPaymentStateAs = (state, debtAmount) => {
+		state && props.changeState(state, debtAmount);
 	};
 
-    const handleChange = (e) => {
-        setDebt(e.target.value)
-    }
+	const handleChange = (e) => {
+		e.target.value > 0 ? 
+        setDebt(parseFloat(e.target.value)) : 
+        setDebt('');
+	};
 
-    const handleDebts = (amount) => {
-        setPaymentStatus('Pendiente de pago')
-        setDebtInputVisible(true)
-    }
+	const handleDebtInput = () => {
+		setPaymentStatus('Deuda pendiente');
+		setDebtInputVisible(true);
+	};
+
+	const handleSubmit = () => {
+		if (paymentStatus === 'Deuda pendiente') {
+            !debt && setIsValid(false)
+			debt && setPaymentStateAs(paymentStatus, debt);
+		} else {
+			setPaymentStateAs(paymentStatus);
+			setDebtInputVisible(false);
+            setIsValid(true)
+		}
+	};
+
+    
 
 	return (
 		<div className="order_status_modal">
@@ -27,6 +43,7 @@ export default function PaymentStatusModal(props) {
 							<h5 className="modal-title" id="modalSizeLabel">
 								Estado del pago
 							</h5>
+
 							<button
 								type="button"
 								className="btn-close"
@@ -36,28 +53,38 @@ export default function PaymentStatusModal(props) {
 						</div>
 						<div className="modal-body">
 							<button
-								onClick={() => setPaymentStatus('Deuda pendiente')}
+								onClick={() => setPaymentStatus('Pendiente de pago')}
 								type="button"
 								className="btn btn-danger"
 							>
 								Pendiente de pago
 							</button>
+
 							<button
-								onClick={handleDebts}
+								onClick={handleDebtInput}
 								type="button"
-								className="btn btn-warning"
+								className="btn btn-warning has-validation"
 							>
 								Deuda pendiente
 							</button>
 
-                            <input 
-                            type="number" 
-                            className="form-control" 
-                            placeholder="Importe deuda"
-                            value={debt}
-                            onChange={handleChange}
-                            style={debtInputVisible ? {display: 'block'} : {display: 'none'}}
-                            />
+							
+								<input
+									type="number"
+									className={`form-control ${isValid ? '' : 'is-invalid'}`}
+									placeholder="Importe deuda"
+									value={debt}
+									onChange={handleChange}
+									aria-describedby="inputGroupPrepend"
+									required=""
+									style={
+										debtInputVisible
+											? { display: 'block' }
+											: { display: 'none' }
+									}
+								/>
+								{!isValid && <div className="invalid-feedback">Introduce el importe</div>}
+						
 
 							<button
 								onClick={() => setPaymentStatus('Pagado')}
@@ -75,9 +102,12 @@ export default function PaymentStatusModal(props) {
 							>
 								Cancelar
 							</button>
-							<button onClick={() => setPaymentStateAs(paymentStatus)} 
-							type="button" 
-							className="btn btn-primary">
+
+							<button
+								onClick={handleSubmit}
+								type="button"
+								className="btn btn-primary"
+							>
 								Confirmar
 							</button>
 						</div>

@@ -5,6 +5,7 @@ const data = (() => {
 	const stockBinId = '0d75777de94a'
   	const orderBinId = 'a523dc4ff793'
 	const supplierBinId = 'fc8ab6cfa458'
+	const financeBinId = 'aefd25b6fd00'
 
 	const createBin = async function (object) {
 		const response = await fetch('https://json.extendsclass.com/bin', {
@@ -92,6 +93,7 @@ const data = (() => {
 		stockBinId,
 		orderBinId,
 		supplierBinId,
+		financeBinId,
 		getid,
 	};
 })();

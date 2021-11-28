@@ -29,7 +29,20 @@ export default function SupplierBox(props) {
 		data.overwriteBin(data.orderBinId, originalOrders);
 	};
 
-	const submitPaymentStatus = async (str) => {
+	const submitDebt = async (debt) => {
+        let originalFinance = await data.getData(data.financeBinId);
+        originalFinance.suppliers.debts.push({
+			supplier: name,
+			generationDate: new Date(),
+			amount: debt,
+			orderId: id,
+			debtId: data.getid()
+		})
+		data.overwriteBin(data.financeBinId, originalFinance)
+    }
+
+
+	const submitPaymentStatus = async (str, debtAmount) => {
 		toggleModal('payment');
 		setPaymentStatus(str);
 		let originalOrders = await data.getData(data.orderBinId);
@@ -43,6 +56,7 @@ export default function SupplierBox(props) {
 			}
 		});
 		data.overwriteBin(data.orderBinId, originalOrders);
+		debtAmount && submitDebt(debtAmount);
 	};
 
 	const toggleModal = (str) => {
