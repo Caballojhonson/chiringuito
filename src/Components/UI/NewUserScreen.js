@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default function NewUserScreen() {
-    const navigate = useNavigate()
     const [user, setUser] = useState({
         name: '',
         password: ''
@@ -18,7 +16,10 @@ export default function NewUserScreen() {
 	const handleSubmit = () => {
 		localStorage.setItem('name', user.name);
         setPageNum(prev => prev + 1)
-        pageNum === 3 && navigate('/')
+        if(pageNum === 3) {
+			localStorage.setItem('authorized', true);
+			window.location.href = '/';
+		} 
 	};
 
 	const pageOne = (

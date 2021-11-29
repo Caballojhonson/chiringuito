@@ -9,6 +9,7 @@ const data = (() => {
 	const usersBinId = '4099e8378878'
 
 	const username = localStorage.getItem('name')
+	const isAuthorized = localStorage.getItem('authorized')
 
 	const createBin = async function (object) {
 		const response = await fetch('https://json.extendsclass.com/bin', {
@@ -100,6 +101,7 @@ const data = (() => {
 		financeBinId,
 		usersBinId,
 		username,
+		isAuthorized,
 		
 	};
 })();
