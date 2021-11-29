@@ -6,6 +6,9 @@ const data = (() => {
   	const orderBinId = 'a523dc4ff793'
 	const supplierBinId = 'fc8ab6cfa458'
 	const financeBinId = 'aefd25b6fd00'
+	const usersBinId = '4099e8378878'
+
+	const username = localStorage.getItem('name')
 
 	const createBin = async function (object) {
 		const response = await fetch('https://json.extendsclass.com/bin', {
@@ -90,11 +93,14 @@ const data = (() => {
 		deleteAllBins,
     	logAllBins,
     	overwriteBin,
+		getid,
 		stockBinId,
 		orderBinId,
 		supplierBinId,
 		financeBinId,
-		getid,
+		usersBinId,
+		username,
+		
 	};
 })();
 

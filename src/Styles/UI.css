@@ -12,3 +12,34 @@
     width: 2rem;
     cursor: pointer;
 }
+.new_user_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 93vh;
+    background-color: hotpink;
+}
+.whoareyou_title {
+    text-align: center;
+    font-size: 2rem;
+    font-family: Oswald;
+    margin-top: 2rem;
+}
+.new_username_input {
+    text-align: center;
+}
+.software_version_container {
+    position: absolute;
+    bottom: 5rem;
+    left:0;
+    right: 0;
+    margin: 0px auto 0px auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.software_version, .copyright {
+    font-size: 10px;
+    margin: 0.1rem;
+    font-weight: 200;
+}

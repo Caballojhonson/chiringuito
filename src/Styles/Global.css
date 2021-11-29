@@ -1,9 +1,16 @@
 html, body {
     margin: 0px;
     height: 100vh;
+    font-family: Oswald, sans-serif;
 }
 .app {
     min-height: 98vh;
+}
+.form_container {
+    display: flex;
+    flex-direction: column;
+    min-height: 93vh;
+    padding: 1rem;
 }
 .home_img{
     width: 100%;
@@ -29,7 +36,7 @@ html, body {
     justify-content:space-evenly;
     align-items: center;
     height: 100%;
-    margin-top: auto;
+    margin-top: 5rem;
 }
 .modal {
     display: flex;
@@ -43,4 +50,16 @@ html, body {
     flex-direction: column;
     justify-content: space-evenly;
     height: 40vh;
+}
+.form_two_col {
+    display: flex;
+    justify-content: space-between;
+}
+.form_half_row {
+    width: 48%;
+}
+.form_centered{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
