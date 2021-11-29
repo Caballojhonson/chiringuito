@@ -39,7 +39,7 @@ export default function Checklist_Main() {
 			const newOrder = {
 				order: orderWithStatus,
 				id: data.getid(),
-				submittedBy: 'Caballo',
+				submittedBy: data.username,
 				submittedAt: new Date(),
 			};
 			const prevOrders = await data.getData(data.orderBinId);

@@ -39,7 +39,7 @@ export default function NewUserScreen() {
                     autoComplete="off"
 				></input>
 			</div>
-			<button onClick={user.name && handleSubmit} className="button_primary btn-primary">
+			<button onClick={user.name && handleSubmit} className="login_button button_primary btn-primary">
 				Identifico-me
 			</button>
 		</div>
@@ -62,7 +62,7 @@ export default function NewUserScreen() {
                     autoComplete="off"
 				></input>
 			</div>
-			<button onClick={user.password === 'una vida digna' && handleSubmit} className="button_primary btn-primary">
+			<button onClick={user.password === 'una vida digna' && handleSubmit} className="login_button button_primary btn-primary">
 				Cumplir deseo
 			</button>
 		</div>
@@ -74,7 +74,7 @@ export default function NewUserScreen() {
 				Bienvenido... <br/> El trabajo te hará libre
 			</h1>
 			
-			<button onClick={handleSubmit} className="button_primary btn-primary">
+			<button onClick={handleSubmit} className="login_button button_primary btn-primary">
 				Déjame en paz...
 			</button>
 		</div>
