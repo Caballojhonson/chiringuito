@@ -4,7 +4,7 @@ html, body {
     font-family: Oswald, sans-serif;
 }
 .app {
-    min-height: 98vh;
+    min-height: 93vh;
 }
 .form_container {
     display: flex;

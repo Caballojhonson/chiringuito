@@ -1,16 +1,16 @@
 import { Routes, BrowserRouter, Route } from 'react-router-dom';
+import React, { useEffect} from 'react';
 import ChecklistMain from './Components/Checklist/ChecklistMain';
 import SettingsMain from './Components/Settings/SettingsMain';
 import HomeScreen from './Components/Home/HomeScreen';
 import OrderScreen from './Components/Orders/OrderScreen';
 import './Styles/Global.css';
-import React from 'react';
 import MainToolbar from './Components/UI/MainToolbar';
 import { data } from './data';
 import AddNewItem from './Components/Settings/AddNewItem';
 import AddNewSupplier from './Components/Settings/AddNewSupplier';
-import refranero from './refranero';
 import NewUserScreen from './Components/UI/NewUserScreen';
+import Loadscreen from './Components/UI/Loadscreen';
 
 export default function Router() {
 	//data.overwriteBin(data.stockBinId, []).then(val => console.log(val))
@@ -28,6 +28,15 @@ export default function Router() {
 	//console.log(refranero[Math.floor(Math.random() * refranero.length )])
 	//data.createBin([]).then(val => console.log(val))
 
+	let newSession = localStorage.getItem('newSession')
+
+	useEffect(() => {
+		localStorage.setItem('newSession', '')
+		setTimeout(() => {
+			localStorage.setItem('newSession', true);
+		}, 300000) //Time of inactivity for session expiry 300000 = 5min
+	}, [])
+
 	const loginScreen = <NewUserScreen/>
 
 	const privateNavigation = (
@@ -40,6 +49,7 @@ export default function Router() {
 				<Route path="nueva-referencia" element={<AddNewItem />} />
 				<Route path="nuevo-proveedor" element={<AddNewSupplier />} />
 				<Route path="nuevo-usuario" element={<NewUserScreen />} />
+				<Route path="bienvenida" element={<Loadscreen />} />
 			</Routes>
 
 			<MainToolbar />
@@ -48,9 +58,10 @@ export default function Router() {
 
 	return (
 		<div className="app">
+			{newSession  && <Loadscreen/>}
 			{data.isAuthorized && privateNavigation}
 			{!data.isAuthorized && loginScreen}
-
+			
 		</div>
 	)
 }

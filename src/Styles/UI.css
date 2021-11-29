@@ -44,3 +44,20 @@
     margin: 0.1rem;
     font-weight: 200;
 }
+.loadscreen_container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    background-color: hotpink;
+}
+.welcome_text {
+    margin-top: 1rem;
+}
+.refran_container {
+    margin-top: 6rem;
+}
+.welcome_button {
+    margin-top: auto;
+    margin-bottom: 7rem;
+}
