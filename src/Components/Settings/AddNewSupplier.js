@@ -54,7 +54,7 @@ export default function AddNewSupplier() {
 					type="text"
 					className="form-control"
 					id="supplierName"
-					placeholder=""
+					autoComplete="off"
 				></input>
 			</div>
 
@@ -70,7 +70,7 @@ export default function AddNewSupplier() {
 						type="text"
 						className="form-control"
 						id="CIF"
-						placeholder=""
+						autoComplete="off"
 					></input>
 				</div>
 
@@ -85,7 +85,7 @@ export default function AddNewSupplier() {
 						type="text"
 						className="form-control"
 						id="contact"
-						placeholder=""
+						autoComplete="off"
 					></input>
 				</div>
 			</div>

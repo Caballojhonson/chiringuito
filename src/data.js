@@ -1,5 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
+// Bins requested from https://json.extendsclass.com/bin/:id
+
 const data = (() => {
 	const API_KEY = 'cb979a42-3bd7-11ec-b95c-0242ac110002';
 	const stockBinId = '0d75777de94a'
@@ -102,7 +104,7 @@ const data = (() => {
 		usersBinId,
 		username,
 		isAuthorized,
-		
+
 	};
 })();
 

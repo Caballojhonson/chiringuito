@@ -13,6 +13,8 @@ export default function Checklist_Main() {
 
 	useEffect(() => {
 		data.getData(stockBinId).then(stock => setStockItems(stock))
+		console.log('Fetching stock...')
+
 	  }, [])
 	
 

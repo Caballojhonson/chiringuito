@@ -1,10 +1,15 @@
+import React, { useState } from 'react'
 
-const storage = (() => {
+const TestContext = React.createContext([{}, () => {}])
 
-    return {
-        
-    }
+function TestContextProvider(props) {
+    const [state, setstate] = useState({})
 
-})();
+    return (
+        <TestContext.Provider value={}>
+            {props.children}
+        </TestContext.Provider>
+    )
+}
 
-export { storage };
+export { TestContext, TestContextProvider }

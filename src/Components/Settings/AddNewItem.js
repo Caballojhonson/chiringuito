@@ -14,7 +14,7 @@ export default function AddNewItem() {
 		data.getData(data.stockBinId).then((val) => setStockItems(val));
 
 	const [newProduct, setNewProduct] = useState({
-		id: stockItems && stockItems.length,
+		id: data.getid(),
 		name: '',
 		price: 0,
 		format: '',
@@ -56,7 +56,7 @@ export default function AddNewItem() {
 						type="text"
 						className="form-control"
 						id="productName"
-						placeholder=""
+						autoComplete="off"
 					></input>
 				</div>
 				<div className="form-item">
@@ -71,7 +71,7 @@ export default function AddNewItem() {
 							type="number"
 							className="form-control"
 							id="price"
-							placeholder=""
+							autoComplete="off"
 						></input>
 						<span className="input-group-text">€</span>
 					</div>
