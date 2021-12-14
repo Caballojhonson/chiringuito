@@ -65,3 +65,16 @@
 .order_item_name {
     font-size: 11px;
 }
+.order_menu_icon {
+    height: 1rem;
+    margin:0.7rem;
+    cursor: pointer;
+}
+.order_title_wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.order_dropdown_container {
+    
+}
