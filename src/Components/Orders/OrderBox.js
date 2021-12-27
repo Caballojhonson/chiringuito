@@ -1,8 +1,8 @@
 import React from 'react'
 import { data } from '../../data'
 import SupplierBox from './SupplierBox'
-import dotsIcon from '../../images/3-vertical-dots.png'
 import '../../Styles/Orders.css'
+import OrderOptions from './OrderOptions'
 
 export default function OrderBox(props) {
     const {order, suppliers} = props
@@ -43,26 +43,16 @@ export default function OrderBox(props) {
             />
         )
         }
-        
     })
-
-    const orderSettingsDropdown = (
-        <div className='order_dropdown_container'>
-            <a>Archivar pedido</a>
-            <a>Editar</a>
-            <a>Eliminar</a>
-        </div>
-    )
 
     return (
         <div className="order_box_container">
             <div className='order_title_wrapper'>
                 <h5 className="order_generation">{orderGenerationMessage()}</h5>
-                <img className='order_menu_icon' src={dotsIcon} />
+                <OrderOptions order={order} />
             </div>
             {suppilerBoxes}
             <h4 className="order_total">Total: {totalOrderPrice()}</h4>
-
         </div>
     )
 }

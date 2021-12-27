@@ -11,7 +11,7 @@ export default function ConfirmationModal(props) {
 
     return (
          
-            <div className="modal" tabindex="-1">
+            <div className="modal" tabIndex="-1">
 			<div className="modal-dialog">
 				<div className="modal-content">
 					<div className="modal-header ">

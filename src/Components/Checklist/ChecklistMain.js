@@ -43,6 +43,7 @@ export default function Checklist_Main() {
 				id: data.getid(),
 				submittedBy: data.username,
 				submittedAt: new Date(),
+				isArchived: false,
 			};
 			const prevOrders = await data.getData(data.orderBinId);
 			const updatedOrders = prevOrders.concat(newOrder);

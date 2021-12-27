@@ -36,7 +36,7 @@ export default function PaymentStatusModal(props) {
 
 	return (
 		<div className="order_status_modal">
-			<div className="modal" tabindex="-1">
+			<div className="modal" tabIndex="-1">
 				<div className="modal-dialog modal-lg">
 					<div className="modal-content">
 						<div className="modal-header">
