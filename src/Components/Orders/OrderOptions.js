@@ -38,7 +38,7 @@ export default function OrderOptions(props) {
         await data.overwriteBin(data.orderBinId, orders)
         seteditScreen(false)
         window.location.reload()
-      }
+    }
 
     const dropdownMenu = (
         <nav className='order_dropdown_container' role="navigation">

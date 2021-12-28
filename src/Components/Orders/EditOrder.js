@@ -23,8 +23,10 @@ export default function EditOrder(props) {
     <div className="app fullscreen">
         <h1 className="text-center">Editar</h1>
         {renderItems}
+        <div className="button_group">
         <button onClick={closeModal} className="btn btn-secondary">Cancelar</button>
         <button onClick={onConfirm} className="btn btn-primary">Confirmar</button>
+        </div>
     </div>
   );
 }
