@@ -20,6 +20,7 @@ export default function OrderOptions(props) {
         setArchived();
         await data.overwriteBin(data.orderBinId, orders)
         setarchivePopup(false)
+        window.location.reload()
     }
 
     const deleteOrder = async () => {
@@ -27,6 +28,7 @@ export default function OrderOptions(props) {
         const updatedOrders = orders.filter(val => val.id !== order.id)
         await data.overwriteBin(data.orderBinId, updatedOrders)
         setdeletionPopup(false)
+        window.location.reload()
     }
 
     const editOrder = async () => {
@@ -34,7 +36,8 @@ export default function OrderOptions(props) {
         const matchingOrder = orders.find(item => item.id === order.id)
         matchingOrder.order = order.order
         await data.overwriteBin(data.orderBinId, orders)
-        console.log(orders)
+        seteditScreen(false)
+        window.location.reload()
       }
 
     const dropdownMenu = (
