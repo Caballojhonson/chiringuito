@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Checklist_Item(props) {
-	const [quantity, setQuantity] = useState(0);
 	const item = props.itemObject;
 	const updateQuantity = props.updateQuantity;
+	const [quantity, setQuantity] = useState(item.quantity ? item.quantity : 0);
 
 	const add = () => {
 		item.format === 'Kg'

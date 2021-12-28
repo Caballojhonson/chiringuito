@@ -10,14 +10,12 @@ export default function OrderScreen() {
     useEffect(() => {
         data.getData(data.orderBinId).then(orders => setOrders(orders))
         data.getData(data.supplierBinId).then(suppliers => setSuppliers(suppliers))
-        console.log('Fetching orders...')
-      }, [])
+    }, [])
 
     return (
         <div className="app">
             <h1 className="order_title">Pedidos</h1>
             {orders && suppliers && orders.map((order) => {
-                console.log('re-rendering orders...')
                 return(
                 <OrderBox suppliers={suppliers} order={order} key={order.id} id={order.id} />
                 )

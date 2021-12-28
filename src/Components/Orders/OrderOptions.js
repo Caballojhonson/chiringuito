@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { data } from '../../data';
 import dotsIcon from '../../images/3-vertical-dots.png'
 import Popup from '../UI/Popup';
+import EditOrder from './EditOrder';
 
 export default function OrderOptions(props) {
     const {order} = props;
@@ -9,6 +10,7 @@ export default function OrderOptions(props) {
     const [dropdownHidden, setdropdownHidden] = useState(true)
     const [archivePopup, setarchivePopup] = useState(false)
     const [deletionPopup, setdeletionPopup] = useState(false)
+    const [editScreen, seteditScreen] = useState(false)
 
     const toggleDropdown = () => setdropdownHidden(prev => !prev)
 
@@ -27,12 +29,20 @@ export default function OrderOptions(props) {
         setdeletionPopup(false)
     }
 
+    const editOrder = async () => {
+        const orders = await data.getData(data.orderBinId);
+        const matchingOrder = orders.find(item => item.id === order.id)
+        matchingOrder.order = order.order
+        await data.overwriteBin(data.orderBinId, orders)
+        console.log(orders)
+      }
+
     const dropdownMenu = (
         <nav className='order_dropdown_container' role="navigation">
                 <div onClick={() => setarchivePopup(true)} className='order_dropdown_tab'>
                     <p className='order_dropdown_text'>Archivar</p>
                 </div>
-                <div  className='order_dropdown_tab'>
+                <div onClick={() => seteditScreen(true)} className='order_dropdown_tab'>
                     <p className='order_dropdown_text'>Editar</p>
                 </div>
                 <div onClick={() => setdeletionPopup(true)} className='order_dropdown_tab'>
@@ -60,9 +70,16 @@ export default function OrderOptions(props) {
                 onConfirm={deleteOrder}
                 />
             }
+
+            {editScreen && <EditOrder 
+                order={order}
+                closeModal={() => seteditScreen(false)}
+                onConfirm={editOrder}
+                />
+            }
+
             <img onClick={toggleDropdown} className='order_menu_icon' src={dotsIcon} />
             {dropdownHidden ? null : dropdownMenu}
-            {console.log(order)}
         </div>
     )
 }

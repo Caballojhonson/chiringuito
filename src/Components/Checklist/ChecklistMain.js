@@ -15,7 +15,7 @@ export default function Checklist_Main() {
 		data.getData(stockBinId).then(stock => setStockItems(stock))
 		console.log('Fetching stock...')
 
-	  }, [])
+	}, [])
 	
 
 	const updateQuantity = (orderItem) => {
