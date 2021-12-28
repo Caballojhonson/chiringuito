@@ -80,8 +80,9 @@ export default function OrderOptions(props) {
                 onConfirm={editOrder}
                 />
             }
-
-            <img onClick={toggleDropdown} className='order_menu_icon' src={dotsIcon} />
+            <div onClick={toggleDropdown} className='order_menu_icon_wrapper'>
+                <img  className='order_menu_icon' src={dotsIcon} />
+            </div>
             {dropdownHidden ? null : dropdownMenu}
         </div>
     )
