@@ -14,6 +14,19 @@ export default function SettingsMain() {
 		setCurrentBin(bin)
 	}
 
+	async function exportAsTxt(bin, filename) {
+
+		const database = await data.getData(bin)
+		const a = document.createElement("a");
+		a.href = URL.createObjectURL(new Blob([JSON.stringify(database, null, 2)], {
+		  type: "text/plain"
+		}));
+		a.setAttribute("download", `${filename}.txt`);
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	  }
+
 	return (
 		<div className="app settings_main">
 
@@ -56,6 +69,59 @@ export default function SettingsMain() {
 			>
 				Resetear pedidos
 			</button>
+
+			<h5 className="settings_title">Bases de datos</h5>
+
+
+			<div className='text_button_pair'>
+				<h6 className='settings_subtitle'>Referencias</h6>
+				<button
+					className="button_primary add_new"
+					onClick={() => exportAsTxt(data.stockBinId, 'stockItems')}
+				>
+					Descargar
+				</button>
+			</div>
+
+			<div className='text_button_pair'>
+				<h6 className='settings_subtitle'>Pedidos</h6>
+				<button
+					className="button_primary add_new"
+					onClick={() => exportAsTxt(data.orderBinId, 'orders')}
+				>
+					Descargar
+				</button>
+			</div>
+		
+			<div className='text_button_pair'>
+				<h6 className='settings_subtitle'>Proveedores</h6>
+				<button
+					className="button_primary add_new"
+					onClick={() => exportAsTxt(data.supplierBinId, 'suppliers')}
+				>
+					Descargar
+				</button>
+			</div>
+
+			<div className='text_button_pair'>
+				<h6 className='settings_subtitle'>Finanzas</h6>
+				<button
+					className="button_primary add_new"
+					onClick={() => exportAsTxt(data.financeBinId, 'finance')}
+				>
+					Descargar
+				</button>
+			</div>
+
+			<div className='text_button_pair'>
+				<h6 className='settings_subtitle'>Usuarios</h6>
+				<button
+					className="button_primary add_new"
+					onClick={() => exportAsTxt(data.usersBinId, 'users')}
+				>
+					Descargar
+				</button>
+			</div>
 		</div>
 	);
 }

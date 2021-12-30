@@ -13,8 +13,6 @@ import NewUserScreen from './Components/UI/NewUserScreen';
 import Loadscreen from './Components/UI/Loadscreen';
 
 export default function Router() {
-	//data.overwriteBin(data.stockBinId, []).then(val => console.log(val))
-	//data.overwriteBin(data.orderBinId, []).then(val => console.log(val))
 	//data.getData(data.orderBinId).then(val => console.log(val))
 	//data.getData(data.financeBinId).then(val => console.log(val))
 	/*data.overwriteBin(data.financeBinId, {

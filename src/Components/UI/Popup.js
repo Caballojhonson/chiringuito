@@ -36,21 +36,3 @@ export default function Popup(props) {
         </div>
     )
 }
-
-// import React from 'react'
-// import { data } from '../../data'
-
-// export default function ConfirmationModal(props) {
-//     const { bin, closeModal } = props
-
-//     const resetBin = () => {
-//         data.overwriteBin(bin, [])
-//         closeModal()
-//     }
-
-//     return (
-         
-            
-        
-//     )
-// }

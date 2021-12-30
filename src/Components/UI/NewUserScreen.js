@@ -87,7 +87,7 @@ export default function NewUserScreen() {
             {pageNum === 2 && pageTwo}
             {pageNum === 3 && pageThree}
 			<div className="software_version_container">
-				<p className="software_version">El Chiringuito v1.0.1</p>
+				<p className="software_version">El Chiringuito v1.0.2</p>
 				<p className="copyright">©2021 - Caballojhonson</p>
 			</div>
 		</div>

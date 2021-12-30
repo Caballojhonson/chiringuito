@@ -8,5 +8,14 @@
 }
 .settings_title {
   text-align: center;
-  margin-top: 1rem;
+  margin: 1rem 0 0.8rem 0;
+}
+.settings_subtitle {
+  margin: 0px;
+}
+.text_button_pair {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  margin: 0 2rem 0 2rem;
 }

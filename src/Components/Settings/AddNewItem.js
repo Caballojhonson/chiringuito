@@ -17,8 +17,10 @@ export default function AddNewItem() {
 		id: data.getid(),
 		name: '',
 		price: 0,
+		iva: 0,
 		format: '',
 		supplier: '',
+		category: '',
 	});
 
 	const handleChange = (e) => {
@@ -61,7 +63,7 @@ export default function AddNewItem() {
 				</div>
 				<div className="form-item">
 					<label htmlFor="price" className="form-label">
-						Precio
+						Precio (IVA incluido)
 					</label>
 					<div className="input-group">
 						<input
@@ -76,6 +78,43 @@ export default function AddNewItem() {
 						<span className="input-group-text">€</span>
 					</div>
 				</div>
+
+
+				<div className="dropdown-contianer">
+					<div className="form-item">
+						<select
+							name="iva"
+							value={newProduct.iva}
+							onChange={handleChange}
+							className="form-select form-select-sm"
+							aria-label="Small select"
+						>
+							<option defaultValue="">IVA</option>
+							<option value="21">21%</option>
+							<option value="10">10%</option>
+							<option value="4">4%</option>
+						</select>
+					</div>
+
+					<div className="form-item">
+						<select
+							name="category"
+							value={newProduct.category}
+							onChange={handleChange}
+							className="form-select form-select-sm"
+							aria-label="Small select"
+						>
+							<option defaultValue="">Categoría</option>
+							<option value="comida">Comida</option>
+							<option value="bebida">Bebida</option>
+							<option value="menaje">Menaje</option>
+							<option value="varios">Varios</option>
+						</select>
+					</div>
+				</div>
+
+
+
 				<div className="dropdown-contianer">
 					<div className="form-item">
 						<select

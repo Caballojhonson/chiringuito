@@ -6,15 +6,12 @@ import ChecklistItem from './ChecklistItem';
 
 export default function Checklist_Main() {
 	let navigate = useNavigate();
-	const stockBinId = '0d75777de94a'
 
 	const [stockItems, setStockItems] = useState(null)
 	const [order, setOrder] = useState([]);
 
 	useEffect(() => {
-		data.getData(stockBinId).then(stock => setStockItems(stock))
-		console.log('Fetching stock...')
-
+		data.getData(data.stockBinId).then(stock => setStockItems(stock))
 	}, [])
 	
 
@@ -65,7 +62,7 @@ export default function Checklist_Main() {
 				);
 			})}
 
-			<button onClick={submitOrder} className="button_primary add_new">
+			<button onClick={submitOrder} className="button_primary add_new button_group">
 				Generar pedido
 			</button>
 		</div>
