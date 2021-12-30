@@ -109,6 +109,7 @@ export default function AddNewItem() {
 							<option value="comida">Comida</option>
 							<option value="bebida">Bebida</option>
 							<option value="menaje">Menaje</option>
+							<option value="limpieza">Limpieza</option>
 							<option value="varios">Varios</option>
 						</select>
 					</div>
@@ -152,7 +153,7 @@ export default function AddNewItem() {
 					</div>
 				</div>
 
-				{newProduct.format === 'Pack' && 
+				{(newProduct.format === 'Pack' || newProduct.format === 'Caja') ? 
 
 					<div className="form-item">
 					<label htmlFor="packQuantity" className="form-label">
@@ -168,9 +169,9 @@ export default function AddNewItem() {
 							id="packQuantity"
 							autoComplete="off"
 						></input>
-						<span className="input-group-text">€</span>
 					</div>
 				</div>
+				: null
 				}
 
 				<div className="button_group">
