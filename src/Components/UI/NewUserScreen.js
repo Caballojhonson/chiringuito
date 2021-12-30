@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { data } from '../../data';
 
 export default function NewUserScreen() {
     const [user, setUser] = useState({
@@ -13,11 +14,19 @@ export default function NewUserScreen() {
 		setUser({ ...user, [name]: value });
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		localStorage.setItem('name', user.name);
         setPageNum(prev => prev + 1)
         if(pageNum === 3) {
 			localStorage.setItem('authorized', true);
+			const userDatabase = await data.getData(data.usersBinId)
+			const newUserInfo = {
+				name: user.name,
+				signedUp: new Date(),
+				isAuthed: data.isAuthorized,
+			}
+			userDatabase.push(newUserInfo)
+			await data.overwriteBin(data.usersBinId, userDatabase)
 			window.location.href = '/';
 		} 
 	};

@@ -21,6 +21,7 @@ export default function AddNewItem() {
 		format: '',
 		supplier: '',
 		category: '',
+		packQuantity: 0,
 	});
 
 	const handleChange = (e) => {
@@ -150,6 +151,28 @@ export default function AddNewItem() {
 						</select>
 					</div>
 				</div>
+
+				{newProduct.format === 'Pack' && 
+
+					<div className="form-item">
+					<label htmlFor="packQuantity" className="form-label">
+						Unidades por pack
+					</label>
+					<div className="input-group">
+						<input
+							name="packQuantity"
+							value={newProduct.packQuantity}
+							onChange={handleChange}
+							type="number"
+							className="form-control"
+							id="packQuantity"
+							autoComplete="off"
+						></input>
+						<span className="input-group-text">€</span>
+					</div>
+				</div>
+				}
+
 				<div className="button_group">
 					<button
 						className="button_primary button_cancel"
