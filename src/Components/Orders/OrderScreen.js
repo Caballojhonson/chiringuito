@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { data } from '../../data';
 import '../../Styles/Orders.css'
 import OrderBox from './OrderBox'; 
+import newOrderIcon from '../../images/add-file.png';
+
 
 export default function OrderScreen() {  
     const [suppliers, setSuppliers] = useState(null)
@@ -20,6 +22,9 @@ export default function OrderScreen() {
                 <OrderBox suppliers={suppliers} order={order} key={order.id} id={order.id} />
                 )
             })}
+            <a href="/checklist">
+				<img className=" add_new_order_icon" src={newOrderIcon} alt="Menu Icon" />
+			</a>
         </div>
     )
 }

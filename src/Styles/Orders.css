@@ -1,99 +1,109 @@
 .order_box_container {
-    margin:1.5rem;
-    border: 1px solid rgb(127, 139, 165);
-    border-radius: 3px;
+  margin: 1.5rem;
+  border: 1px solid rgb(127, 139, 165);
+  border-radius: 3px;
 }
 .order_title {
-    text-align: center;
-    margin-top: 0.5rem;
+  text-align: center;
+  margin-top: 0.5rem;
 }
-.order_generation{
-    text-align: center;
-    font-size: 11px;
-    margin-top: 0.3rem;
+.order_generation {
+  text-align: center;
+  font-size: 11px;
+  margin-top: 0.3rem;
 }
 .order_total {
-    text-align: center;
-    font-size: 13px;
+  text-align: center;
+  font-size: 13px;
 }
 .supplier_box {
-    margin:0.2rem;
-    border-radius: 3px;
-    border: 1px solid rgb(195, 203, 221);
-    padding: 0.3rem;
+  margin: 0.2rem;
+  border-radius: 3px;
+  border: 1px solid rgb(195, 203, 221);
+  padding: 0.3rem;
 }
-.supplier_nameandstate{
-    display: flex;
-    justify-content: space-between;
-    margin:0.3rem 1rem 1rem 1rem;
+.supplier_nameandstate {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.3rem 1rem 1rem 1rem;
 }
-.supplier_state_badge, .supplier_payment_state {
-    font-size: 11px;
-    cursor: pointer;
+.supplier_state_badge,
+.supplier_payment_state {
+  font-size: 11px;
+  cursor: pointer;
 }
 .supplier_name {
-    font-size:14px;
-    margin: 0px;
-    text-align: center;
+  font-size: 14px;
+  margin: 0px;
+  text-align: center;
 }
-.supplier_footer{
-    display: flex;
-    justify-content: space-between;
-    margin:1rem 1rem 0.3rem 1rem;
+.supplier_footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 1rem 0.3rem 1rem;
 }
 .order_supplier_total {
-    font-size: 13px;
-    text-decoration: underline;
-    text-align: end;
-    margin: 0px;
+  font-size: 13px;
+  text-decoration: underline;
+  text-align: end;
+  margin: 0px;
 }
 .order_item {
-    display: grid;
-    grid-template-columns: 3fr 2fr 1fr;
-    margin: 0px 0.5rem 0px 0.5rem;
+  display: grid;
+  grid-template-columns: 3fr 2fr 1fr;
+  margin: 0px 0.5rem 0px 0.5rem;
 }
-.order_item_name, .order_item_quantity, .order_item_price  {
-    font-size: 12px;
-    margin: 0px;
+.order_item_name,
+.order_item_quantity,
+.order_item_price {
+  font-size: 12px;
+  margin: 0px;
 }
 .order_item_quantity {
-    font-size: 11px;
+  font-size: 11px;
 }
 .order_item_price {
- font-size: 12px;
+  font-size: 12px;
 }
 .order_item_name {
-    font-size: 11px;
+  font-size: 11px;
 }
 .order_menu_icon_wrapper {
-    display: flex;
-    justify-content: center;
-    min-width: 2.2rem;
+  display: flex;
+  justify-content: center;
+  min-width: 2.2rem;
 }
 .order_menu_icon {
-    height: 1rem;
-    margin:0.7rem;
-    cursor: pointer;
+  height: 1rem;
+  margin: 0.7rem;
+  cursor: pointer;
 }
 .order_title_wrapper {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 .order_dropdown_container {
-    position: absolute;
-    right: 2rem;
-    border: 1px solid darkgrey;
-    border-radius: 0.2rem;
+  position: absolute;
+  right: 2rem;
+  border: 1px solid darkgrey;
+  border-radius: 0.2rem;
 }
 .order_dropdown_tab {
-    display: flex;
-    justify-content: center;
-    min-width: 5rem;
-    background-color: white;
-    font-size: 0.8rem;
-    border-radius: 0.2rem;
+  display: flex;
+  justify-content: center;
+  min-width: 5rem;
+  background-color: white;
+  font-size: 0.8rem;
+  border-radius: 0.2rem;
 }
 .order_dropdown_text {
-    margin: 0.2rem;
+  margin: 0.2rem;
+}
+.add_new_order_icon {
+    position: fixed;
+  right: 1rem;
+  bottom: 4rem;
+  width: 3rem;
+  background-color: white;
 }

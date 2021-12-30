@@ -1,9 +1,10 @@
 import React from 'react';
-import homeIcon from '../../images/homepage.png';
-import checklistIcon from '../../images/checklist.png';
+import homeIcon from '../../images/financial-statement.png';
 import ordersIcon from '../../images/orders.png';
 import settingsIcon from '../../images/setting-line.png';
 import calendarIcon from '../../images/work-schedule.png';
+import financeIcon from '../../images/finance.png';
+
 import '../../Styles/UI.css';
 
 export default function MainToolbar() {
@@ -12,8 +13,8 @@ export default function MainToolbar() {
 			<a href="/">
 				<img className="toolbar_icon" src={homeIcon} alt="Menu Icon" />
 			</a>
-			<a href="/checklist">
-				<img className="toolbar_icon" src={checklistIcon} alt="Menu Icon" />
+			<a href="/finanzas">
+				<img className="toolbar_icon" src={financeIcon} alt="Menu Icon" />
 			</a>
 			<a href="/pedidos">
 				<img className="toolbar_icon" src={ordersIcon} alt="Menu Icon" />
