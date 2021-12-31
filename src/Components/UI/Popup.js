@@ -22,6 +22,7 @@ export default function Popup(props) {
 						<h5 className="text-center">{textTitle}</h5>
 						{text}
 					</div>
+					
 					<div className="modal-footer">
 						<button onClick={closeModal} type="button" className="btn btn-secondary">
 							Cancelar

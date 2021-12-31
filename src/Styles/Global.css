@@ -29,13 +29,13 @@ html, body {
     padding: 0.5rem 1rem 0.5rem 1rem;
     background: rgb(8, 23, 43);
     border: none;
-    border-radius: 1.1rem;
     color: white;
-    font-family: 'Oswald', sans-serif;
     font-weight: 300;  
     cursor: pointer;
 }
 .button_cancel {
+    font-weight: 300;  
+    color: whitesmoke;
     background-color: rgb(82, 11, 30);
 }
 .button_accept {

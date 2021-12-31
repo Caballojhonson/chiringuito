@@ -1,0 +1,19 @@
+.finance_main {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+.finance_col_left {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0.3rem;
+    background-color: whitesmoke;
+    border-right: 2px solid rgb(69, 67, 80);
+}
+.finance_col_right {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    margin: 0.3rem;
+}

@@ -11,6 +11,7 @@ import AddNewItem from './Components/Settings/AddNewItem';
 import AddNewSupplier from './Components/Settings/AddNewSupplier';
 import NewUserScreen from './Components/UI/NewUserScreen';
 import Loadscreen from './Components/UI/Loadscreen';
+import FinanceScreen from './Components/Finance/FinanceScreen';
 
 export default function Router() {
 	//data.getData(data.orderBinId).then(val => console.log(val))
@@ -49,6 +50,7 @@ export default function Router() {
 				<Route path="nuevo-proveedor" element={<AddNewSupplier />} />
 				<Route path="nuevo-usuario" element={<NewUserScreen />} />
 				<Route path="bienvenida" element={<Loadscreen />} />
+				<Route path="finanzas" element={<FinanceScreen />} />
 			</Routes>
 
 			<MainToolbar />
