@@ -63,6 +63,7 @@ export default function Daily(props) {
             financialData.days.push(newDay)
             await data.overwriteBin(data.financeBinId, financialData)
              setshowOpeningInput(false)
+             console.log(financialData)
          }
      }
 
@@ -73,6 +74,14 @@ export default function Daily(props) {
         console.log('Day Closed! ')
         console.log(financialData)
         window.location.reload()
+     }
+
+     const reopenDay = async () => {
+        const {days} = financialData
+        days[days.length - 1].isOpen = true
+        await data.overwriteBin(data.financeBinId, financialData)
+        window.location.reload()
+        console.log(financialData)
      }
 
     const openingAmountInput = (
@@ -99,7 +108,7 @@ export default function Daily(props) {
                 <strong>Oye!</strong> {`${data.username} ya ha cerrado caja hoy, ¿Qué haces?`}
             </div>
             ¿Quieres retomar la caja de hoy?
-            <button type="button" className="btn btn-warning">Retomar</button>
+            <button onClick={reopenDay} type="button" className="btn btn-warning">Retomar</button>
         </div>
     )
 
