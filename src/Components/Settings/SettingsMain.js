@@ -69,6 +69,12 @@ export default function SettingsMain() {
 			>
 				Resetear pedidos
 			</button>
+			<button
+				className="btn btn-danger add_new btn-danger"
+				onClick={() => handleResets(data.financeBinId)}
+			>
+				Resetear finanzas
+			</button>
 
 			<h5 className="settings_title">Bases de datos</h5>
 

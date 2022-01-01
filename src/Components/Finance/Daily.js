@@ -25,7 +25,11 @@ export default function Daily(props) {
 
     const evalIfOpen = () => {
         const {days} = financialData
+        if (days[days.length - 1]) {
         return days[days.length - 1].isOpen
+        }else{
+            return false
+        }
     } 
 
     const toggleOpeningInput = () => {
@@ -68,6 +72,7 @@ export default function Daily(props) {
         await data.overwriteBin(data.financeBinId, financialData)
         console.log('Day Closed! ')
         console.log(financialData)
+        window.location.reload()
      }
 
     const openingAmountInput = (
@@ -108,3 +113,12 @@ export default function Daily(props) {
     </div>
     );
 }
+
+
+// function Daily() {
+//     return (
+//         <div>
+            
+//         </div>
+//     )
+// }
