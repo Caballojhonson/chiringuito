@@ -15,16 +15,19 @@ import FinanceScreen from './Components/Finance/FinanceScreen';
 
 export default function Router() {
 	//data.getData(data.orderBinId).then(val => console.log(val))
-	//data.getData(data.financeBinId).then(val => console.log(val))
-	data.getData(data.usersBinId).then(val => console.log(val))
-	/*data.overwriteBin(data.financeBinId, {
-		suppliers: {
-			debts: []
-		}
-	})
-	*/
+	data.getData(data.financeBinId).then(val => console.log(val))
+	//data.getData(data.usersBinId).then(val => console.log(val))
+	// data.overwriteBin(data.financeBinId, {
+	// 	days: [],
+	// 	debts: {
+	// 		in: [],
+	// 		out: []
+	// 	},
+	// 	salaries: [],
+	// })
+	
 	//data.getData(data.supplierBinId).then(val => console.log(val))
-	//data.overwriteBin(data.supplierBinId, [])
+	//data.overwriteBin(data.financeBinId, {})
 	//console.log(refranero[Math.floor(Math.random() * refranero.length )])
 	//data.createBin([]).then(val => console.log(val))
 

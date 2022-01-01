@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function OperationList() {
+export default function Operation() {
     return (
         <div>
             

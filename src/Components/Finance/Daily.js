@@ -1,12 +1,35 @@
+import isSameDay from "date-fns/isSameDay";
 import React, { useState } from "react";
 import { data } from "../../data";
 
-export default function Daily() {
-    const [dayIsOpen, setdayIsOpen] = useState(false);
+
+export default function Daily(props) {
+    const {financialData} = props
+    const [alreadyOpenWarn, setalreadyOpenWarn] = useState(false)
     const [showOpeningInput, setshowOpeningInput] = useState(false);
     const [openingAmount, setopeningAmount] = useState(0)
+    const [closingAmount, setclosingAmount] = useState(0)
+
+    const weCanReopen = () => {
+        const {days} = financialData
+        const sameday = isSameDay(new Date(), new Date(days[days.length - 1].timestamp))
+        const lastDayIsOpen = days[days.length - 1].isOpen
+        console.log(sameday)
+        if(!sameday && !lastDayIsOpen) {
+            return true
+        } else {
+            setalreadyOpenWarn(true)
+            return false
+        }
+    }
+
+    const evalIfOpen = () => {
+        const {days} = financialData
+        return days[days.length - 1].isOpen
+    } 
 
     const toggleOpeningInput = () => {
+        weCanReopen() &&
         setshowOpeningInput(prev => !prev)
     }
 
@@ -14,14 +37,38 @@ export default function Daily() {
         setopeningAmount(e.target.value)
     }
 
-    const handleOpen = async () => {
-        if(openingAmount) {
-            setdayIsOpen(true)
-            setshowOpeningInput(false)
-            const financialData = await data.getData(data.financeBinId)
-            
-        }
-    }
+     const handleOpen = async () => {
+
+         if(openingAmount && weCanReopen()) {
+            const newDay = {
+                id: data.getid(),
+                by: data.username,
+                timestamp: new Date(),
+                operations: [
+                    {
+                        concept: 'Apertura',
+                        timestamp: new Date(),
+                        by: data.username,
+                        type: 'cash addition',
+                        amount: openingAmount,
+                    }
+                ],
+                openingCash: openingAmount,
+                isOpen: true,
+            }
+            financialData.days.push(newDay)
+            await data.overwriteBin(data.financeBinId, financialData)
+             setshowOpeningInput(false)
+         }
+     }
+
+     const closeDay = async () => {
+        const {days} = financialData
+        days[days.length - 1].isOpen = false
+        await data.overwriteBin(data.financeBinId, financialData)
+        console.log('Day Closed! ')
+        console.log(financialData)
+     }
 
     const openingAmountInput = (
         <div>
@@ -33,17 +80,31 @@ export default function Daily() {
         </div>
     );
 
-    const openBtn = (
-        <div>
+    const openSign = (
             <button className="btn btn-success">CAJA ABIERTA</button>
+    )
+
+    const closeBtn = (
+            <button onClick={closeDay} className="btn btn-outline-danger close_btn">CERRAR CAJA</button>
+    )
+
+    const cantOpenWarn = (
+        <div className="form_centered">
+            <div className="alert alert-warning" role="alert">
+                <strong>Oye!</strong> {`${data.username} ya ha cerrado caja hoy, ¿Qué haces?`}
+            </div>
+            ¿Quieres retomar la caja de hoy?
+            <button type="button" className="btn btn-warning">Retomar</button>
         </div>
     )
 
     return (
-    <div className="">
-        {!showOpeningInput && !dayIsOpen && <button className="btn btn-success" onClick={toggleOpeningInput}>Abrir Caja</button>}
-        {showOpeningInput && openingAmountInput}
-        {dayIsOpen && openBtn}
+    <div className="finance_col_right">
+        {alreadyOpenWarn && cantOpenWarn}
+        {!showOpeningInput && !evalIfOpen() && !alreadyOpenWarn && <button className="btn btn-success" onClick={toggleOpeningInput}>Abrir Caja</button>}
+        {showOpeningInput && !alreadyOpenWarn && openingAmountInput}
+        {evalIfOpen() && openSign}
+        {evalIfOpen() && closeBtn}
     </div>
     );
 }
