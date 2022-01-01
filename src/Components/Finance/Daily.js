@@ -1,6 +1,7 @@
 import isSameDay from "date-fns/isSameDay";
 import React, { useState } from "react";
 import { data } from "../../data";
+import Operation from "./Operation";
 
 
 export default function Daily(props) {
@@ -112,22 +113,20 @@ export default function Daily(props) {
         </div>
     )
 
+    const todaysOperationsList = () => {
+        const {days} = financialData
+        const todaysOperations = days[days.length - 1].operations;
+        return todaysOperations.map(item => <Operation key={data.getid()} operation={item} />)
+    }
+
     return (
     <div className="finance_col_right">
         {alreadyOpenWarn && cantOpenWarn}
         {!showOpeningInput && !evalIfOpen() && !alreadyOpenWarn && <button className="btn btn-success" onClick={toggleOpeningInput}>Abrir Caja</button>}
         {showOpeningInput && !alreadyOpenWarn && openingAmountInput}
         {evalIfOpen() && openSign}
+        {todaysOperationsList()}
         {evalIfOpen() && closeBtn}
     </div>
     );
 }
-
-
-// function Daily() {
-//     return (
-//         <div>
-            
-//         </div>
-//     )
-// }

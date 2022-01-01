@@ -20,3 +20,13 @@
 .close_btn {
     margin: auto 0 1rem 0;
 }
+.operation_wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+.operation {
+    margin: 0.3rem 0 0.3rem 0;
+}
+.operation_amount {
+    font-weight: 200;
+}
