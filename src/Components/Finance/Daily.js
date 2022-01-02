@@ -1,6 +1,7 @@
 import isSameDay from "date-fns/isSameDay";
 import React, { useState } from "react";
 import { data } from "../../data";
+import NewOperationForm from "./NewOperationForm";
 import Operation from "./Operation";
 
 
@@ -8,14 +9,16 @@ export default function Daily(props) {
     const {financialData} = props
     const [alreadyOpenWarn, setalreadyOpenWarn] = useState(false)
     const [showOpeningInput, setshowOpeningInput] = useState(false);
+    const [showNewOperationModal, setshowNewOperationModal] = useState(false)
     const [openingAmount, setopeningAmount] = useState(0)
     const [closingAmount, setclosingAmount] = useState(0)
+
+
 
     const weCanReopen = () => {
         const {days} = financialData
         const sameday = isSameDay(new Date(), new Date(days[days.length - 1].timestamp))
         const lastDayIsOpen = days[days.length - 1].isOpen
-        console.log(sameday)
         if(!sameday && !lastDayIsOpen) {
             return true
         } else {
@@ -36,6 +39,10 @@ export default function Daily(props) {
     const toggleOpeningInput = () => {
         weCanReopen() &&
         setshowOpeningInput(prev => !prev)
+    }
+
+    const toggleModal = () => {
+        setshowNewOperationModal(prev => !prev)
     }
 
     const handleChange = (e) => {
@@ -113,20 +120,30 @@ export default function Daily(props) {
         </div>
     )
 
-    const todaysOperationsList = () => {
+    function todaysOperationsList() {
         const {days} = financialData
         const todaysOperations = days[days.length - 1].operations;
         return todaysOperations.map(item => <Operation key={data.getid()} operation={item} />)
     }
 
+    const addNewOperationBtn = (
+        <button 
+        type="button" 
+        className="btn btn-outline-dark btn-sm"
+        onClick={toggleModal}
+        > + Añadir Movimiento</button>
+    )
+
     return (
     <div className="finance_col_right">
         {alreadyOpenWarn && cantOpenWarn}
+        {showNewOperationModal && <NewOperationForm closeModal={toggleModal} financialData={financialData} />}
         {!showOpeningInput && !evalIfOpen() && !alreadyOpenWarn && <button className="btn btn-success" onClick={toggleOpeningInput}>Abrir Caja</button>}
         {showOpeningInput && !alreadyOpenWarn && openingAmountInput}
-        {evalIfOpen() && openSign}
-        {todaysOperationsList()}
-        {evalIfOpen() && closeBtn}
+        {!showNewOperationModal && evalIfOpen() && openSign}
+        {!showNewOperationModal && evalIfOpen() && todaysOperationsList()}
+        {!showNewOperationModal && evalIfOpen() && addNewOperationBtn}
+        {!showNewOperationModal && evalIfOpen() && closeBtn}
     </div>
     );
 }

@@ -23,6 +23,7 @@
 .operation_wrapper {
     display: grid;
     grid-template-columns: 3fr 1fr;
+    width: 100%;
 }
 .operation {
     margin: 0.3rem 0 0.3rem 0;

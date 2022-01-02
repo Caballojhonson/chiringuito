@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function Popup(props) {
-    const {title, textTitle, text, closeModal, onConfirm} = props
+    const {title, textTitle, text, closeModal, onConfirm, form} = props
 
     return (
         <div>
@@ -21,6 +21,7 @@ export default function Popup(props) {
 					<div className="modal-body">
 						<h5 className="text-center">{textTitle}</h5>
 						{text}
+						{form}
 					</div>
 					
 					<div className="modal-footer">
