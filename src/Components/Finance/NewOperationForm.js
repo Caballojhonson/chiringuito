@@ -72,7 +72,9 @@ export default function NewOperationForm(props) {
             </div>
         )
 
-    const amountInput = newOperation.type && (
+    const amountInput = 
+    newOperation.type && 
+    (
         <div className="form-item">
 					<label htmlFor="price" className="form-label">
 						Importe
