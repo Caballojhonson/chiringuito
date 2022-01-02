@@ -1,10 +1,12 @@
 html, body {
     margin: 0px;
     height: 100vh;
+    max-height: 100vh;
     font-family: Oswald, sans-serif;
 }
 .app {
     min-height: 93vh;
+    overflow-x: hidden;
 }
 .fullscreen {
     position: fixed;

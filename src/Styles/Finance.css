@@ -16,7 +16,9 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    margin: 0.3rem;
+    padding: 1.5rem 0 1.5rem 0;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 .close_btn {
     margin: auto 0 1rem 0;
@@ -31,10 +33,11 @@
     font-size: 0.9rem;
 }
 .operation_amount {
+    text-align: end;
     font-weight: 200;
 }
 .operation_list_container{
     margin: 2rem 0rem 2rem 0rem;
-    padding: 0 1rem 0 1rem;
+    padding: 0 2rem 0 2rem;
     width: 100%;
 }

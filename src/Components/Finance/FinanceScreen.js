@@ -20,7 +20,7 @@ export default function FinanceScreen() {
 
                 </div>
             </div>
-            <div className='finance_col_right'>
+            <div>
             {financialData && <Daily financialData={financialData} />}
             </div>
         </div>
