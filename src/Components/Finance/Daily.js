@@ -9,6 +9,7 @@ export default function Daily(props) {
     const {financialData} = props
     const [alreadyOpenWarn, setalreadyOpenWarn] = useState(false)
     const [showOpeningInput, setshowOpeningInput] = useState(false);
+    const [showClosingInput, setshowClosingInput] = useState(false)
     const [showNewOperationModal, setshowNewOperationModal] = useState(false)
     const [openingAmount, setopeningAmount] = useState(0)
     const [closingAmount, setclosingAmount] = useState(0)
@@ -41,12 +42,20 @@ export default function Daily(props) {
         setshowOpeningInput(prev => !prev)
     }
 
+    const toggleClosingInput = () => {
+        setshowClosingInput(prev => !prev)
+    }
+
     const toggleModal = () => {
         setshowNewOperationModal(prev => !prev)
     }
 
-    const handleChange = (e) => {
+    const handleOpeningAmount = (e) => {
         setopeningAmount(e.target.value)
+    }
+
+    const handleClosingAmount = (e) => {
+        setclosingAmount(e.target.value)
     }
 
     const handleOpen = async () => {
@@ -76,6 +85,7 @@ export default function Daily(props) {
     const closeDay = async () => {
         const {days} = financialData
         days[days.length - 1].isOpen = false
+        days[days.length - 1].closingCash = closingAmount
         await data.overwriteBin(data.financeBinId, financialData)
         console.log('Day Closed! ')
         console.log(financialData)
@@ -103,7 +113,7 @@ export default function Daily(props) {
         !alreadyOpenWarn &&
         (
             <div>
-                <input onChange={handleChange} className="form-control" type="number" placeholder="Importe apertura" />
+                <input onChange={handleOpeningAmount} className="form-control" type="number" placeholder="Importe apertura" />
                 <div className="button_group">
                     <button onClick={toggleOpeningInput} className="btn button_cancel" type="button"> Cancelar </button>
                     <button onClick={handleOpen} className="btn button_primary" type="button"> Abrir Caja </button>
@@ -111,7 +121,19 @@ export default function Daily(props) {
             </div>
         );
 
-    //const closingAmountInput = ()
+    const closingAmountInput = 
+    showClosingInput &&
+    !alreadyOpenWarn &&
+    (
+        <div>
+            <input onChange={handleClosingAmount} className="form-control" type="number" placeholder="Importe cierre" />
+            <div className="button_group">
+                <button onClick={toggleClosingInput} className="btn button_cancel" type="button"> Cancelar </button>
+                <button onClick={closeDay} className="btn button_primary" type="button"> Cerrar Caja </button>
+            </div>
+        </div>
+    );
+
 
     const openSign = 
         !showNewOperationModal &&
@@ -124,7 +146,7 @@ export default function Daily(props) {
         !showNewOperationModal && 
         evalIfOpen() &&  
         (
-                <button onClick={closeDay} className="btn btn-outline-danger close_btn">CERRAR CAJA</button>
+                <button onClick={toggleClosingInput} className="btn btn-outline-danger close_btn">CERRAR CAJA</button>
         )
 
     const cantOpenWarn = alreadyOpenWarn && 
@@ -179,6 +201,7 @@ export default function Daily(props) {
         {operationList}
         {addNewOperationBtn}
         {closeBtn}
+        {closingAmountInput}
     </div>
     );
 }
