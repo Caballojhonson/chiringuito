@@ -7,6 +7,7 @@ import Operation from "./Operation";
 
 export default function Daily(props) {
     const {financialData} = props
+
     const [alreadyOpenWarn, setalreadyOpenWarn] = useState(false)
     const [showOpeningInput, setshowOpeningInput] = useState(false);
     const [showClosingInput, setshowClosingInput] = useState(false)
@@ -14,12 +15,22 @@ export default function Daily(props) {
     const [openingAmount, setopeningAmount] = useState(0)
     const [closingAmount, setclosingAmount] = useState(0)
 
+    const lastDay = financialData.days[financialData.days.length - 1]
 
+    const balanceColor = () => {
+        const green = {color: 'green'}
+        const red = {color: 'red'}
+        return (calcTodaysBalance() > 0) ? green : red 
+    }
+
+    function calcTodaysBalance() {
+       const sum = lastDay.operations.reduce((prev, curr) => prev + curr.amount, 0) - openingAmount
+       return (sum > 0) ? `+${sum}` : `-${sum}`
+    }
 
     const weCanReopen = () => {
-        const {days} = financialData
-        const sameday = isSameDay(new Date(), new Date(days[days.length - 1].timestamp))
-        const lastDayIsOpen = days[days.length - 1].isOpen
+        const sameday = isSameDay(new Date(), new Date(lastDay.timestamp))
+        const lastDayIsOpen = lastDay.isOpen
         if(!sameday && !lastDayIsOpen) {
             return true
         } else {
@@ -29,9 +40,8 @@ export default function Daily(props) {
     }
 
     const evalIfOpen = () => {
-        const {days} = financialData
-        if (days[days.length - 1]) {
-        return days[days.length - 1].isOpen
+        if (lastDay) {
+        return lastDay.isOpen
         }else{
             return false
         }
@@ -69,11 +79,11 @@ export default function Daily(props) {
                         concept: 'Apertura',
                         timestamp: new Date(),
                         by: data.username,
-                        type: 'cash addition',
-                        amount: openingAmount,
+                        type: 'opening cash',
+                        amount: Number(openingAmount),
                     }
                 ],
-                openingCash: openingAmount,
+                openingCash: Number(openingAmount),
                 isOpen: true,
             }
             financialData.days.push(newDay)
@@ -83,21 +93,18 @@ export default function Daily(props) {
     }
 
     const closeDay = async () => {
-        const {days} = financialData
-        days[days.length - 1].isOpen = false
-        days[days.length - 1].closingCash = closingAmount
+        const totalBalance = lastDay.operations.reduce((prev, curr) => prev + curr.amount, 0)// ;
+        lastDay.isOpen = false
+        lastDay.closingCash = Number(closingAmount)
+        lastDay.totalBalance = (totalBalance + lastDay.closingCash) - openingAmount
         await data.overwriteBin(data.financeBinId, financialData)
-        console.log('Day Closed! ')
-        console.log(financialData)
         window.location.reload()
     }
 
     const reopenDay = async () => {
-        const {days} = financialData
-        days[days.length - 1].isOpen = true
+        lastDay.isOpen = true
         await data.overwriteBin(data.financeBinId, financialData)
         window.location.reload()
-        console.log(financialData)
     }
 
     const openDayBtn = 
@@ -162,8 +169,7 @@ export default function Daily(props) {
 
     function todaysOperationsList() {
         if(!showNewOperationModal && evalIfOpen()) {
-            const {days} = financialData
-            const todaysOperations = days[days.length - 1].operations;
+            const todaysOperations = lastDay.operations;
             return todaysOperations.map(item => <Operation key={data.getid()} operation={item} />)
         }
     }
@@ -192,16 +198,27 @@ export default function Daily(props) {
             <NewOperationForm closeModal={toggleModal} financialData={financialData} />
         )
 
-    return (
+    const dailyBalance = 
+    !showNewOperationModal && 
+    evalIfOpen() &&  
+    (
+        <div className="dailybalance_container">
+            <h1 style={balanceColor()} className="dailybalance">{`${calcTodaysBalance()}€`}</h1>
+            <p className="dailybalance dailybalance_tag">Balance diario</p>
+        </div>
+    )
+
+    return ( 
     <div className="finance_col_right">
+        {console.log(financialData)}
         {cantOpenWarn}
         {newOperationForm}
         {openDayBtn}
         {openingAmountInput}
         {openSign}
         {operationList}
-        
         {closeBtn}
+        {dailyBalance}
         {closingAmountInput}
     </div>
     );

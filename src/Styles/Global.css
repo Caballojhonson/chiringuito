@@ -23,9 +23,6 @@ html, body {
     min-height: 93vh;
     padding: 1rem;
 }
-.home_img{
-    width: 100%;
-}
 .button_primary {
     padding: 0.5rem 1rem 0.5rem 1rem;
     background: rgb(8, 23, 43);

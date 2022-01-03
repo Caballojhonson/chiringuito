@@ -10,7 +10,7 @@ export default function Operation(props) {
     return (
         <div  className='operation_wrapper'>
             <p className='operation operation_concept'>{operation.concept}</p>
-            <p style={textColor} className='operation operation_amount'><strong>{operation.amount}€</strong></p>
+            <p style={textColor} className='operation operation_amount'><strong>{Number(operation.amount).toFixed(2)}€</strong></p>
         </div>
     )
 }

@@ -28,7 +28,9 @@ export default function NewOperationForm(props) {
             operation.amount = -operation.amount 
             operation.concept = `Sueldo de ${data.username}`            
         }
-        lastOperations.push(newOperation)
+        console.log(operation.amount)
+        operation.amount = Number(operation.amount)
+        lastOperations.push(operation)
         await data.overwriteBin(data.financeBinId, financialData)
         closeModal()
         window.location.reload()
