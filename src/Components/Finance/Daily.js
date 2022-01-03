@@ -168,22 +168,23 @@ export default function Daily(props) {
         }
     }
 
-    const operationList = (
-        <div className="operation_list_container">
-            {todaysOperationsList()}
-        </div>
-    )
-
     const addNewOperationBtn = 
         !showNewOperationModal && 
         evalIfOpen() &&  
         (
             <button 
             type="button" 
-            className="btn btn-outline-dark btn-sm"
+            className="btn btn-outline-dark btn-sm operation_addnew_btn"
             onClick={toggleModal}
             > + Añadir Movimiento</button>
         )
+
+    const operationList = (
+        <div className="operation_list_container">
+            {todaysOperationsList()}
+            {addNewOperationBtn}
+        </div>
+    )
 
     const newOperationForm = 
         showNewOperationModal && 
@@ -199,7 +200,7 @@ export default function Daily(props) {
         {openingAmountInput}
         {openSign}
         {operationList}
-        {addNewOperationBtn}
+        
         {closeBtn}
         {closingAmountInput}
     </div>

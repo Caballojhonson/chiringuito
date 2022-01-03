@@ -4,11 +4,11 @@
     display: flex;
     justify-content: space-evenly;
     padding: 0.5rem;
-    background-color: white;
+    background-color: hotpink;
     height: 7vh;
 }
 .toolbar_icon {
-    width: 2rem;
+    height: 2rem;
     cursor: pointer;
 }
 .new_user_container{

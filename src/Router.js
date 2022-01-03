@@ -15,7 +15,7 @@ import FinanceScreen from './Components/Finance/FinanceScreen';
 
 export default function Router() {
 	//data.getData(data.orderBinId).then(val => console.log(val))
-	data.getData(data.financeBinId).then(val => console.log(val))
+	//data.getData(data.financeBinId).then(val => console.log(val))
 	//data.getData(data.usersBinId).then(val => console.log(val))
 	// data.overwriteBin(data.financeBinId, {
 	// 	days: [{}],
@@ -61,11 +61,10 @@ export default function Router() {
 	);
 
 	return (
-		<div className="app">
+		<div >
 			{newSession  && <Loadscreen/>}
 			{data.isAuthorized && privateNavigation}
 			{!data.isAuthorized && loginScreen}
-			
 		</div>
 	)
 }

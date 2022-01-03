@@ -15,7 +15,6 @@ export default function FinanceScreen() {
     return (
         <div className='app finance_main'>
             <div className='finance_col_left'>
-                <button>+ Movimiento</button>
                 <div className='finance_btns_wrapper'>
 
                 </div>
