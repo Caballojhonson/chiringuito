@@ -19,7 +19,7 @@ export default function MainToolbar() {
 			<a href="/pedidos">
 				<img className="toolbar_icon" src={ordersIcon} alt="Menu Icon" />
 			</a>
-			<a href="/">
+			<a href="/eventos">
 				<img className="toolbar_icon" src={calendarIcon} alt="Menu Icon" />
 			</a>
 			<a href="/opciones">

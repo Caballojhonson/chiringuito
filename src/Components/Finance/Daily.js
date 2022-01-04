@@ -217,6 +217,7 @@ export default function Daily(props) {
     return ( 
     <div className="finance_col_right">
         {console.log(financialData)}
+        <h3>Caja diaria</h3>
         {cantOpenWarn}
         {newOperationForm}
         {openDayBtn}

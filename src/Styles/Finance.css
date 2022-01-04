@@ -5,6 +5,8 @@
 .finance_col_left {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     padding: 0.3rem;
     background-color: whitesmoke;
@@ -61,4 +63,18 @@
 }
 .dailybalance_tag {
     font-size: 0.8rem;
+}
+.finance_btns_wrapper{
+    padding-left: 0.6rem; 
+}
+.finance_menu_btn{
+    cursor: pointer;
+    margin: 0.5rem 0 0.5rem 0;
+    transition: ease-in-out;
+}
+.finance_menu_btn:hover, 
+.finance_menu_btn:target {
+text-decoration: underline;
+margin: 1rem 0 1rem 0;
+transform: scale(1.1);
 }

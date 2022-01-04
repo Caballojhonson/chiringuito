@@ -12,19 +12,13 @@ import AddNewSupplier from './Components/Settings/AddNewSupplier';
 import NewUserScreen from './Components/UI/NewUserScreen';
 import Loadscreen from './Components/UI/Loadscreen';
 import FinanceScreen from './Components/Finance/FinanceScreen';
+import EventsMain from './Components/Events/EventsMain';
 
 export default function Router() {
 	//data.getData(data.orderBinId).then(val => console.log(val))
 	//data.getData(data.financeBinId).then(val => console.log(val))
 	//data.getData(data.usersBinId).then(val => console.log(val))
-	// data.overwriteBin(data.financeBinId, {
-	// 	days: [{}],
-	// 	debts: {
-	// 		in: [],
-	// 		out: []
-	// 	},
-	// 	salaries: [],
-	// })
+	// data.overwriteBin(data.financeBinId, forceFinance)
 	
 	//data.getData(data.supplierBinId).then(val => console.log(val))
 	//data.overwriteBin(data.financeBinId, {})
@@ -48,6 +42,7 @@ export default function Router() {
 				<Route path="/" element={<HomeScreen />} />
 				<Route path="checklist" element={<ChecklistMain />} />
 				<Route path="pedidos" element={<OrderScreen />} />
+				<Route path="eventos" element={<EventsMain />} />
 				<Route path="opciones" element={<SettingsMain />} />
 				<Route path="nueva-referencia" element={<AddNewItem />} />
 				<Route path="nuevo-proveedor" element={<AddNewSupplier />} />
@@ -68,3 +63,4 @@ export default function Router() {
 		</div>
 	)
 }
+
