@@ -17,16 +17,22 @@ export default function Daily(props) {
 
     const lastDay = financialData.days[financialData.days.length - 1]
 
+    function todaysBalance() {
+       return lastDay.operations.reduce(
+           (prev, curr) => prev + curr.amount
+           , 0) - lastDay.openingCash
+    }
+
     const balanceColor = () => {
         const green = {color: 'green'}
         const red = {color: 'red'}
-        return (calcTodaysBalance() > 0) ? green : red 
+        return (todaysBalance() >= 0) ? green : red 
     }
 
-    function calcTodaysBalance() {
-       const sum = lastDay.operations.reduce((prev, curr) => prev + curr.amount, 0) - openingAmount
-       return (sum > 0) ? `+${sum}` : `-${sum}`
-    }
+    // function printTodaysBalance() {
+    //    const sum = todaysBalance()
+    //    return (sum >= 0) ? `${sum}` : `${sum}`
+    // }
 
     const weCanReopen = () => {
         const sameday = isSameDay(new Date(), new Date(lastDay.timestamp))
@@ -93,10 +99,10 @@ export default function Daily(props) {
     }
 
     const closeDay = async () => {
-        const totalBalance = lastDay.operations.reduce((prev, curr) => prev + curr.amount, 0)// ;
+        const totalBalance = todaysBalance()
         lastDay.isOpen = false
         lastDay.closingCash = Number(closingAmount)
-        lastDay.totalBalance = (totalBalance + lastDay.closingCash) - openingAmount
+        lastDay.totalBalance = (totalBalance + lastDay.closingCash)
         await data.overwriteBin(data.financeBinId, financialData)
         window.location.reload()
     }
@@ -203,7 +209,7 @@ export default function Daily(props) {
     evalIfOpen() &&  
     (
         <div className="dailybalance_container">
-            <h1 style={balanceColor()} className="dailybalance">{`${calcTodaysBalance()}€`}</h1>
+            <h1 style={balanceColor()} className="dailybalance">{`${todaysBalance()}€`}</h1>
             <p className="dailybalance dailybalance_tag">Balance diario</p>
         </div>
     )
