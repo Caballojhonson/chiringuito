@@ -1,4 +1,4 @@
-import { Routes, BrowserRouter, Route } from 'react-router-dom';
+import { Routes, BrowserRouter, Route, } from 'react-router-dom';
 import React, { useEffect} from 'react';
 import ChecklistMain from './Components/Checklist/ChecklistMain';
 import SettingsMain from './Components/Settings/SettingsMain';
@@ -31,10 +31,12 @@ export default function Router() {
 		localStorage.setItem('newSession', '')
 		setTimeout(() => {
 			localStorage.setItem('newSession', true);
-		}, 300000) //Time of inactivity for session expiry 300000 = 5min
+		}, 900000) //Time of inactivity for session expiry 300000 = 5min
 	}, [])
 
+
 	const loginScreen = <NewUserScreen/>
+	const loadScreen = () => window.location.href = '/bienvenida'
 
 	const privateNavigation = (
 		<BrowserRouter>
@@ -57,7 +59,7 @@ export default function Router() {
 
 	return (
 		<div >
-			{newSession  && <Loadscreen/>}
+			{newSession && loadScreen()}
 			{data.isAuthorized && privateNavigation}
 			{!data.isAuthorized && loginScreen}
 		</div>

@@ -2,7 +2,8 @@ import React from 'react';
 import { data } from '../../data';
 import refranero from '../../refranero';
 
-export default function Loadscreen() {
+export default function Loadscreen(props) {
+
 	return (
 		<div className="app loadscreen_container">
 			<h1 className="text-center welcome_text">¡Hola {data.username}!</h1>
@@ -12,7 +13,7 @@ export default function Loadscreen() {
 					"{refranero[Math.floor(Math.random() * refranero.length)]}"
 				</h5>
 			</div>
-			<button onClick={() => window.location.href='/'} className="button_primary welcome_button">Vale gracias</button>
+			<button onClick={() => window.location.href= '/'} className="button_primary welcome_button">Vale gracias</button>
 		</div>
 	);
 }
