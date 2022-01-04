@@ -1,3 +1,4 @@
+import { isSameMonth } from 'date-fns'
 import React from 'react'
 
 export default function FinancialStats(props) {
@@ -5,7 +6,8 @@ export default function FinancialStats(props) {
 
     function thisMonthsBalance() {
         //Create CONST array for all days in THIS month (date-fns)
-        const balance = financialData.days.reduce(
+        const daysInThisMonthArray = financialData.days.filter(day => isSameMonth(new Date(day.timestamp), new Date())) 
+        const balance = daysInThisMonthArray.reduce(
         (prev, curr) => prev + curr.totalBalance, 0)
         return Number(balance)
     } 
