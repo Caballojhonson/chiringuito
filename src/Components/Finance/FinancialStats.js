@@ -5,7 +5,6 @@ export default function FinancialStats(props) {
     const {financialData} = props
 
     function thisMonthsBalance() {
-        //Create CONST array for all days in THIS month (date-fns)
         const daysInThisMonthArray = financialData.days.filter(day => isSameMonth(new Date(day.timestamp), new Date())) 
         const balance = daysInThisMonthArray.reduce(
         (prev, curr) => prev + curr.totalBalance, 0)

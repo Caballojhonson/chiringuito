@@ -48,8 +48,8 @@ export default function NewOperationForm(props) {
 						>
 							<option defaultValue="">Tipo</option>
 							<option value="withdrawal">Retirada</option>
-							<option value="deposit">Ingreso</option>
-							<option value="salary">Salario</option>
+							<option value="deposit">Vaciado caja</option>
+							<option value="bizum">Bizum</option>
 						</select>
 					</div>
                 </div>
@@ -112,17 +112,35 @@ export default function NewOperationForm(props) {
 				</div>
     )
 
+    const withdrawalHelper = 
+    (newOperation.type === 'withdrawal') ?
+        <p className='operation_helper'>
+            <strong style={{color: 'red'}}>Importante:</strong> <br/>
+            Utilizar al retirar de caja o de cualquier otro lugar. <br/>
+        </p>
+    : null
+
+    const depositHelper = 
+    (newOperation.type === 'deposit') ?
+        <p className='operation_helper'>
+            <strong style={{color: 'red'}}>Importante:</strong> <br/>
+            Usar en caso de GUARDAR dinero <strong>de la caja</strong> en otro lugar.
+            Usar para BIZUMS.
+            
+        </p>
+    : null
+
     return (
         <div>
 
             <h3 className='text-center'>Nuevo movimiento</h3>
 
             {typeSelect}
+            {withdrawalHelper}
+            {depositHelper}
             {conceptInput}
             {amountInput}
             {formButtons}
-
-                
 
         </div>
     )   

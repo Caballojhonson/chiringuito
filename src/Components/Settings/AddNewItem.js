@@ -32,9 +32,10 @@ export default function AddNewItem() {
 
 	const submitNewItem = () => {
 		if (stockItems) {
-			const updatedStock = stockItems.concat(newProduct);
-			data
-				.overwriteBin(data.stockBinId, updatedStock)
+			const priceWithIVA = () => newProduct.price * newProduct.iva
+			const finalProduct = ({ ...newProduct, price: priceWithIVA() })
+			const updatedStock = stockItems.concat(finalProduct);
+			data.overwriteBin(data.stockBinId, updatedStock)
 				.then(() => navigate('/checklist'));
 		}
 	};
@@ -64,7 +65,7 @@ export default function AddNewItem() {
 				</div>
 				<div className="form-item">
 					<label htmlFor="price" className="form-label">
-						Precio (IVA incluido)
+						Precio (Sin IVA)
 					</label>
 					<div className="input-group">
 						<input
@@ -91,9 +92,10 @@ export default function AddNewItem() {
 							aria-label="Small select"
 						>
 							<option defaultValue="">IVA</option>
-							<option value="21">21%</option>
-							<option value="10">10%</option>
-							<option value="4">4%</option>
+							<option value="1.21">21%</option>
+							<option value="1.10">10%</option>
+							<option value="1.04">4%</option>
+							<option value="1">Sin IVA</option>
 						</select>
 					</div>
 

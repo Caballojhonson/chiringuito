@@ -99,3 +99,8 @@ transform: scale(1.1);
     text-decoration: underline;
     color:rgb(69, 67, 80)
 }
+.operation_helper {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 200;
+}

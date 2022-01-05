@@ -29,11 +29,6 @@ export default function Daily(props) {
         return (todaysBalance() >= 0) ? green : red 
     }
 
-    // function printTodaysBalance() {
-    //    const sum = todaysBalance()
-    //    return (sum >= 0) ? `${sum}` : `${sum}`
-    // }
-
     const weCanReopen = () => {
         const sameday = isSameDay(new Date(), new Date(lastDay.timestamp))
         const lastDayIsOpen = lastDay.isOpen
@@ -102,7 +97,7 @@ export default function Daily(props) {
         const totalBalance = todaysBalance()
         lastDay.isOpen = false
         lastDay.closingCash = Number(closingAmount)
-        lastDay.totalBalance = (totalBalance + lastDay.closingCash)
+        lastDay.totalBalance = (totalBalance + lastDay.closingCash - lastDay.openingCash)
         await data.overwriteBin(data.financeBinId, financialData)
         window.location.reload()
     }
@@ -217,7 +212,9 @@ export default function Daily(props) {
     return ( 
     <div className="finance_col_right">
         {console.log(financialData)}
-        <h3>Caja diaria</h3>
+        <h3>Problema técnico</h3>
+        <h3 className="text-center">SOLO APERTURA Y CIERRE</h3>
+        <h3 className="text-center">NO introducir operaciones!!</h3>
         {cantOpenWarn}
         {newOperationForm}
         {openDayBtn}

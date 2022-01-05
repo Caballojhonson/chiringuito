@@ -31,3 +31,12 @@ Matches :
         - number
         - when
 
+Big todo list:
+        - Edit stockitems
+        - Order price confirm on payment!!!
+        - League finance tracking
+        - supplier view + edit
+        - Employee worked hours
+        - Daily balance calendar
+        - Note section
+        - Add images (API)
