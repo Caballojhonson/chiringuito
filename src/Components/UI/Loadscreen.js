@@ -2,7 +2,7 @@ import React from 'react';
 import { data } from '../../data';
 import refranero from '../../refranero';
 
-export default function Loadscreen(props) {
+export default function Loadscreen() {
 
 	return (
 		<div className="app loadscreen_container">

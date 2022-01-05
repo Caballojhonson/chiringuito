@@ -46,13 +46,8 @@ export default function EditItems() {
                     iva={iva}
                     format={format}
                     category={category}
-                    clickFn={() => {
-                        seteditItem(item)
-                        console.log('clicked  '+ name)
-                    }}
-                    deleteFn={() => {
-                        setShowPopup(true)
-                    }}
+                    clickFn={() => seteditItem(item)}
+                    deleteFn={() => setShowPopup(true)}
                 />
             )
         })

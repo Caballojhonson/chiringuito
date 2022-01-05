@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { data } from '../../data';
 
 export default function NewUserScreen() {
@@ -7,12 +7,21 @@ export default function NewUserScreen() {
         password: ''
     })
 	const [pageNum, setPageNum] = useState(1);
+	const nameInputRef = useRef()
+	const passwordInputRef = useRef()
+
+	useEffect(() => {
+		pageNum === 1 && nameInputRef.current.focus()
+		pageNum === 2 && passwordInputRef.current.focus()
+	}, [pageNum])
+
 
 	const handleChange = (e) => {
         const name = e.target.name
         const value = e.target.value
 		setUser({ ...user, [name]: value });
 	};
+
 
 	const handleSubmit = async () => {
 		localStorage.setItem('name', user.name);
@@ -31,6 +40,15 @@ export default function NewUserScreen() {
 		} 
 	};
 
+	const handleKeypress = e => {
+		console.log(e.keyCode + ' pressed!')
+
+		if (e.keyCode === 0) {
+			handleSubmit();
+		}
+	  };
+  
+
 	const pageOne = (
 		<div className="new_user_container">
 			<h1 className="whoareyou_title">
@@ -38,9 +56,11 @@ export default function NewUserScreen() {
 			</h1>
 			<div className="form-item">
 				<input
+					ref={nameInputRef}
 					name="name"
 					value={user.name}
 					onChange={handleChange}
+					onKeyPress={user.name && handleKeypress}
 					type="text"
 					className="form-control new_username_input"
 					id="supplierName"
@@ -61,9 +81,11 @@ export default function NewUserScreen() {
 			</h1>
 			<div className="form-item">
 				<input
+					ref={passwordInputRef}
 					name="password"
 					value={user.password}
 					onChange={handleChange}
+					onKeyPress={user.password === 'una vida digna' && handleKeypress}
 					type="text"
 					className="form-control new_username_input"
 					id="supplierName"
@@ -96,7 +118,7 @@ export default function NewUserScreen() {
             {pageNum === 2 && pageTwo}
             {pageNum === 3 && pageThree}
 			<div className="software_version_container">
-				<p className="software_version">El Chiringuito v1.0.2</p>
+				<p className="software_version">El Chiringuito v1.0.4</p>
 				<p className="copyright">©2021 - Caballojhonson</p>
 			</div>
 		</div>
