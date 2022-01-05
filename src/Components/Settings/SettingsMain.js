@@ -49,6 +49,15 @@ export default function SettingsMain() {
 				Añadir proveedor
 			</button>
 
+			<h5 className="settings_title">Editar</h5>
+
+			<button
+				className="button_primary add_new"
+				onClick={() => navigate('/editar-referencias')}
+			>
+				Editar referencias
+			</button>
+
 			<h5 className="settings_title">Sección NO TOCAR!</h5>
 
 			<button

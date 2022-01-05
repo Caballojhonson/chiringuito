@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { data } from '../../data';
 import { useNavigate } from 'react-router-dom';
 
-export default function AddNewItem() {
+export default function AddNewItem(props) {
+	const {stockItem, closeFn} = props
 	let navigate = useNavigate();
 
 	const [suppliers, setSuppliers] = useState(null);
@@ -13,16 +14,20 @@ export default function AddNewItem() {
 	!stockItems &&
 		data.getData(data.stockBinId).then((val) => setStockItems(val));
 
-	const [newProduct, setNewProduct] = useState({
-		id: data.getid(),
-		name: '',
-		price: 0,
-		iva: 0,
-		format: '',
-		supplier: '',
-		category: '',
-		packQuantity: 0,
-	});
+	const [newProduct, setNewProduct] = useState(
+		stockItem ? 
+		stockItem :
+			{
+			id: data.getid(),
+			name: '',
+			price: 0,
+			iva: 0,
+			format: '',
+			supplier: '',
+			category: '',
+			packQuantity: 0,
+			} 
+	);
 
 	const handleChange = (e) => {
 		const name = e.target.name;
@@ -32,13 +37,23 @@ export default function AddNewItem() {
 
 	const submitNewItem = () => {
 		if (stockItems) {
-			const priceWithIVA = () => newProduct.price * newProduct.iva
+			const priceWithIVA = () => (newProduct.price * newProduct.iva).toFixed(2)
 			const finalProduct = ({ ...newProduct, price: priceWithIVA() })
 			const updatedStock = stockItems.concat(finalProduct);
 			data.overwriteBin(data.stockBinId, updatedStock)
 				.then(() => navigate('/checklist'));
 		}
 	};
+
+	const updateEditedItem = async () => {
+		const priceWithIVA = () => (newProduct.price * newProduct.iva).toFixed(2)
+		const finalProduct = ({ ...newProduct, price: priceWithIVA() })
+		const filteredStock = stockItems.filter(item => item.id !== finalProduct.id)
+		const updatedStock = filteredStock.concat(finalProduct)
+		await data.overwriteBin(data.stockBinId, updatedStock)
+		closeFn()
+	}
+
 	return (
 		stockItems &&
 		suppliers && (
@@ -47,7 +62,7 @@ export default function AddNewItem() {
 					type="button"
 					className="btn-close"
 					aria-label="Close"
-					onClick={() => navigate('/opciones')}
+					onClick={stockItems ? closeFn : () => navigate('/opciones')}
 				></button>
 				<div className="form-item">
 					<label htmlFor="productName" className="form-label">
@@ -108,11 +123,11 @@ export default function AddNewItem() {
 							aria-label="Small select"
 						>
 							<option defaultValue="">Categoría</option>
-							<option value="comida">Comida</option>
-							<option value="bebida">Bebida</option>
-							<option value="menaje">Menaje</option>
-							<option value="limpieza">Limpieza</option>
-							<option value="varios">Varios</option>
+							<option value="Comida">Comida</option>
+							<option value="Bebida">Bebida</option>
+							<option value="Menaje">Menaje</option>
+							<option value="Limpieza">Limpieza</option>
+							<option value="Varios">Varios</option>
 						</select>
 					</div>
 				</div>
@@ -179,13 +194,13 @@ export default function AddNewItem() {
 				<div className="button_group">
 					<button
 						className="button_primary button_cancel"
-						onClick={() => navigate('/opciones')}
+						onClick={stockItem ? closeFn : () => navigate('/opciones')}
 					>
 						Cancelar
 					</button>
 					<button
 						className="button_primary button_accept"
-						onClick={submitNewItem}
+						onClick={stockItem ? updateEditedItem : submitNewItem}
 					>
 						Añadir
 					</button>

@@ -19,3 +19,38 @@
   align-items: center;
   margin: 0 2rem 0 2rem;
 }
+
+.stockitem_info_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.7fr 0.3fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  font-size: 0.8rem;
+  text-align: center;
+  background-color: #f1d8dc;
+  border-radius: 5px;
+  margin: 0.1rem 1rem 0.1rem 1rem;
+  padding: 0.25rem;
+}
+.stockitem_info_text {
+  margin: 0.1rem;
+}
+.stockitem_icon {
+  max-width: 1.5rem;
+  max-height: 1.5rem;
+  grid-column: 4 / span 1;
+  grid-row: 1 / span 2;
+}
+.stockitem_name {
+  font-size: 1rem;
+  font-weight: 500;
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+.stockitem_price{
+  font-size: 0.85rem;
+  font-weight: 600;
+  grid-column: 1 / span 2;
+  grid-row: 2;
+}

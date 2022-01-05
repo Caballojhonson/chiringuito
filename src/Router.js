@@ -13,6 +13,7 @@ import NewUserScreen from './Components/UI/NewUserScreen';
 import Loadscreen from './Components/UI/Loadscreen';
 import FinanceScreen from './Components/Finance/FinanceScreen';
 import EventsMain from './Components/Events/EventsMain';
+import EditItems from './Components/Settings/EditItems';
 
 export default function Router() {
 
@@ -101,6 +102,19 @@ export default function Router() {
 	//console.log(refranero[Math.floor(Math.random() * refranero.length )])
 	//data.createBin([]).then(val => console.log(val))
 
+	async function  modifyStockTaxFormat() {
+		const originalStock = await data.getData(data.stockBinId)
+		const modifiedTaxFormatObject = originalStock.map(item => {
+			if(item.iva > 3) {
+			 item.iva =	(item.iva / 100) + 1;
+			 return item
+			}else return item
+		})
+		console.log(modifiedTaxFormatObject)
+		data.overwriteBin(data.stockBinId, modifiedTaxFormatObject)
+	}
+	//modifyStockTaxFormat()
+
 	let newSession = localStorage.getItem('newSession')
 
 	useEffect(() => {
@@ -127,6 +141,7 @@ export default function Router() {
 				<Route path="nuevo-usuario" element={<NewUserScreen />} />
 				<Route path="bienvenida" element={<Loadscreen />} />
 				<Route path="finanzas" element={<FinanceScreen />} />
+				<Route path="editar-referencias" element={<EditItems />} />
 			</Routes>
 
 			<MainToolbar />
