@@ -10,6 +10,7 @@ export default function Checklist_Main() {
 
 	const [stockItems, setStockItems] = useState(null)
 	const [order, setOrder] = useState([]);
+	const [filterBy, setFilterBy] = useState('supplier')
 
 	useEffect(() => {
 		data.getData(data.stockBinId).then(stock => setStockItems(stock))
@@ -52,19 +53,17 @@ export default function Checklist_Main() {
 
 	const CheckList = (
 		<div className="checklist_container">
-			<h1>Checklist</h1>
-			{stockItems && stockItems.map((item, i) => {
-				return (
-					<ChecklistItem
-						key={i}
-						itemObject={item}
-						updateQuantity={updateQuantity}
-					/>
-				);
-			})}
-			{stockItems && <ChecklistCategory updateFn={updateQuantity} stockItems={stockItems} />}
+			
+			
+			<h1 className='text-center'>Referencias</h1>
+			
+			{stockItems && <ChecklistCategory 
+			updateFn={updateQuantity} 
+			stockItems={stockItems} 
+			filterBy={filterBy}
+			/>}
 
-			<button onClick={submitOrder} className="button_primary add_new button_group">
+			<button onClick={submitOrder} className="button_primary button_group order_btn">
 				Generar pedido
 			</button>
 		</div>

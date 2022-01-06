@@ -145,6 +145,7 @@ export default function Router() {
 			</Routes>
 
 			<MainToolbar />
+
 		</BrowserRouter>
 	);
 

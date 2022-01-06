@@ -2,9 +2,11 @@ import React from 'react'
 import ChecklistItem from './ChecklistItem'
 
 export default function ChecklistCategory(props) {
-    const {stockItems, updateFn} = props
+    const {stockItems, updateFn, filterBy} = props
 
 const getAllCategories = () => [...new Set(stockItems.map(item => item.category))]
+const getAllSuppliers = () => [...new Set(stockItems.map(item => item.supplier))]
+
 //          PLEASE REFACTOR!!!!
 
 function capitalize(word) {
@@ -19,7 +21,7 @@ function CriteriaBox(props) {
     const {title, itemList} = props
     return (
         <div>
-            <h1>{title}</h1>
+            <h5>{title}</h5>
             <div>
                 {itemList}
             </div>
@@ -31,20 +33,30 @@ function CriteriaBox(props) {
 const itemsByCategory = () => {
 
     return getAllCategories().map(category => {
-        return (<CriteriaBox title={capitalize(category)} itemList={stockItems.map(item => {
+        return (<CriteriaBox title={capitalize(category)} itemList={stockItems.map((item, i) => {
            if(item.category === category) {
-               return <ChecklistItem updateQuantity={updateFn}  itemObject={item} />
+               return <ChecklistItem key={i} updateQuantity={updateFn}  itemObject={item} />
            }
         })} />)
     })
 }
-//          PLEASE REFACTOR!!!!
+
+const itemsBySupplier = () => {
+    return getAllSuppliers().map(supplier => {
+        return (<CriteriaBox title={capitalize(supplier)} itemList={stockItems.map((item, i) => {
+           if(item.supplier === supplier) {
+               return <ChecklistItem key={i} updateQuantity={updateFn}  itemObject={item} />
+           }
+        })} />)
+    })
+}
 
 
     return (
         <div>
             {console.log(getAllCategories())}
-            {itemsByCategory()}
+            {filterBy === 'category' && itemsByCategory()}
+            {filterBy === 'supplier' && itemsBySupplier()}
         </div>
     )
 }

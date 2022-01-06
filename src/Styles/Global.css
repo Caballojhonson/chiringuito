@@ -5,7 +5,9 @@ html, body {
 }
 .app {
     min-height: 93vh;
-    overflow-x: hidden;
+}
+.georgie{
+    max-width: 100%;
 }
 .fullscreen {
     position: fixed;

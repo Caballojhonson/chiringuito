@@ -6,13 +6,11 @@ import { data } from '../../data';
 
 export default function HomeScreen() {
     const navigate = useNavigate()
-    	
-   // !data.username && navigate('/nuevo-usuario')
 
     return (
         <div className="app">
             {!data.username && navigate('/nuevo-usuario')}
-            <img className="home_img" src={georgieDann} alt='georgieDann'></img>
+            <img className="georgie" src={georgieDann} alt='georgieDann'></img>
         </div>
     )
 }

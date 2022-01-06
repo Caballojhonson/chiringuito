@@ -4,7 +4,6 @@ import ordersIcon from '../../images/orders.png';
 import settingsIcon from '../../images/setting-line.png';
 import calendarIcon from '../../images/work-schedule.png';
 import financeIcon from '../../images/finance.png';
-
 import '../../Styles/UI.css';
 
 export default function MainToolbar() {

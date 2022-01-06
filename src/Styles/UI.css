@@ -1,6 +1,6 @@
 .toolbar_main {
     position: sticky;
-    bottom: 0;
+    bottom: 0px;
     display: flex;
     justify-content: space-evenly;
     padding: 0.5rem;
