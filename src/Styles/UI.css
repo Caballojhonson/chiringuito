@@ -8,7 +8,8 @@
     height: 7vh;
 }
 .toolbar_icon {
-    height: 2rem;
+    max-height: 2rem;
+    max-width: 2rem;
     cursor: pointer;
 }
 .new_user_container{

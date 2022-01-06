@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { data } from '../../data';
 import '../../Styles/Checklist.css';
+import editIcon from '../../images/edit-square-line.png'
 import ChecklistCategory from './ChecklistCategory';
-import ChecklistItem from './ChecklistItem';
 
 export default function Checklist_Main() {
 	let navigate = useNavigate();
@@ -54,7 +54,8 @@ export default function Checklist_Main() {
 	const CheckList = (
 		<div className="checklist_container">
 			
-			
+			<a href='/editar-referencias'><img className='toolbar_icon checklist_edit_icon' src={editIcon} alt='edit icon'  /></a>
+
 			<h1 className='text-center'>Referencias</h1>
 			
 			{stockItems && <ChecklistCategory 

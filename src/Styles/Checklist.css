@@ -57,3 +57,8 @@ input[type=number] {
     position: sticky;
     bottom: 4rem;
 }
+.checklist_edit_icon {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;;
+}
