@@ -120,7 +120,7 @@ export default function Daily(props) {
         showOpeningInput &&
         !alreadyOpenWarn &&
         (
-            <div>
+            <div className="form_spaced">
                 <input onChange={handleOpeningAmount} className="form-control" type="number" placeholder="Importe apertura" />
                 <div className="button_group">
                     <button onClick={toggleOpeningInput} className="btn button_cancel" type="button"> Cancelar </button>
@@ -133,7 +133,7 @@ export default function Daily(props) {
     showClosingInput &&
     !alreadyOpenWarn &&
     (
-        <div>
+        <div className="form_spaced">
             <input onChange={handleClosingAmount} className="form-control" type="number" placeholder="Importe cierre" />
             <div className="button_group">
                 <button onClick={toggleClosingInput} className="btn button_cancel" type="button"> Cancelar </button>
@@ -212,9 +212,7 @@ export default function Daily(props) {
     return ( 
     <div className="finance_col_right">
         {console.log(financialData)}
-        <h3>Problema técnico</h3>
-        <h3 className="text-center">SOLO APERTURA Y CIERRE</h3>
-        <h3 className="text-center">NO introducir operaciones!!</h3>
+        <h3>Caja diaria</h3>
         {cantOpenWarn}
         {newOperationForm}
         {openDayBtn}
@@ -222,8 +220,8 @@ export default function Daily(props) {
         {openSign}
         {operationList}
         {closeBtn}
-        {dailyBalance}
         {closingAmountInput}
+        {dailyBalance}
     </div>
     );
 }

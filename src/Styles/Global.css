@@ -49,8 +49,7 @@ html, body {
     display: flex;
     justify-content:space-evenly;
     align-items: center;
-    height: 100%;
-    margin-top: auto;
+    margin-top: 2rem;
     margin-bottom: 2rem;
 }
 .modal {
@@ -104,4 +103,7 @@ html, body {
 }
 .invisible_input:focus-visible {
     outline: none;
+}
+.form_spaced {
+    width: 80%;
 }

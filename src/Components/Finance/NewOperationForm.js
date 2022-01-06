@@ -10,6 +10,7 @@ export default function NewOperationForm(props) {
         concept: '',
         amount: '',
         type: '',
+        bizum: false,
     })
 
     const handleChange = (e) => {
@@ -24,9 +25,8 @@ export default function NewOperationForm(props) {
         if(newOperation.type === 'withdrawal') {
             operation.amount = -operation.amount 
         }
-        else if (newOperation.type === 'salary') {
-            operation.amount = -operation.amount 
-            operation.concept = `Sueldo de ${data.username}`            
+        else if (newOperation.type === 'bizum') {
+            operation.bizum = true         
         }
         console.log(operation.amount)
         operation.amount = Number(operation.amount)
@@ -96,15 +96,15 @@ export default function NewOperationForm(props) {
     )
 
     const formButtons = (
-        <div className="button_group">
+        <div className="button_group form_spaced">
 					<button
-						className="button_primary button_cancel"
+						className="btn button_cancel"
 						onClick={closeModal}
 					>
 						Cancelar
 					</button>
 					<button
-						className="button_primary button_accept"
+						className="btn button_primary"
 						onClick={handleConfirm}
 					>
 						Confirmar
@@ -117,6 +117,7 @@ export default function NewOperationForm(props) {
         <p className='operation_helper'>
             <strong style={{color: 'red'}}>Importante:</strong> <br/>
             Utilizar al retirar de caja o de cualquier otro lugar. <br/>
+            Introducir las vueltas SIEMPRE en caja.
         </p>
     : null
 
@@ -125,13 +126,11 @@ export default function NewOperationForm(props) {
         <p className='operation_helper'>
             <strong style={{color: 'red'}}>Importante:</strong> <br/>
             Usar en caso de GUARDAR dinero <strong>de la caja</strong> en otro lugar.
-            Usar para BIZUMS.
-            
         </p>
     : null
 
     return (
-        <div>
+        <div className='form_spaced'>
 
             <h3 className='text-center'>Nuevo movimiento</h3>
 
