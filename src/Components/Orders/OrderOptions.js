@@ -81,7 +81,7 @@ export default function OrderOptions(props) {
                 />
             }
             <div onClick={toggleDropdown} className='order_menu_icon_wrapper'>
-                <img  className='order_menu_icon' src={dotsIcon} />
+                <img  className='order_menu_icon' src={dotsIcon} alt='orderIcon'  />
             </div>
             {dropdownHidden ? null : dropdownMenu}
         </div>

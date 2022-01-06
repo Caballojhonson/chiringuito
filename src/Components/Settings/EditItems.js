@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { data } from '../../data'
 import AddNewItem from './AddNewItem'
-import editIcon from '../../images/edit-square-line.png'
 import deleteIcon from '../../images/trash-bin.png'
 import Popup from '../UI/Popup'
 
@@ -25,7 +24,7 @@ export default function EditItems() {
         const {name, price, iva, format, category, clickFn, deleteFn} = props
         return(
             <div onClick={clickFn} className='stockitem_info_wrapper'>
-            <img onClick={deleteFn} className='stockitem_icon' src={deleteIcon}/>
+            <img onClick={deleteFn} className='stockitem_icon' src={deleteIcon} alt='icon'  />
                 <p className='stockitem_info_text stockitem_name'>{name}</p>
                 <p className='stockitem_info_text stockitem_price'>{`${price}€  / ${format}`}</p>
                 <p className='stockitem_info_text'>{`${category}`}</p>

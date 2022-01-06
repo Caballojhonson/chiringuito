@@ -92,7 +92,7 @@ export default function Router() {
 		"salaries": []
 	  }
 	//data.getData(data.orderBinId).then(val => console.log(val))
-	data.getData(data.stockBinId).then(val => console.log(val))
+	//data.getData(data.stockBinId).then(val => console.log(val))
 	//data.getData(data.financeBinId).then(val => console.log(val))
 	//data.getData(data.usersBinId).then(val => console.log(val))
 	// data.overwriteBin(data.financeBinId, forceFinance)
@@ -102,17 +102,17 @@ export default function Router() {
 	//console.log(refranero[Math.floor(Math.random() * refranero.length )])
 	//data.createBin([]).then(val => console.log(val))
 
-	async function  modifyStockTaxFormat() {
-		const originalStock = await data.getData(data.stockBinId)
-		const modifiedTaxFormatObject = originalStock.map(item => {
-			if(item.iva > 3) {
-			 item.iva =	(item.iva / 100) + 1;
-			 return item
-			}else return item
-		})
-		console.log(modifiedTaxFormatObject)
-		data.overwriteBin(data.stockBinId, modifiedTaxFormatObject)
-	}
+	// async function  modifyStockTaxFormat() {
+	// 	const originalStock = await data.getData(data.stockBinId)
+	// 	const modifiedTaxFormatObject = originalStock.map(item => {
+	// 		if(item.iva > 3) {
+	// 		 item.iva =	(item.iva / 100) + 1;
+	// 		 return item
+	// 		}else return item
+	// 	})
+	// 	console.log(modifiedTaxFormatObject)
+	// 	data.overwriteBin(data.stockBinId, modifiedTaxFormatObject)
+	// }
 	//modifyStockTaxFormat()
 
 	let newSession = localStorage.getItem('newSession')

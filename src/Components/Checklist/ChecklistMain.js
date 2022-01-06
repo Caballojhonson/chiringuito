@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { data } from '../../data';
 import '../../Styles/Checklist.css';
+import ChecklistCategory from './ChecklistCategory';
 import ChecklistItem from './ChecklistItem';
 
 export default function Checklist_Main() {
@@ -61,6 +62,7 @@ export default function Checklist_Main() {
 					/>
 				);
 			})}
+			{stockItems && <ChecklistCategory updateFn={updateQuantity} stockItems={stockItems} />}
 
 			<button onClick={submitOrder} className="button_primary add_new button_group">
 				Generar pedido

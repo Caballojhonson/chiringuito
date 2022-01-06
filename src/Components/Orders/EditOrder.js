@@ -1,5 +1,4 @@
 import React from "react";
-import { data } from "../../data";
 import ChecklistItem from "../Checklist/ChecklistItem";
 
 export default function EditOrder(props) {
