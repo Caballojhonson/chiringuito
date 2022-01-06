@@ -40,7 +40,12 @@ export default function AddNewItem(props) {
 			const priceWithIVA = () => (newProduct.price * newProduct.iva).toFixed(2)
 			const finalProduct = ({ ...newProduct, price: priceWithIVA() })
 			const updatedStock = stockItems.concat(finalProduct);
-			data.overwriteBin(data.stockBinId, updatedStock)
+			const sortedStock = updatedStock.sort((a, b) => {
+				if(a.name < b.name) { return -1; }
+				if(a.name > b.name) { return 1; }
+				return 0;
+			})
+			data.overwriteBin(data.stockBinId, sortedStock)
 				.then(() => navigate('/checklist'));
 		}
 	};

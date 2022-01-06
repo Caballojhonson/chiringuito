@@ -16,6 +16,11 @@ import EventsMain from './Components/Events/EventsMain';
 import EditItems from './Components/Settings/EditItems';
 
 export default function Router() {
+	function capitalize(word) {
+		return (
+			word.charAt(0).toUpperCase() + word.slice(1)
+		)
+	}
 
 	const forceFinance = {
 		"days": [
@@ -105,15 +110,13 @@ export default function Router() {
 	// async function  modifyStockTaxFormat() {
 	// 	const originalStock = await data.getData(data.stockBinId)
 	// 	const modifiedTaxFormatObject = originalStock.map(item => {
-	// 		if(item.iva > 3) {
-	// 		 item.iva =	(item.iva / 100) + 1;
-	// 		 return item
-	// 		}else return item
+	// 		capitalize(item.category) 
+	// 	return item
 	// 	})
 	// 	console.log(modifiedTaxFormatObject)
-	// 	data.overwriteBin(data.stockBinId, modifiedTaxFormatObject)
-	// }
-	//modifyStockTaxFormat()
+	//  	data.overwriteBin(data.stockBinId, modifiedTaxFormatObject)
+	//  }
+	// modifyStockTaxFormat()
 
 	let newSession = localStorage.getItem('newSession')
 

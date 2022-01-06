@@ -61,7 +61,7 @@ export default function EditItems() {
                 closeModal={() => setShowPopup(false)}
                 onConfirm={() => deleteItem(editItem)}
             />}
-            {!editItem && <h4 className='text-center'>Editar referencias</h4>}
+            {!editItem && <h4 className='screen_title'>Editar referencias</h4>}
             {editItem && <div className='app'>
             <AddNewItem stockItem={editItem} closeFn={() => seteditItem('')} />
             </div>}

@@ -21,6 +21,7 @@ export default function Checklist_Main() {
 	
 	const handleChange = (e) => {
 		setSearch(e.target.value)
+		window.scrollTo(0,0)
 	}
 
 	const updateQuantity = (orderItem) => {
