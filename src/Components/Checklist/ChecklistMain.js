@@ -12,7 +12,7 @@ export default function Checklist_Main() {
 
 	const [stockItems, setStockItems] = useState(null)
 	const [order, setOrder] = useState([]);
-	const [filterBy, setFilterBy] = useState('category')
+	const [filterBy, setFilterBy] = useState('supplier')
 	const [search, setSearch] = useState('')
 
 	useEffect(() => {
@@ -65,8 +65,6 @@ export default function Checklist_Main() {
 		</div>
 	)
 
-
-
 	const CheckList = (
 		<div className="checklist_container">
 			
@@ -95,11 +93,20 @@ export default function Checklist_Main() {
 		) 
 	}
 
+	const filterBadges = (
+		<div className='order_badge_container'>
+			<span className='order_by'>Ordenar por</span>
+			<span onClick={() => setFilterBy('supplier')} className={filterBy === 'supplier' ? 'filter_badge_active filter_badge' : 'filter_badge '}>Proveedor</span>
+			<span onClick={() => setFilterBy('category')} className={filterBy === 'category' ? 'filter_badge_active filter_badge' : 'filter_badge '}>Categoría</span>
+		</div>
+	) 
+
 	return (
 		<div className="app">
 			<a href='/editar-referencias'><img className='toolbar_icon checklist_edit_icon' src={editIcon} alt='edit icon'  /></a>
 			<h1 className='screen_title'>Referencias</h1>
 			{searchbar}
+			{filterBadges}
 			{!search && CheckList}
 			{search && searchResults()}
 			<button onClick={submitOrder} className="button_primary button_group order_btn">

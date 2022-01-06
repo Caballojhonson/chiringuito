@@ -65,3 +65,24 @@ input[type=number] {
     top: 1.5rem;
     right: 2rem;;
 }
+.filter_badge {
+    color:white;
+    background-color: rgb(36, 42, 44);
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 300;
+    padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+    margin: 0 0.5rem 0 0.5rem;
+}
+.filter_badge_active {
+    background-color: rgb(43, 175, 124);
+}
+.order_by {
+    margin-bottom: 0px;
+}
+.order_badge_container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem auto 1rem auto;
+    width: 80%;
+}
