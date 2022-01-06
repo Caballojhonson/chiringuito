@@ -16,7 +16,7 @@ export default function OrderScreen() {
 
     return (
         <div className="app">
-            <h1 className="order_title">Pedidos</h1>
+            <h1 className="screen_title">Pedidos</h1>
             {orders && suppliers && orders.map((order) => {
                 return(
                 <OrderBox suppliers={suppliers} order={order} key={order.id} id={order.id} />

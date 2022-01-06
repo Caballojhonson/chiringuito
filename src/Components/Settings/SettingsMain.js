@@ -32,8 +32,8 @@ export default function SettingsMain() {
 
 			{displayConfirmation && <ConfirmationModal bin={currentBin} closeModal={() => setDisplayConfirmation(false)} />} 
 			
-			<h1 className="settings_title">Opciones</h1>
-			<h5 className="settings_title">Añadir cosas</h5>
+			<h1 className="screen_title">Opciones</h1>
+			<h5 className="screen_title">Añadir cosas</h5>
 
 			<button
 				className="button_primary add_new"
@@ -49,7 +49,7 @@ export default function SettingsMain() {
 				Añadir proveedor
 			</button>
 
-			<h5 className="settings_title">Editar</h5>
+			<h5 className="screen_title">Editar</h5>
 
 			<button
 				className="button_primary add_new"
@@ -58,7 +58,7 @@ export default function SettingsMain() {
 				Editar referencias
 			</button>
 
-			<h5 className="settings_title">Sección NO TOCAR!</h5>
+			<h5 className="screen_title">Sección NO TOCAR!</h5>
 
 			<button
 				className="btn btn-danger add_new btn-danger"
@@ -85,7 +85,7 @@ export default function SettingsMain() {
 				Resetear finanzas
 			</button>
 
-			<h5 className="settings_title">Bases de datos</h5>
+			<h5 className="screen_title">Bases de datos</h5>
 
 
 			<div className='text_button_pair'>

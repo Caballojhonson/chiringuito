@@ -18,7 +18,7 @@
     font-size: 12px;
 }
 .item_format {
-    margin-left: 0.5rem;
+    margin-left: 1.5rem;
 }
 .checklist_item {
     display: flex;
@@ -56,6 +56,9 @@ input[type=number] {
     position: -webkit-sticky;
     position: sticky;
     bottom: 4rem;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .checklist_edit_icon {
     position: absolute;

@@ -3,19 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { data } from '../../data';
 import '../../Styles/Checklist.css';
 import editIcon from '../../images/edit-square-line.png'
+import searchIcon from '../../images/search-line.png'
 import ChecklistCategory from './ChecklistCategory';
+import ChecklistItem from './ChecklistItem';
 
 export default function Checklist_Main() {
 	let navigate = useNavigate();
 
 	const [stockItems, setStockItems] = useState(null)
 	const [order, setOrder] = useState([]);
-	const [filterBy, setFilterBy] = useState('supplier')
+	const [filterBy, setFilterBy] = useState('category')
+	const [search, setSearch] = useState('')
 
 	useEffect(() => {
 		data.getData(data.stockBinId).then(stock => setStockItems(stock))
 	}, [])
 	
+	const handleChange = (e) => {
+		setSearch(e.target.value)
+	}
 
 	const updateQuantity = (orderItem) => {
 
@@ -51,12 +57,17 @@ export default function Checklist_Main() {
 		}
 	};
 
+	const searchbar = (
+		<div className='searchbar_container'>
+			<img className='icon_small' src={searchIcon} alt='search icon'/>
+			<input onChange={handleChange} className='invisible_input' type='text' autoComplete='false' />
+		</div>
+	)
+
+
+
 	const CheckList = (
 		<div className="checklist_container">
-			
-			<a href='/editar-referencias'><img className='toolbar_icon checklist_edit_icon' src={editIcon} alt='edit icon'  /></a>
-
-			<h1 className='text-center'>Referencias</h1>
 			
 			{stockItems && <ChecklistCategory 
 			updateFn={updateQuantity} 
@@ -64,11 +75,36 @@ export default function Checklist_Main() {
 			filterBy={filterBy}
 			/>}
 
-			<button onClick={submitOrder} className="button_primary button_group order_btn">
-				Generar pedido
-			</button>
 		</div>
 	);
 
-	return <div className="app">{CheckList}</div>;
+	const searchResults = () => {
+		return (
+			<div className="checklist_container">
+				{stockItems.map((item, i) => {
+			if(item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+				return <ChecklistItem 
+				key={i}
+				itemObject={item}
+				updateQuantity={updateQuantity}
+				/>
+			}
+		})}
+			</div>
+		) 
+	}
+
+	return (
+		<div className="app">
+			<a href='/editar-referencias'><img className='toolbar_icon checklist_edit_icon' src={editIcon} alt='edit icon'  /></a>
+			<h1 className='screen_title'>Referencias</h1>
+			{searchbar}
+			{!search && CheckList}
+			{search && searchResults()}
+			<button onClick={submitOrder} className="button_primary button_group order_btn">
+				Generar pedido
+			</button>
+
+		</div>
+	) ;
 }

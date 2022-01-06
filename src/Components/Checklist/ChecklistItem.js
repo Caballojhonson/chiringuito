@@ -31,7 +31,7 @@ export default function Checklist_Item(props) {
 		<div className="checklist_item">
 			<div className="item_name_group">
 				<p className="item_name">{item.name}</p>
-				<p className="item_format">({item.format})</p>
+				<p className="item_format"><strong>{`${item.price}€ / `}</strong> {item.format}</p>
 			</div>
 			<div className="item_quantity_group">
 				<button
