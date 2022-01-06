@@ -5,7 +5,7 @@ export default function FinancialStats(props) {
     const {financialData} = props
 
     function thisMonthsBalance() {
-        const daysInThisMonthArray = financialData.days.filter(day => isSameMonth(new Date(day.timestamp), new Date())) 
+        const daysInThisMonthArray = financialData.days.filter(day => !day.isOpen && isSameMonth(new Date(day.timestamp), new Date())) 
         const balance = daysInThisMonthArray.reduce(
         (prev, curr) => prev + curr.totalBalance, 0)
         return Number(balance)
