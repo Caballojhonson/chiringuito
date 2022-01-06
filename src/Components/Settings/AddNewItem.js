@@ -16,7 +16,7 @@ export default function AddNewItem(props) {
 
 	const [newProduct, setNewProduct] = useState(
 		stockItem ? 
-		stockItem :
+		{...stockItem, price: stockItem.price / stockItem.iva} :
 			{
 			id: data.getid(),
 			name: '',
