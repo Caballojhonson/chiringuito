@@ -1,15 +1,24 @@
-import { isSameMonth } from 'date-fns'
+import { isSameMonth, isSameWeek } from 'date-fns'
 import React from 'react'
 
 export default function FinancialStats(props) {
     const {financialData} = props
 
-    function thisMonthsBalance() {
-        const daysInThisMonthArray = financialData.days.filter(day => !day.isOpen && isSameMonth(new Date(day.timestamp), new Date())) 
-        const balance = daysInThisMonthArray.reduce(
+    function thisMonthsEarnings() {
+        const daysInThisMonth = financialData.days.filter(day =>
+            !day.isOpen && isSameMonth(new Date(day.timestamp), new Date())) 
+        const balance = daysInThisMonth.reduce(
         (prev, curr) => prev + curr.totalBalance, 0)
         return Number(balance)
     } 
+
+    function thisWeeksEarnings() {
+        const daysInThisWeek = financialData.days.filter(day =>
+            !day.isOpen && isSameWeek(new Date(day.timestamp), new Date()))
+        const balance = daysInThisWeek.reduce(
+            (prev, curr) => prev + curr.totalBalance, 0)
+            return Number(balance)
+    }
 
     const balanceColor = (num) => {
         const green = {color: 'green'}
@@ -31,8 +40,13 @@ export default function FinancialStats(props) {
     return (
         <div className='stats_section_container'>
             <StatBox
-                title= 'Balance mensual'
-                balanceFn= {thisMonthsBalance}
+                title= 'Facturación esta semana'
+                balanceFn= {thisWeeksEarnings}
+                detailLink= {'/'}
+            />
+            <StatBox
+                title= 'Facturación este mes'
+                balanceFn= {thisMonthsEarnings}
                 detailLink= {'/'}
             />
         </div>

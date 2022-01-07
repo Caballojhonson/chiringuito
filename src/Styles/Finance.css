@@ -93,6 +93,7 @@ transform: scale(1.1);
     height: 10rem;
     width: 10rem;
     padding: 1rem;
+    margin-bottom: 2rem ;
 }
 .statBox_detail_link{
     font-size: 0.8rem;
