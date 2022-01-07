@@ -32,11 +32,27 @@ Matches :
         - when
 
 Big todo list:
-        - Edit stockitems
-        - Order price confirm on payment!!!
+        - Edit stockitems OK
+        - Order price confirm on payment!!! OK
+        - Order merging if sameWeek && NOT ordered yet
+        - Archived orders section
+        - Auto archive orders
+        - Finance expenses screen
+        - Finance Acreedores screen
+        - Finance Debts screen
         - League finance tracking
         - supplier view + edit
         - Employee worked hours
         - Daily balance calendar
         - Note section
         - Add images (API)
+        - Processed product list
+        - Processed product calculation and generation
+        - User activity tracking
+        - User points on action system
+        - Employee of the month calculator and display
+
+
+Bugfix:
+        -New items not ordering alphabetically on EDIT
+        

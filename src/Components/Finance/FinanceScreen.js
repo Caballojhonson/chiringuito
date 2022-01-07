@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { data } from '../../data'
 import '../../Styles/Finance.css'
 import Daily from './Daily'
+import DebtsOut from './DebtsOut'
 import FinancialStats from './FinancialStats'
 
 export default function FinanceScreen() {
@@ -30,11 +31,13 @@ export default function FinanceScreen() {
                 <div className='finance_btns_wrapper'>
                     <h6 className='finance_menu_btn' onClick={() => setView('daily')}>Caja</h6>
                     <h6 className='finance_menu_btn' onClick={() => setView('stats')}>Estadísticas</h6>
+                    <h6 className='finance_menu_btn' onClick={() => setView('debtOut')}>Acreedores</h6>
                 </div>
             </div>
             <div>
             {financialData && view.daily && <Daily financialData={financialData} />}
             {financialData && view.stats && <FinancialStats financialData={financialData} />}
+            {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
             </div>
         </div>
     )

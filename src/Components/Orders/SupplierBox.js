@@ -6,32 +6,24 @@ import PaymentStatusModal from './PaymentStatusModal';
 
 export default function SupplierBox(props) {
 	const { name, order, id } = props;
-	const [orderStatus, setOrderStatus] = useState(order[0].orderStatus);
-	const [paymentStatus, setPaymentStatus] = useState(order[0].paymentStatus);
+	const [orderStatus, setOrderStatus] = useState(order.orderStatus);
+	const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus);
 	const [orderModalVisible, setOrderModalVisible] = useState(false);
 	const [paymentModalVisible, setPaymentModalVisible] = useState(false);
 
-	const affectedItemIds = order.map((item) => item.id); // Generate array of affected items
-
-	const submitOrderStatus = async (str) => {
+	const submitOrderStatus = async (status) => {
 		toggleModal('order');
-		setOrderStatus(str);
-		let originalOrders = await data.getData(data.orderBinId);
-		const affectedOrderIndex = originalOrders.findIndex(
-			(item) => item.id === id
-		);
-
-		originalOrders[affectedOrderIndex].order.forEach((item) => {
-			if (affectedItemIds.some((id) => id === item.id)) {
-				item.orderStatus = str;
-			}
-		});
-		data.overwriteBin(data.orderBinId, originalOrders);
-	};
+		setOrderStatus(status);
+		const orders = await data.getData(data.orderBinId);
+		const thisOrder = orders.find(order => order.id === id)
+		const thisSupplier = thisOrder.orders.find(order => order.supplier === name)
+		thisSupplier.orderStatus = status
+		data.overwriteBin(data.orderBinId, orders)
+	}
 
 	const submitDebt = async (debt) => {
         let originalFinance = await data.getData(data.financeBinId);
-        originalFinance.suppliers.debts.push({
+        originalFinance.debts.out.push({
 			supplier: name,
 			generationDate: new Date(),
 			amount: debt,
@@ -41,21 +33,35 @@ export default function SupplierBox(props) {
 		data.overwriteBin(data.financeBinId, originalFinance)
     }
 
-
-	const submitPaymentStatus = async (str, debtAmount) => {
+	async function submitExpense(status, amount) {
 		toggleModal('payment');
-		setPaymentStatus(str);
-		let originalOrders = await data.getData(data.orderBinId);
-		const affectedOrderIndex = originalOrders.findIndex(
-			(item) => item.id === id
-		);
+		setPaymentStatus(status);
+		const orders = await data.getData(data.orderBinId);
+		const thisOrder = orders.find(order => order.id === id)
+		const thisSupplier = thisOrder.orders.find(order => order.supplier === name)
+		thisSupplier.paymentStatus = status
+		data.overwriteBin(data.orderBinId, orders);
+		const financeData = await data.getData(data.financeBinId)
+		financeData.expenses.push({
+			amount: amount,
+			order: order,
+			fromOrder: id,
+			payedOn: new Date(),
+			payedBy: data.username,
+			id: data.getid()
+		})
+		data.overwriteBin(data.financeBinId, financeData)
+	}
 
-		originalOrders[affectedOrderIndex].order.forEach((item) => {
-			if (affectedItemIds.some((id) => id === item.id)) {
-				item.paymentStatus = str;
-			}
-		});
-		data.overwriteBin(data.orderBinId, originalOrders);
+
+	const submitPaymentStatus = async (status, debtAmount) => {
+		toggleModal('payment');
+		setPaymentStatus(status);
+		const orders = await data.getData(data.orderBinId);
+		const thisOrder = orders.find(order => order.id === id)
+		const thisSupplier = thisOrder.orders.find(order => order.supplier === name)
+		thisSupplier.paymentStatus = status
+		data.overwriteBin(data.orderBinId, orders);
 		debtAmount && submitDebt(debtAmount);
 	};
 
@@ -77,7 +83,7 @@ export default function SupplierBox(props) {
 	};
 
 	const supplierTotal = () => {
-		const sum = order.reduce((a, b) => {
+		const sum = order.items.reduce((a, b) => {
 			return parseFloat(a) + parseFloat(b.price) * parseFloat(b.quantity);
 		}, 0);
 		return sum.toFixed(2) + '€';
@@ -95,6 +101,7 @@ export default function SupplierBox(props) {
 				<PaymentStatusModal
 					toggleModal={() => toggleModal('payment')}
 					changeState={submitPaymentStatus}
+					submitExpense={submitExpense}
 				/>
 			)}
 			<div className="supplier_nameandstate">
@@ -107,7 +114,7 @@ export default function SupplierBox(props) {
 				</span>
 			</div>
 			<div className="order_item_container">
-				{order.map((item) => {
+				{order.items.map((item) => {
 					return <OrderItem item={item} key={data.getid()} />;
 				})}
 			</div>

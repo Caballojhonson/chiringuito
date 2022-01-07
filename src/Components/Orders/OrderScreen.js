@@ -6,16 +6,20 @@ import newOrderIcon from '../../images/add-file.png';
 
 
 export default function OrderScreen() {  
-    const [suppliers, setSuppliers] = useState(null)
-    const [orders, setOrders] = useState(null)
+    const [suppliers, setSuppliers] = useState('')
+    const [orders, setOrders] = useState('')
 
     useEffect(() => {
         data.getData(data.orderBinId).then(orders => setOrders(orders))
         data.getData(data.supplierBinId).then(suppliers => setSuppliers(suppliers))
+        return(
+            setOrders('') 
+        )
     }, [])
 
     return (
         <div className="app">
+            {console.log(orders)}
             <h1 className="screen_title">Pedidos</h1>
             {orders && suppliers && orders.map((order) => {
                 return(

@@ -94,11 +94,15 @@ export default function Router() {
 		  "in": [],
 		  "out": []
 		},
-		"salaries": []
+		"salaries": [],
+		"expenses": [],
 	  }
+	  
+
+
 	//data.getData(data.orderBinId).then(val => console.log(val))
 	//data.getData(data.stockBinId).then(val => console.log(val))
-	//data.getData(data.financeBinId).then(val => console.log(val))
+	data.getData(data.financeBinId).then(val => console.log(val))
 	//data.getData(data.usersBinId).then(val => console.log(val))
 	// data.overwriteBin(data.financeBinId, forceFinance)
 	

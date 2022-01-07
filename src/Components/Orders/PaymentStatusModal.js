@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
+import { data } from '../../data';
 
 export default function PaymentStatusModal(props) {
 	const [paymentStatus, setPaymentStatus] = useState(null);
 	const [debt, setDebt] = useState('');
-    const [isValid, setIsValid] = useState(true)
+	const [realPayment, setRealPayment] = useState('')
+    const [debtIsValid, setDebtIsValid] = useState(true);
+	const [paymentIsValid, setPaymentIsValid] = useState(true)
 	const [debtInputVisible, setDebtInputVisible] = useState(false);
+	const [paymentInputVisible, setPaymentInputVisible] = useState(false)
 
 	const setPaymentStateAs = (state, debtAmount) => {
 		state && props.changeState(state, debtAmount);
 	};
 
-	const handleChange = (e) => {
+	const handleDebtChange = (e) => {
 		e.target.value > 0 ? 
         setDebt(parseFloat(e.target.value)) : 
         setDebt('');
+	};
+
+	const handlePaymentChange = (e) => {
+		e.target.value > 0 ? 
+        setRealPayment(parseFloat(e.target.value)) : 
+        setRealPayment('');
 	};
 
 	const handleDebtInput = () => {
@@ -21,18 +31,26 @@ export default function PaymentStatusModal(props) {
 		setDebtInputVisible(true);
 	};
 
+	const handlePaymentInput = () => {
+		setPaymentStatus('Pagado');
+		setPaymentInputVisible(true);
+	};
+
 	const handleSubmit = () => {
 		if (paymentStatus === 'Deuda pendiente') {
-            !debt && setIsValid(false)
+            !debt && setDebtIsValid(false)
 			debt && setPaymentStateAs(paymentStatus, debt);
+		} else if (paymentStatus === 'Pagado') {
+			!realPayment && setPaymentIsValid(false)
+			realPayment && props.submitExpense(paymentStatus, realPayment)
 		} else {
 			setPaymentStateAs(paymentStatus);
 			setDebtInputVisible(false);
-            setIsValid(true)
+            setDebtIsValid(true)
+			setPaymentInputVisible(false)
+			setPaymentIsValid(true)
 		}
 	};
-
-    
 
 	return (
 		<div className="order_status_modal">
@@ -71,10 +89,10 @@ export default function PaymentStatusModal(props) {
 							
 								<input
 									type="number"
-									className={`form-control ${isValid ? '' : 'is-invalid'}`}
+									className={`form-control ${debtIsValid ? '' : 'is-invalid'}`}
 									placeholder="Importe deuda"
 									value={debt}
-									onChange={handleChange}
+									onChange={handleDebtChange}
 									aria-describedby="inputGroupPrepend"
 									required=""
 									style={
@@ -83,16 +101,33 @@ export default function PaymentStatusModal(props) {
 											: { display: 'none' }
 									}
 								/>
-								{!isValid && <div className="invalid-feedback">Introduce el importe</div>}
+								{!debtIsValid && <div className="invalid-feedback">Introduce el importe</div>}
 						
 
 							<button
-								onClick={() => setPaymentStatus('Pagado')}
+								onClick={handlePaymentInput}
 								type="button"
 								className="btn btn-success"
 							>
 								Pagado
 							</button>
+
+							<input
+									type="number"
+									className={`form-control ${paymentIsValid ? '' : 'is-invalid'}`}
+									placeholder="Importe real"
+									value={realPayment}
+									onChange={handlePaymentChange}
+									aria-describedby="inputGroupPrepend"
+									required=""
+									style={
+										paymentInputVisible
+											? { display: 'block' }
+											: { display: 'none' }
+									}
+								/>
+								{!paymentIsValid && <div className="invalid-feedback">Introduce el importe final</div>}
+
 						</div>
 						<div className="modal-footer">
 							<button

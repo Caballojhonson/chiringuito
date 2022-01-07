@@ -10,13 +10,16 @@ import ChecklistItem from './ChecklistItem';
 export default function Checklist_Main() {
 	let navigate = useNavigate();
 
-	const [stockItems, setStockItems] = useState(null)
+	const [stockItems, setStockItems] = useState('')
 	const [order, setOrder] = useState([]);
 	const [filterBy, setFilterBy] = useState('supplier')
 	const [search, setSearch] = useState('')
 
 	useEffect(() => {
 		data.getData(data.stockBinId).then(stock => setStockItems(stock))
+		return(
+			setStockItems('')
+		)
 	}, [])
 	
 	const handleChange = (e) => {
@@ -38,18 +41,54 @@ export default function Checklist_Main() {
 
 	const submitOrder = async () => {
 		const filteredOrders = order.filter((item) => item.quantity > 0);
-		const orderWithStatus = filteredOrders.map((item) => {
-			item.orderStatus = 'Pendiente'
-			item.paymentStatus = 'Pendiente de pago'
-			return item
-		})
+		const totalPrice = filteredOrders.reduce((prev, curr) => Number(prev) + Number(curr.price * curr.quantity), 0)
+		// const orderWithStatus = filteredOrders.map((item) => {
+		// 	item.orderStatus = 'Pendiente'
+		// 	item.paymentStatus = 'Pendiente de pago'
+		// 	return item
+		// })
 		if (filteredOrders.length > 0) {
 			const newOrder = {
-				order: orderWithStatus,
+				order: filteredOrders,
 				id: data.getid(),
 				submittedBy: data.username,
 				submittedAt: new Date(),
 				isArchived: false,
+				orderStatus: 'Pendiente',
+				paymentStatus: 'Pendiente de pago',
+				totalPrice: totalPrice,
+			};
+			const prevOrders = await data.getData(data.orderBinId);
+			const updatedOrders = prevOrders.concat(newOrder);
+			data.overwriteBin(data.orderBinId, updatedOrders)
+			.then(() => navigate('/pedidos'));
+		}
+	};
+
+	const submitOrder2 = async () => {
+		const orderedItems = order.filter((item) => item.quantity > 0);
+		const totalPrice = orderedItems.reduce(
+			(prev, curr) => Number(prev) + Number(curr.price * curr.quantity), 0)
+		const suppliersInThisOrder = [...new Set(orderedItems.map(item => item.supplier))]
+		const ordersBySupplier = suppliersInThisOrder.map(supplier => {
+			return {
+				orderStatus: 'Pendiente',
+				paymentStatus: 'Pendiente de pago',
+				supplier: supplier,
+				id: data.getid(),
+				items: orderedItems.filter(item => item.supplier === supplier),
+				isArchived: false
+			}
+		})
+
+		if (orderedItems.length > 0) {
+			const newOrder = {
+				orders: ordersBySupplier,
+				id: data.getid(),
+				submittedBy: data.username,
+				submittedAt: new Date(),
+				isArchived: false,
+				totalPrice: totalPrice,
 			};
 			const prevOrders = await data.getData(data.orderBinId);
 			const updatedOrders = prevOrders.concat(newOrder);
@@ -109,7 +148,7 @@ export default function Checklist_Main() {
 			{filterBadges}
 			{!search && CheckList}
 			{search && searchResults()}
-			<button onClick={submitOrder} className="button_primary button_group order_btn">
+			<button onClick={submitOrder2} className="button_primary button_group order_btn">
 				Generar pedido
 			</button>
 
