@@ -71,13 +71,15 @@ export default function Checklist_Main() {
 			(prev, curr) => Number(prev) + Number(curr.price * curr.quantity), 0)
 		const suppliersInThisOrder = [...new Set(orderedItems.map(item => item.supplier))]
 		const ordersBySupplier = suppliersInThisOrder.map(supplier => {
+			const thisSuppliersOrderedItems = orderedItems.filter(item => item.supplier === supplier)
 			return {
 				orderStatus: 'Pendiente',
 				paymentStatus: 'Pendiente de pago',
 				supplier: supplier,
 				id: data.getid(),
-				items: orderedItems.filter(item => item.supplier === supplier),
-				isArchived: false
+				items: thisSuppliersOrderedItems,
+				isArchived: false,
+				totalPrice: thisSuppliersOrderedItems.reduce((a,b) => a + (b.price * b.quantity), 0)
 			}
 		})
 

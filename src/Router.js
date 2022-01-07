@@ -99,7 +99,6 @@ export default function Router() {
 	  }
 	  
 
-
 	//data.getData(data.orderBinId).then(val => console.log(val))
 	//data.getData(data.stockBinId).then(val => console.log(val))
 	data.getData(data.financeBinId).then(val => console.log(val))
@@ -111,16 +110,13 @@ export default function Router() {
 	//console.log(refranero[Math.floor(Math.random() * refranero.length )])
 	//data.createBin([]).then(val => console.log(val))
 
-	// async function  modifyStockTaxFormat() {
-	// 	const originalStock = await data.getData(data.stockBinId)
-	// 	const modifiedTaxFormatObject = originalStock.map(item => {
-	// 		capitalize(item.category) 
-	// 	return item
-	// 	})
-	// 	console.log(modifiedTaxFormatObject)
-	//  	data.overwriteBin(data.stockBinId, modifiedTaxFormatObject)
-	//  }
-	// modifyStockTaxFormat()
+	// async function resetExpenses() {
+	// 	const finance = await data.getData(data.financeBinId)
+	// 	finance.expenses = []
+	// 	await data.overwriteBin(data.financeBinId, finance)
+	// 	console.log(finance)
+	// }
+	// resetExpenses()
 
 	let newSession = localStorage.getItem('newSession')
 

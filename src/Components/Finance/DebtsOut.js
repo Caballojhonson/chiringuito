@@ -13,8 +13,16 @@ export default function DebtsOut(props) {
     }, [])
 
     const supplierTotalDebt = () => {
-        const orderedOrRecieved = orders.filter(order => order.order.filter(item => item.paymentStatus === 'Recibido'))
-        console.log(orderedOrRecieved)
+        const orderedOrRecieved = []
+        orders.map(order => {
+            order.orders.map(item => {
+                if(item.orderStatus !== 'Pendiente' && item.isArchived === false) {
+                    orderedOrRecieved.push(item)
+                }
+            })
+        })
+        const totalDebt = orderedOrRecieved.reduce((a, b) => a + b.totalPrice , 0)
+        return `-${totalDebt}€`
     }
 
 
