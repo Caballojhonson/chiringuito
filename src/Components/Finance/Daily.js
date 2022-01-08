@@ -204,7 +204,7 @@ export default function Daily(props) {
     evalIfOpen() &&  
     (
         <div className="dailybalance_container">
-            <h1 style={balanceColor()} className="dailybalance">{`${todaysBalance()}€`}</h1>
+            <h1 style={balanceColor()} className="dailybalance">{`${todaysBalance().toFixed(2)}€`}</h1>
             <p className="dailybalance dailybalance_tag">Balance diario</p>
         </div>
     )
