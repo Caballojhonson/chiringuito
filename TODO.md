@@ -11,7 +11,7 @@ Need:
 Main navbar:
     - stock
     - reservations
-    - financial -- non prioritary
+    - financial 
     - notes
 
 Stock:
@@ -35,10 +35,11 @@ Big todo list:
         - Edit stockitems OK
         - Order price confirm on payment!!! OK
         - Order merging if sameWeek && NOT ordered yet
+        - Archivede orders style
         - Archived orders section
         - Auto archive orders
         - Finance expenses screen
-        - Finance Acreedores screen
+        - Finance Acreedores screen OK
         - Finance Debts screen
         - League finance tracking
         - supplier view + edit
@@ -55,4 +56,4 @@ Big todo list:
 
 Bugfix:
         -New items not ordering alphabetically on EDIT
-        
+

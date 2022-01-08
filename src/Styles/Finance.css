@@ -105,3 +105,9 @@ transform: scale(1.1);
     font-size: 0.85rem;
     font-weight: 200;
 }
+.expense_item_container {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}

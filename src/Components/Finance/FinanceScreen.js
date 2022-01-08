@@ -3,15 +3,13 @@ import { data } from '../../data'
 import '../../Styles/Finance.css'
 import Daily from './Daily'
 import DebtsOut from './DebtsOut'
+import Expenses from './Expenses'
 import FinanceCalendar from './FinanceCalendar'
 import FinancialStats from './FinancialStats'
 
 export default function FinanceScreen() {
     const [financialData, setfinancialData] = useState(null)
-    const [view, setview] = useState({
-        daily: true,
-        stats: false,
-    })
+    const [view, setview] = useState({ daily: true })
 
     useEffect(() => {
         console.log('Fetching Finance!')
@@ -34,6 +32,7 @@ export default function FinanceScreen() {
                     <h6 className='finance_menu_btn' onClick={() => setView('calendar')}>Calendario</h6>
                     <h6 className='finance_menu_btn' onClick={() => setView('stats')}>Estadísticas</h6>
                     <h6 className='finance_menu_btn' onClick={() => setView('debtOut')}>Acreedores</h6>
+                    <h6 className='finance_menu_btn' onClick={() => setView('expenses')}>Gastos</h6>
                 </div>
             </div>
             <div>
@@ -41,6 +40,7 @@ export default function FinanceScreen() {
             {financialData && view.stats && <FinancialStats financialData={financialData} />}
             {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
             {financialData && view.calendar && <FinanceCalendar financialData={financialData} />}
+            {financialData && view.expenses && <Expenses financialData={financialData} />}
             </div>
         </div>
     )
