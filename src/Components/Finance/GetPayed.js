@@ -19,14 +19,13 @@ export default function GetPayed(props) {
            date: calDate,
            amount: salary,
            isPayed: isPayed,
-           user: data.username
+           user: data.username,
+           id: data.getid()
        }
 
     financialData.salaries.push(newSalary)
     await data.overwriteBin(data.financeBinId, financialData)
-    onchange(new Date())
-    setSalary('')
-    setIsPayed(false)
+    window.location.reload()
     }
 
     const formButtons = (

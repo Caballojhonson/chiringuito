@@ -25,12 +25,19 @@ export default function DebtsOut(props) {
         return `-${totalDebt}€`
     }
 
+    const nonPayedSalaries = financialData.salaries.filter(salary => !salary.isPayed)
+
+    const salariesTotalDebt = nonPayedSalaries
+    .reduce((a, b) =>  (a + Number(b.amount)), 0)
+
 
     return (
         <div className="finance_col_right">
             <h3>Acreedores</h3>
             <h6>Proveedores</h6>
             {orders && supplierTotalDebt()}
+            <h6>Salarios</h6>
+            {`-${salariesTotalDebt}€`}
         </div>
     )
 }
