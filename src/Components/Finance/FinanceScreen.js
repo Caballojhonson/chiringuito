@@ -6,6 +6,7 @@ import DebtsOut from './DebtsOut'
 import Expenses from './Expenses'
 import FinanceCalendar from './FinanceCalendar'
 import FinancialStats from './FinancialStats'
+import GetPayed from './GetPayed'
 
 export default function FinanceScreen() {
     const [financialData, setfinancialData] = useState(null)
@@ -34,6 +35,12 @@ export default function FinanceScreen() {
                     <h6 className='finance_menu_btn' onClick={() => setView('debtOut')}>Acreedores</h6>
                     <h6 className='finance_menu_btn' onClick={() => setView('expenses')}>Gastos</h6>
                 </div>
+                <button 
+                className='btn button_primary get_payed_btn'
+                onClick={() => setView('getPayed')}
+                    >
+                        Cobrar dinero
+                    </button>
             </div>
             <div>
             {financialData && view.daily && <Daily financialData={financialData} />}
@@ -41,6 +48,7 @@ export default function FinanceScreen() {
             {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
             {financialData && view.calendar && <FinanceCalendar financialData={financialData} />}
             {financialData && view.expenses && <Expenses financialData={financialData} />}
+            {financialData && view.getPayed && <GetPayed financialData={financialData} />}
             </div>
         </div>
     )

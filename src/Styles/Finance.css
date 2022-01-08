@@ -5,7 +5,7 @@
 .finance_col_left {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     height: 100%;
     padding: 0.3rem;
@@ -65,11 +65,12 @@
     font-size: 0.8rem;
 }
 .finance_btns_wrapper{
+    margin-top: auto;
     padding-left: 0.6rem; 
 }
 .finance_menu_btn{
     cursor: pointer;
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 1rem 0 1rem 0;
     transition: ease-in-out;
 }
 .finance_menu_btn:hover, 
@@ -110,4 +111,17 @@ transform: scale(1.1);
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+}
+.get_payed_btn {
+    margin-top: auto;
+    margin-bottom: 1rem;
+}
+.salary_input {
+    width: 65%;
+}
+.salary_btns {
+    margin-top: 0rem;
+}
+.is_payed {
+    margin-bottom:1rem;
 }

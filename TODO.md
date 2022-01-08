@@ -35,7 +35,7 @@ Big todo list:
         - Edit stockitems OK
         - Order price confirm on payment!!! OK
         - Order merging if sameWeek && NOT ordered yet
-        - Archivede orders style
+        - Archived orders style
         - Archived orders section
         - Auto archive orders
         - Finance expenses screen
@@ -52,6 +52,7 @@ Big todo list:
         - User activity tracking
         - User points on action system
         - Employee of the month calculator and display
+        - Order price deviation from reality % on payment
 
 
 Bugfix:
