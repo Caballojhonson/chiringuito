@@ -14,6 +14,7 @@ import Loadscreen from './Components/UI/Loadscreen';
 import FinanceScreen from './Components/Finance/FinanceScreen';
 import EventsMain from './Components/Events/EventsMain';
 import EditItems from './Components/Settings/EditItems';
+import { db } from './db';
 
 export default function Router() {
 	function capitalize(word) {

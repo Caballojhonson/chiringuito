@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import { data } from '../../data'
 import '../../Styles/Finance.css'
@@ -12,12 +13,21 @@ import MySalary from './MySalary'
 export default function FinanceScreen() {
     const [financialData, setfinancialData] = useState(null)
     const [view, setview] = useState({ daily: true })
+    const [salaries, setSalaries] = useState('')
 
     useEffect(() => {
         console.log('Fetching Finance!')
         data.getData(data.financeBinId)
         .then(val => setfinancialData(val))
+        getSalaries()
     }, [])
+
+    async function getSalaries() {
+        await axios
+        .get('https://chiringuito-api.herokuapp.com/api/salaries')
+        .then(res => setSalaries(res.data.data))
+        .catch(err => console.log(err))
+    }
 
     function setView(viewKey) {
         const clearedViews = Object.keys(view).forEach(key => view[key] = false)
@@ -50,8 +60,8 @@ export default function FinanceScreen() {
             {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
             {financialData && view.calendar && <FinanceCalendar financialData={financialData} />}
             {financialData && view.expenses && <Expenses financialData={financialData} />}
-            {financialData && view.getPayed && <GetPayed financialData={financialData} />}
-            {financialData && view.mySalary && <MySalary financialData={financialData} />}
+            {financialData && view.getPayed && <GetPayed financialData={financialData} salaries={salaries} refreshSalaries={getSalaries} />}
+            {financialData && view.mySalary && <MySalary financialData={financialData} salaries={salaries} refreshSalaries={getSalaries}/>}
             </div>
         </div>
     )

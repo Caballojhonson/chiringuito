@@ -1,24 +1,28 @@
+import axios from 'axios'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import React, {useState} from 'react'
 import { data } from '../../data'
 
 export default function MySalary(props) {
-    const {financialData} = props
+    const {financialData, salaries, refreshSalaries} = props
 
-    function getUsersSalaries() {
-        return financialData.salaries.filter(salary => salary.user === data.username)
-    }
 
     async function togglePayed(salaryId) {
-        const salary = financialData.salaries.find(item => item.id === salaryId)
+        console.log(salaries)
+        console.log(salaryId.toString())
+        const salary = salaries.find(item => item._id === salaryId)
         salary.isPayed = !salary.isPayed
-        console.log(salary)
-        await data.overwriteBin(data.financeBinId, financialData)
-        window.location.reload()
+        await axios.put(`https://chiringuito-api.herokuapp.com/api/salaries/update/${salaryId}`, salary)
+        refreshSalaries()
+        // const salary = financialData.salaries.find(item => item.id === salaryId)
+        // salary.isPayed = !salary.isPayed
+        // console.log(salary)
+        // await data.overwriteBin(data.financeBinId, financialData)
+        // window.location.reload()
     }
 
-    const displayUserSalaries = getUsersSalaries().map(item => <UserSalaryItem item={item} />)
+    const displayUserSalaries = salaries.map(item => <UserSalaryItem item={item} />)
 
     function UserSalaryItem(props) {
         const {item} = props
@@ -34,7 +38,7 @@ export default function MySalary(props) {
 						className="form-check-input"
 						type="checkbox"
 						checked={item.isPayed}
-						onChange={() => togglePayed(item.id)}
+						onChange={() => togglePayed(item._id)}
 					/>
 					<label className="form-check-label" htmlFor="formSwitchCheckChecked">
 						Cobrado?
