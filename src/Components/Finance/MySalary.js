@@ -8,6 +8,7 @@ export default function MySalary(props) {
     const {financialData, salaries, refreshSalaries} = props
 
 
+
     async function togglePayed(salaryId) {
         console.log(salaries)
         console.log(salaryId.toString())
@@ -22,7 +23,9 @@ export default function MySalary(props) {
         // window.location.reload()
     }
 
-    const displayUserSalaries = salaries.map(item => <UserSalaryItem item={item} />)
+    const thisUsersSalaries = salaries.filter(salary => salary.user === data.username)
+
+    const displayUserSalaries = thisUsersSalaries.map(item => <UserSalaryItem item={item} />)
 
     function UserSalaryItem(props) {
         const {item} = props

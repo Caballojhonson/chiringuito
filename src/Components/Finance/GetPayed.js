@@ -11,6 +11,18 @@ export default function GetPayed(props) {
     const [salary, setSalary] = useState('')
     const [isPayed, setIsPayed] = useState(false)
 
+    // async function populateMongo() {
+    //     financialData.salaries.forEach(async salary => {
+
+    //         await axios
+    //        .post('https://chiringuito-api.herokuapp.com/api/salaries/new', salary)
+    //        .then(res => console.log(res))
+    //        .catch(err => err.message)
+    //     })
+    // }
+    // populateMongo()
+
+
     function handleSalaryAmount(e) {
         setSalary(e.target.value)
     }
