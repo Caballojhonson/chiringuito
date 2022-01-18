@@ -32,18 +32,17 @@ Matches :
         - when
 
 Big todo list:
-        - Edit stockitems OK
-        - Order price confirm on payment!!! OK
+        // - Edit stockitems OK
+        // - Order price confirm on payment!!! OK
         - Order merging if sameWeek && NOT ordered yet
         - Archived orders style
         - Archived orders section
         - Auto archive orders
-        - Finance expenses screen
-        - Finance Acreedores screen OK
-        - Finance Debts screen
+        // - Finance expenses screen OK
+        // - Finance Debts screen OK
         - League finance tracking
         - supplier view + edit
-        - Employee worked hours
+        // - Employee worked hours
         - Daily balance calendar
         - Note section
         - Add images (API)

@@ -1,12 +1,12 @@
 import isSameDay from "date-fns/isSameDay";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { data } from "../../data";
 import NewOperationForm from "./NewOperationForm";
 import Operation from "./Operation";
 
 
 export default function Daily(props) {
-    const {financialData} = props
+    const {financialData, days, refreshDays} = props
 
     const [alreadyOpenWarn, setalreadyOpenWarn] = useState(false)
     const [showOpeningInput, setshowOpeningInput] = useState(false);
@@ -16,6 +16,8 @@ export default function Daily(props) {
     const [closingAmount, setclosingAmount] = useState(0)
 
     const lastDay = financialData.days[financialData.days.length - 1]
+
+    days && console.log(days)
 
     function todaysBalance() {
        return lastDay.operations.reduce(
@@ -73,14 +75,14 @@ export default function Daily(props) {
         if(openingAmount && weCanReopen()) {
             const newDay = {
                 id: data.getid(),
-                by: data.username,
+                usr: data.username,
                 timestamp: new Date(),
                 operations: [
                     {
                         concept: 'Apertura',
                         timestamp: new Date(),
-                        by: data.username,
-                        type: 'opening cash',
+                        usr: data.username,
+                        opType: 'opening cash',
                         amount: Number(openingAmount),
                     }
                 ],
@@ -97,6 +99,7 @@ export default function Daily(props) {
         const totalBalance = todaysBalance()
         lastDay.isOpen = false
         lastDay.closingCash = Number(closingAmount)
+        lastDay.closingTime = new Date()
         lastDay.totalBalance = (totalBalance + lastDay.closingCash - lastDay.openingCash)
         await data.overwriteBin(data.financeBinId, financialData)
         window.location.reload()

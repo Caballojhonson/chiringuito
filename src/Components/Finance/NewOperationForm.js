@@ -9,7 +9,7 @@ export default function NewOperationForm(props) {
         timestamp: new Date(),
         concept: '',
         amount: '',
-        type: '',
+        opType: '',
         bizum: false,
     })
 
@@ -22,10 +22,10 @@ export default function NewOperationForm(props) {
     const handleConfirm = async () => {
         const operation = newOperation
         const lastOperations = financialData.days[financialData.days.length - 1].operations
-        if(newOperation.type === 'withdrawal') {
+        if(newOperation.opType === 'withdrawal') {
             operation.amount = -operation.amount 
         }
-        else if (newOperation.type === 'bizum') {
+        else if (newOperation.opType === 'bizum') {
             operation.bizum = true         
         }
         console.log(operation.amount)
@@ -40,8 +40,8 @@ export default function NewOperationForm(props) {
         <div className="dropdown-contianer">
 					<div className="form-item">
 						<select
-							name="type"
-							value={newOperation.type}
+							name="opType"
+							value={newOperation.opType}
 							onChange={handleChange}
 							className="form-select form-select-sm"
 							aria-label="Small select"
@@ -56,8 +56,8 @@ export default function NewOperationForm(props) {
     )
 
     const conceptInput = 
-        newOperation.type &&
-        newOperation.type !== 'salary' &&
+        newOperation.opType &&
+        newOperation.opType !== 'salary' &&
         (
             <div className="form-item">
             <label htmlFor="productName" className="form-label">
@@ -75,7 +75,7 @@ export default function NewOperationForm(props) {
         )
 
     const amountInput = 
-    newOperation.type && 
+    newOperation.opType && 
     (
         <div className="form-item">
 					<label htmlFor="price" className="form-label">
@@ -113,7 +113,7 @@ export default function NewOperationForm(props) {
     )
 
     const withdrawalHelper = 
-    (newOperation.type === 'withdrawal') ?
+    (newOperation.opType === 'withdrawal') ?
         <p className='operation_helper'>
             <strong style={{color: 'red'}}>Importante:</strong> <br/>
             Utilizar al retirar de caja o de cualquier otro lugar. <br/>
@@ -122,7 +122,7 @@ export default function NewOperationForm(props) {
     : null
 
     const depositHelper = 
-    (newOperation.type === 'deposit') ?
+    (newOperation.opType === 'deposit') ?
         <p className='operation_helper'>
             <strong style={{color: 'red'}}>Importante:</strong> <br/>
             Usar en caso de GUARDAR dinero <strong>de la caja</strong> en otro lugar.

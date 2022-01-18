@@ -25,7 +25,7 @@ export default function MySalary(props) {
 
     const thisUsersSalaries = salaries.filter(salary => salary.user === data.username)
 
-    const displayUserSalaries = thisUsersSalaries.map(item => <UserSalaryItem item={item} />)
+    const displayUserSalaries = thisUsersSalaries.map((item, i) => <UserSalaryItem item={item} key={i} />)
 
     function UserSalaryItem(props) {
         const {item} = props

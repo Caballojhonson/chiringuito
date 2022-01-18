@@ -14,18 +14,27 @@ export default function FinanceScreen() {
     const [financialData, setfinancialData] = useState(null)
     const [view, setview] = useState({ daily: true })
     const [salaries, setSalaries] = useState('')
+    const [days, setDays] = useState('')
 
     useEffect(() => {
         console.log('Fetching Finance!')
         data.getData(data.financeBinId)
         .then(val => setfinancialData(val))
         getSalaries()
+        getDays()
     }, [])
 
     async function getSalaries() {
         await axios
         .get('https://chiringuito-api.herokuapp.com/api/salaries')
         .then(res => setSalaries(res.data.data))
+        .catch(err => console.log(err))
+    }
+
+    async function getDays() {
+        await axios
+        .get('https://chiringuito-api.herokuapp.com/api/days')
+        .then(res => setDays(res.data.data))
         .catch(err => console.log(err))
     }
 
@@ -55,7 +64,7 @@ export default function FinanceScreen() {
                     </button>
             </div>
             <div>
-            {financialData && view.daily && <Daily financialData={financialData} />}
+            {financialData && view.daily && <Daily financialData={financialData} days={days} refreshDays={getDays} />}
             {financialData && view.stats && <FinancialStats financialData={financialData} />}
             {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
             {financialData && view.calendar && <FinanceCalendar financialData={financialData} />}
