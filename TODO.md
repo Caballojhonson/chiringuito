@@ -52,6 +52,12 @@ Big todo list:
         - User points on action system
         - Employee of the month calculator and display
         - Order price deviation from reality % on payment
+        - filter edit screen or remake
+        - Add supplier to items when search
+        - Addsuppliers to search criteria
+        - Fixed expenses - periodic
+
+
 
 
 Bugfix:

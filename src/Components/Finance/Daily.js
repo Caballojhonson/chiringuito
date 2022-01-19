@@ -15,9 +15,11 @@ export default function Daily(props) {
     const [openingAmount, setopeningAmount] = useState(0)
     const [closingAmount, setclosingAmount] = useState(0)
 
+    const dbLastDay = days && days.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+
     const lastDay = financialData.days[financialData.days.length - 1]
 
-    days && console.log(days)
+
 
     function todaysBalance() {
        return lastDay.operations.reduce(
@@ -214,7 +216,9 @@ export default function Daily(props) {
 
     return ( 
     <div className="finance_col_right">
-        {console.log(financialData)}
+        {        days && console.log(days.map(day => day.timestamp))}
+{    days && console.log(dbLastDay.map(day => `sorted: ${day.timestamp}`))}
+
         <h3>Caja diaria</h3>
         {cantOpenWarn}
         {newOperationForm}

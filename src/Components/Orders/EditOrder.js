@@ -3,11 +3,12 @@ import ChecklistItem from "../Checklist/ChecklistItem";
 
 export default function EditOrder(props) {
   const { order, closeModal, onConfirm } = props;
+  console.log(order)
 
   const uselessFunc = () => {};
 
   const renderItems = (
-    order.order.map((item) => {
+    order.orders.map((item) => {
         return (
           <ChecklistItem
             itemObject={item}
