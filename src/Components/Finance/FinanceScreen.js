@@ -23,6 +23,12 @@ export default function FinanceScreen() {
         getDays()
     }, [])
 
+        // setInterval(() => {
+        //     getSalaries()
+        //     getDays()
+        //     console.log('Data refreshed')
+        // }, 10000)
+
     async function getSalaries() {
         await axios
         .get('https://chiringuito-api.herokuapp.com/api/salaries')

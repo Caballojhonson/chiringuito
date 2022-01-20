@@ -22,7 +22,7 @@ export default function NewOperationForm(props) {
 
     const handleConfirm = async () => {
         const operation = newOperation
-        if(newOperation.opType === 'withdrawal') {
+        if(newOperation.opType === 'deposit') {
             operation.amount = -operation.amount 
         }
         else if (newOperation.opType === 'bizum') {
@@ -51,8 +51,8 @@ export default function NewOperationForm(props) {
 							aria-label="Small select"
 						>
 							<option defaultValue="">Tipo</option>
-							<option value="withdrawal">Retirada</option>
-							<option value="deposit">Vaciado caja</option>
+							<option value="withdrawal">Saco pasta</option>
+							<option value="deposit">Meto pasta</option>
 							<option value="bizum">Bizum</option>
 						</select>
 					</div>
@@ -120,8 +120,7 @@ export default function NewOperationForm(props) {
     (newOperation.opType === 'withdrawal') ?
         <p className='operation_helper'>
             <strong style={{color: 'red'}}>Importante:</strong> <br/>
-            Utilizar al retirar de caja o de cualquier otro lugar. <br/>
-            Introducir las vueltas SIEMPRE en caja.
+            Utilizar solamente si retiras de CAJA<br/>
         </p>
     : null
 
@@ -129,7 +128,7 @@ export default function NewOperationForm(props) {
     (newOperation.opType === 'deposit') ?
         <p className='operation_helper'>
             <strong style={{color: 'red'}}>Importante:</strong> <br/>
-            Usar en caso de GUARDAR dinero <strong>de la caja</strong> en otro lugar.
+            Usar en caso de meter dinero EN LA CAJA
         </p>
     : null
 

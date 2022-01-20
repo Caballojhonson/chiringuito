@@ -132,6 +132,7 @@ export default function Daily(props) {
         lastDay
         )
         await refreshDays()
+        setalreadyOpenWarn(false)
     }
 
     const openDayBtn = 
