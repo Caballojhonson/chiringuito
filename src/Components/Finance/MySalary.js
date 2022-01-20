@@ -5,22 +5,13 @@ import React, {useState} from 'react'
 import { data } from '../../data'
 
 export default function MySalary(props) {
-    const {financialData, salaries, refreshSalaries} = props
-
-
+    const {salaries, refreshSalaries} = props
 
     async function togglePayed(salaryId) {
-        console.log(salaries)
-        console.log(salaryId.toString())
         const salary = salaries.find(item => item._id === salaryId)
         salary.isPayed = !salary.isPayed
         await axios.put(`https://chiringuito-api.herokuapp.com/api/salaries/update/${salaryId}`, salary)
-        refreshSalaries()
-        // const salary = financialData.salaries.find(item => item.id === salaryId)
-        // salary.isPayed = !salary.isPayed
-        // console.log(salary)
-        // await data.overwriteBin(data.financeBinId, financialData)
-        // window.location.reload()
+        await refreshSalaries()
     }
 
     const thisUsersSalaries = salaries.filter(salary => salary.user === data.username)

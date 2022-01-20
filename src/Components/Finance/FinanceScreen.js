@@ -17,7 +17,6 @@ export default function FinanceScreen() {
     const [days, setDays] = useState('')
 
     useEffect(() => {
-        console.log('Fetching Finance!')
         data.getData(data.financeBinId)
         .then(val => setfinancialData(val))
         getSalaries()
@@ -64,13 +63,13 @@ export default function FinanceScreen() {
                     </button>
             </div>
             <div>
-            {financialData && view.daily && <Daily financialData={financialData} days={days} refreshDays={getDays} />}
+            {days && view.daily && <Daily days={days} refreshDays={getDays} />}
             {financialData && view.stats && <FinancialStats financialData={financialData} />}
             {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
             {financialData && view.calendar && <FinanceCalendar financialData={financialData} />}
             {financialData && view.expenses && <Expenses financialData={financialData} />}
-            {financialData && view.getPayed && <GetPayed financialData={financialData} salaries={salaries} refreshSalaries={getSalaries} />}
-            {financialData && view.mySalary && <MySalary financialData={financialData} salaries={salaries} refreshSalaries={getSalaries}/>}
+            {salaries && view.getPayed && <GetPayed salaries={salaries} refreshSalaries={getSalaries} />}
+            {salaries && view.mySalary && <MySalary salaries={salaries} refreshSalaries={getSalaries}/>}
             </div>
         </div>
     )

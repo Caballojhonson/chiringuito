@@ -1,3 +1,4 @@
+import axios from "axios";
 import isSameDay from "date-fns/isSameDay";
 import React, { useState, useEffect } from "react";
 import { data } from "../../data";
@@ -6,7 +7,7 @@ import Operation from "./Operation";
 
 
 export default function Daily(props) {
-    const {financialData, days, refreshDays} = props
+    const {days, refreshDays} = props
 
     const [alreadyOpenWarn, setalreadyOpenWarn] = useState(false)
     const [showOpeningInput, setshowOpeningInput] = useState(false);
@@ -15,11 +16,16 @@ export default function Daily(props) {
     const [openingAmount, setopeningAmount] = useState(0)
     const [closingAmount, setclosingAmount] = useState(0)
 
-    const dbLastDay = days && days.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
+    //NOT needed for now
+    function sortDays() {
+        days.forEach(day => {
+            day.timestamp = new Date(day.timestamp)
+        });
+        days.sort((a, b) => a.timestamp - b.timestamp)
+    }
 
-    const lastDay = financialData.days[financialData.days.length - 1]
-
-
+    const lastDay = days[days.length - 1]
+    const lastDayId = lastDay._id
 
     function todaysBalance() {
        return lastDay.operations.reduce(
@@ -91,26 +97,41 @@ export default function Daily(props) {
                 openingCash: Number(openingAmount),
                 isOpen: true,
             }
-            financialData.days.push(newDay)
-            await data.overwriteBin(data.financeBinId, financialData)
+
+            await axios
+            .post('https://chiringuito-api.herokuapp.com/api/days/new',
+            newDay
+            )
             setshowOpeningInput(false)
+            await refreshDays()
         }
     }
 
     const closeDay = async () => {
+        const lastDayId = lastDay._id
         const totalBalance = todaysBalance()
+
         lastDay.isOpen = false
         lastDay.closingCash = Number(closingAmount)
         lastDay.closingTime = new Date()
         lastDay.totalBalance = (totalBalance + lastDay.closingCash - lastDay.openingCash)
-        await data.overwriteBin(data.financeBinId, financialData)
-        window.location.reload()
+
+        await axios
+        .put(`https://chiringuito-api.herokuapp.com/api/days/update/${lastDayId}`,
+        lastDay
+        )
+        await refreshDays()
+        toggleClosingInput()
     }
 
     const reopenDay = async () => {
         lastDay.isOpen = true
-        await data.overwriteBin(data.financeBinId, financialData)
-        window.location.reload()
+
+        await axios
+        .put(`https://chiringuito-api.herokuapp.com/api/days/update/${lastDayId}`,
+        lastDay
+        )
+        await refreshDays()
     }
 
     const openDayBtn = 
@@ -201,7 +222,7 @@ export default function Daily(props) {
     const newOperationForm = 
         showNewOperationModal && 
         (
-            <NewOperationForm closeModal={toggleModal} financialData={financialData} />
+            <NewOperationForm closeModal={toggleModal} lastDay={lastDay} refreshDays={refreshDays} />
         )
 
     const dailyBalance = 
@@ -216,9 +237,6 @@ export default function Daily(props) {
 
     return ( 
     <div className="finance_col_right">
-        {        days && console.log(days.map(day => day.timestamp))}
-{    days && console.log(dbLastDay.map(day => `sorted: ${day.timestamp}`))}
-
         <h3>Caja diaria</h3>
         {cantOpenWarn}
         {newOperationForm}

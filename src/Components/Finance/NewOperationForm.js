@@ -1,8 +1,9 @@
+import axios from 'axios';
 import React, {useState} from 'react'
 import { data } from '../../data';
 
 export default function NewOperationForm(props) {
-    const {closeModal, financialData} = props
+    const {closeModal, financialData, lastDay, refreshDays} = props
 
     const [newOperation, setnewOperation] = useState({
         usr: data.username,
@@ -21,19 +22,22 @@ export default function NewOperationForm(props) {
 
     const handleConfirm = async () => {
         const operation = newOperation
-        const lastOperations = financialData.days[financialData.days.length - 1].operations
         if(newOperation.opType === 'withdrawal') {
             operation.amount = -operation.amount 
         }
         else if (newOperation.opType === 'bizum') {
             operation.bizum = true         
         }
-        console.log(operation.amount)
         operation.amount = Number(operation.amount)
-        lastOperations.push(operation)
-        await data.overwriteBin(data.financeBinId, financialData)
+        // lastOperations.push(operation)
+        // await data.overwriteBin(data.financeBinId, financialData)
+        // window.location.reload()
+        await axios
+        .put(`https://chiringuito-api.herokuapp.com/api/days/newop/${lastDay._id}`,
+        operation
+        )
+        await refreshDays()
         closeModal()
-        window.location.reload()
     }
 
     const typeSelect = (
