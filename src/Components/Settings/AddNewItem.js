@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { data } from '../../data';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function AddNewItem(props) {
 	const {stockItem, closeFn} = props
@@ -9,16 +10,22 @@ export default function AddNewItem(props) {
 	const [suppliers, setSuppliers] = useState(null);
 	const [stockItems, setStockItems] = useState(null);
 
-	!suppliers &&
+	useEffect(() => {
+		getItems()
+
+		!suppliers &&
 		data.getData(data.supplierBinId).then((val) => setSuppliers(val));
-	!stockItems &&
-		data.getData(data.stockBinId).then((val) => setStockItems(val));
+	}, [])
+
+		async function getItems() {
+			const items = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
+			setStockItems(items.data.data)
+		}
 
 	const [newProduct, setNewProduct] = useState(
 		stockItem ? 
 		{...stockItem, price: stockItem.price / stockItem.iva} :
 			{
-			id: data.getid(),
 			name: '',
 			price: 0,
 			iva: 0,
@@ -35,28 +42,41 @@ export default function AddNewItem(props) {
 		setNewProduct({ ...newProduct, [name]: value });
 	};
 
-	const submitNewItem = () => {
+	const submitNewItem = async () => {
 		if (stockItems) {
-			const priceWithIVA = () => (newProduct.price * newProduct.iva).toFixed(2)
-			const finalProduct = ({ ...newProduct, price: priceWithIVA() })
-			const updatedStock = stockItems.concat(finalProduct);
-			const sortedStock = updatedStock.sort((a, b) => {
-				if(a.name < b.name) { return -1; }
-				if(a.name > b.name) { return 1; }
-				return 0;
-			})
-			data.overwriteBin(data.stockBinId, sortedStock)
-				.then(() => navigate('/checklist'));
+			const priceWithIVA = () => Number ((newProduct.price * newProduct.iva).toFixed(2))
+			const finalProduct = ({
+				...newProduct,
+				price: priceWithIVA(),
+				iva: Number (newProduct.iva),
+				packQuantity: Number (newProduct.packQuantity)
+				})
+
+			await axios
+			.post('https://chiringuito-api.herokuapp.com/api/items/new', 
+			finalProduct
+			)
+			navigate('/checklist')
 		}
 	};
 
 	const updateEditedItem = async () => {
-		const priceWithIVA = () => (newProduct.price * newProduct.iva).toFixed(2)
-		const finalProduct = ({ ...newProduct, price: priceWithIVA() })
-		const filteredStock = stockItems.filter(item => item.id !== finalProduct.id)
-		const updatedStock = filteredStock.concat(finalProduct)
-		await data.overwriteBin(data.stockBinId, updatedStock)
+		const priceWithIVA = () => Number ((newProduct.price * newProduct.iva).toFixed(2))
+		const finalProduct = ({
+			...newProduct,
+			price: priceWithIVA(),
+			iva: Number (newProduct.iva),
+			packQuantity: Number (newProduct.packQuantity)
+			})		
+
+		await axios
+		.put(`https://chiringuito-api.herokuapp.com/api/items/update/${stockItem._id}`,
+		finalProduct
+		)
+
+		await getItems()
 		closeFn()
+		window.location.reload()
 	}
 
 	return (

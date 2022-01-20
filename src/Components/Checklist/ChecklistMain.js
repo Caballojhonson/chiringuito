@@ -6,6 +6,7 @@ import editIcon from '../../images/edit-square-line.png'
 import searchIcon from '../../images/search-line.png'
 import ChecklistCategory from './ChecklistCategory';
 import ChecklistItem from './ChecklistItem';
+import axios from 'axios';
 
 export default function Checklist_Main() {
 	let navigate = useNavigate();
@@ -16,12 +17,14 @@ export default function Checklist_Main() {
 	const [search, setSearch] = useState('')
 
 	useEffect(() => {
-		data.getData(data.stockBinId).then(stock => setStockItems(stock))
-		return(
-			setStockItems('')
-		)
+		getItems()
 	}, [])
-	
+
+	async function getItems() {
+        const items = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
+        setStockItems(items.data.data)
+    }	
+
 	const handleChange = (e) => {
 		setSearch(e.target.value)
 		window.scrollTo(0,0)
@@ -36,32 +39,6 @@ export default function Checklist_Main() {
 			});
 		} else {
 			setOrder((prev) => prev.concat(orderItem));
-		}
-	};
-
-	const submitOrder = async () => {
-		const filteredOrders = order.filter((item) => item.quantity > 0);
-		const totalPrice = filteredOrders.reduce((prev, curr) => Number(prev) + Number(curr.price * curr.quantity), 0)
-		// const orderWithStatus = filteredOrders.map((item) => {
-		// 	item.orderStatus = 'Pendiente'
-		// 	item.paymentStatus = 'Pendiente de pago'
-		// 	return item
-		// })
-		if (filteredOrders.length > 0) {
-			const newOrder = {
-				order: filteredOrders,
-				id: data.getid(),
-				submittedBy: data.username,
-				submittedAt: new Date(),
-				isArchived: false,
-				orderStatus: 'Pendiente',
-				paymentStatus: 'Pendiente de pago',
-				totalPrice: totalPrice,
-			};
-			const prevOrders = await data.getData(data.orderBinId);
-			const updatedOrders = prevOrders.concat(newOrder);
-			data.overwriteBin(data.orderBinId, updatedOrders)
-			.then(() => navigate('/pedidos'));
 		}
 	};
 
@@ -109,7 +86,8 @@ export default function Checklist_Main() {
 	const CheckList = (
 		<div className="checklist_container">
 			
-			{stockItems && <ChecklistCategory 
+			{stockItems && <ChecklistCategory
+			key={data.getid()}
 			updateFn={updateQuantity} 
 			stockItems={stockItems} 
 			filterBy={filterBy}

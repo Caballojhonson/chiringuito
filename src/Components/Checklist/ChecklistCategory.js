@@ -1,4 +1,5 @@
 import React from 'react'
+import { data } from '../../data'
 import ChecklistItem from './ChecklistItem'
 
 export default function ChecklistCategory(props) {
@@ -27,7 +28,10 @@ function CriteriaBox(props) {
 
 const itemsByCategory = () => {
     return getAllCategories().map(category => {
-        return (<CriteriaBox title={capitalize(category)} itemList={stockItems.map((item, i) => {
+        return (<CriteriaBox
+            key={data.getid()} 
+            title={capitalize(category)} 
+            itemList={stockItems.map((item, i) => {
            if(capitalize(item.category) === category) {
                return <ChecklistItem key={i} updateQuantity={updateFn}  itemObject={item} />
            }
@@ -37,7 +41,10 @@ const itemsByCategory = () => {
 
 const itemsBySupplier = () => {
     return getAllSuppliers().map(supplier => {
-        return (<CriteriaBox title={capitalize(supplier)} itemList={stockItems.map((item, i) => {
+        return (<CriteriaBox
+            key={data.getid()} 
+            title={capitalize(supplier)} 
+            itemList={stockItems.map((item, i) => {
            if(capitalize(item.supplier) === supplier) {
                return <ChecklistItem key={i} updateQuantity={updateFn}  itemObject={item} />
            }

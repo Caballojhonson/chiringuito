@@ -24,6 +24,11 @@ export default function Router() {
 		)
 	}
 	  
+	async function getItems() {
+        const items = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
+        console.log(items.data.data)
+    }	
+getItems()
 
 	// async function PopulateDaysInMongo() {
 	// 	const financeBin = await data.getData(data.financeBinId)
@@ -42,12 +47,31 @@ export default function Router() {
 
 	// }
 
+	// async function populateItemsInMongo() {
+	// 	const  items = await data.getData(data.stockBinId)
+
+	// 	items.map(item => {
+	// 		item.iva = Number(item.iva)
+	// 		item.price = Number(item.price)
+	// 		item.packQuantity = Number(item.packQuantity)
+	// 		return item
+	// 	})
+
+	// 	items.forEach(async item => {
+	// 		await axios
+	// 		.post('http://localhost:5000/api/items/new', item)
+	// 	})
+	// }
+
+	//populateItemsInMongo()
+
 	// PopulateDaysInMongo()
 
 	//data.getData(data.orderBinId).then(val => console.log(val))
-	data.getData(data.stockBinId).then(val => console.log(val))
-	data.getData(data.financeBinId).then(val => console.log(val.days))
+	//data.getData(data.stockBinId).then(val => console.log(val))
+	//data.getData(data.financeBinId).then(val => console.log(val.days))
 	//data.getData(data.usersBinId).then(val => console.log(val))
+	data.getData(data.stockBinId).then(val => console.log(val))
 	// data.overwriteBin(data.financeBinId, forceFinance)
 	
 	//data.getData(data.supplierBinId).then(val => console.log(val))

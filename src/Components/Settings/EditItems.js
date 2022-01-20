@@ -3,6 +3,7 @@ import { data } from '../../data'
 import AddNewItem from './AddNewItem'
 import deleteIcon from '../../images/trash-bin.png'
 import Popup from '../UI/Popup'
+import axios from 'axios'
 
 export default function EditItems() {
     const [stockItems, setstockItems] = useState('')
@@ -10,14 +11,19 @@ export default function EditItems() {
     const [showPopup, setShowPopup] = useState(false)
 
     useEffect(() => {
-        data.getData(data.stockBinId)
-        .then(response => setstockItems(response))
+        getItems()
     }, [])
 
+    async function getItems() {
+        const items = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
+        setstockItems(items.data.data)
+    }
+
     const deleteItem = async (itemToDelete) => {
-        const updatedStockItems = stockItems.filter(item => item.id !== itemToDelete.id)
-        await data.overwriteBin(data.stockBinId, updatedStockItems)
-        window.location.reload();
+        await axios
+        .delete(`https://chiringuito-api.herokuapp.com/api/items/delete/${itemToDelete._id}`)
+        await getItems()
+        window.location.reload()
     }
 
     function StockItem(props) {
