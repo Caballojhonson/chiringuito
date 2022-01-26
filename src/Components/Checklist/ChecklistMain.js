@@ -7,23 +7,34 @@ import searchIcon from '../../images/search-line.png'
 import ChecklistCategory from './ChecklistCategory';
 import ChecklistItem from './ChecklistItem';
 import axios from 'axios';
+import startOfWeek from 'date-fns/startOfWeek';
+import { isSameDay } from 'date-fns';
 
 export default function Checklist_Main() {
 	let navigate = useNavigate();
 
 	const [stockItems, setStockItems] = useState('')
 	const [order, setOrder] = useState([]);
+	const [orders, setOrders] = useState('')
 	const [filterBy, setFilterBy] = useState('supplier')
 	const [search, setSearch] = useState('')
 
 	useEffect(() => {
 		getItems()
+		getOrders()
 	}, [])
 
 	async function getItems() {
         const items = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
         setStockItems(items.data.data)
     }	
+
+	async function getOrders() {
+        await axios
+        .get('https://chiringuito-api.herokuapp.com/api/orders')
+        .then(res => setOrders(res.data.data))
+        .catch(err => console.log(err))
+    }
 
 	const handleChange = (e) => {
 		setSearch(e.target.value)
@@ -42,10 +53,39 @@ export default function Checklist_Main() {
 		}
 	};
 
+	const submitAsMerger = (order) => {
+		const compatibleOrder = orders.find(dbOrder => {
+			if (
+			dbOrder.supplier === order.supplier
+			&& dbOrder.isArchived === false
+			&& isSameDay(new Date(dbOrder.week), startOfWeek(new Date(), { weekStartsOn: 1 }))
+			&& dbOrder.orderStatus === 'Pendiente'
+			&& dbOrder.paymentStatus === 'Pendiente de pago'){
+			getOrders()
+			return true
+		}
+		})
+
+		if (compatibleOrder) 
+		{
+			order.items.forEach(async item => {
+				console.log(item)
+				await axios
+				.put(`https://chiringuito-api.herokuapp.com/api/orders/additem/${compatibleOrder._id}`,
+				item
+				)
+			})
+			return true
+		}
+		else return false
+	}
+
 	const submitOrder = () => {
 		const orderedItems = order.filter((item) => item.quantity > 0);
 		const suppliersInThisOrder = [...new Set(orderedItems.map(item => item.supplier))]
+
 		const ordersBySupplier = suppliersInThisOrder.map(supplier => {
+			
 			const thisSuppliersOrderedItems = orderedItems.filter(item => item.supplier === supplier)
 			const itemObjects = thisSuppliersOrderedItems.map(item => {
 				return {
@@ -54,6 +94,7 @@ export default function Checklist_Main() {
 					totalPrice: item.quantity * item.price
 				}
 			})
+
 			return {
 				submittedBy: data.username,
 				submittedAt: new Date(),
@@ -68,9 +109,12 @@ export default function Checklist_Main() {
 
 		if (orderedItems.length > 0) {
 			ordersBySupplier.forEach(async order => {
-				await axios.post('https://chiringuito-api.herokuapp.com/api/orders/new', order)
+				//IF IS MERGER.... MERGE else...
+				if(submitAsMerger(order)) return
+				else
+				await axios.post('https://chiringuito-api.herokuapp.com/api/orders/new', order)//.then(val => navigate('/pedidos'))
 			})
-			navigate('/pedidos')
+			
 		}
 	};
 
