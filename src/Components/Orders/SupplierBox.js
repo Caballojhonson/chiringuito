@@ -16,6 +16,11 @@ export default function SupplierBox(props) {
 		await axios
 		.put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
 		, {orderStatus: status})
+		if(status === 'Recibido' && order.paymentStatus === 'Pagado') {
+			await axios
+			.put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
+			, {isArchived: true})
+		}
 		toggleModal('order')
 		refreshOrders()
 	}
@@ -24,6 +29,11 @@ export default function SupplierBox(props) {
 		await axios
 		.put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
 		, {paymentStatus: status})
+		if(order.orderStatus === 'Recibido' && status === 'Pagado') {
+			await axios
+			.put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
+			, {isArchived: true})
+		}
 		toggleModal('payment');
 		refreshOrders()
 	};

@@ -11,12 +11,13 @@ export default function HomeScreen() {
         <div className="app" style={{backgroundColor: 'pink'}}>
             {!data.username && navigate('/nuevo-usuario')}
             <h5 className="screen_title">Change Log</h5>
-            <br/><br/>
+            <br/>
+            <p className='chlogp'>-Georgie Dann ha pasado a mejor vida</p>
             <p className='chlogp'>-Mudanza de pedidos a Frankfurt</p>
             <p className='chlogp'>-Los pedidos pasan a ser individuales por proveedor</p>
             <p className='chlogp'>-Cada pedido vuelve a ser editable (Cantidades)</p>
             <p className='chlogp'>-Las referencias individuales se borran editando el producto con cantidad 0</p>
-            <p className='chlogp'>-Los pedidos son archivables. Sólo archivado manual</p>
+            <p className='chlogp'>-Pedidos archivados automáticamente al marcar pagado y recibido</p>
             <p className='chlogp'>-Nueva sección de pedidos vigentes y archivados</p>
             <p className='chlogp'>-Los pedidos vigentes del mismo proveedor, de la misma semana,
                 NO pedidos y NO pagados se fusionan automáticamente.
