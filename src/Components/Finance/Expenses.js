@@ -1,9 +1,10 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import React from 'react'
+import { data } from '../../data'
 
 export default function Expenses(props) {
-    const {financialData} = props
+    const {financialData, salaries} = props
 
     const totalExpenses = financialData.expenses
     .reduce((a, b) => a + b, 0)
@@ -37,10 +38,10 @@ export default function Expenses(props) {
     }
 
     const allExpenseItems = financialData.expenses
-        .map(item => <ExpenseItem item={item} />)
+        .map(item => <ExpenseItem key={data.getid()} item={item} />)
 
-    const allPayedSalaries = financialData.salaries
-    .map(item => <SalaryItem item={item} />)
+    const allPayedSalaries = salaries
+    .map(item => <SalaryItem key={data.getid()} item={item} />)
 
     return (
         <div className='finance_col_right'>

@@ -103,3 +103,13 @@
   width: 3rem;
   background-color: white;
 }
+.ordertype_selection_wrapper{
+  position:sticky;
+  top: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.ordertype_selection_wrapper > button {
+  border-radius: 0px;
+}

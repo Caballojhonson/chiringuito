@@ -42,37 +42,35 @@ export default function Checklist_Main() {
 		}
 	};
 
-	const submitOrder2 = async () => {
+	const submitOrder = () => {
 		const orderedItems = order.filter((item) => item.quantity > 0);
-		const totalPrice = orderedItems.reduce(
-			(prev, curr) => Number(prev) + Number(curr.price * curr.quantity), 0)
 		const suppliersInThisOrder = [...new Set(orderedItems.map(item => item.supplier))]
 		const ordersBySupplier = suppliersInThisOrder.map(supplier => {
 			const thisSuppliersOrderedItems = orderedItems.filter(item => item.supplier === supplier)
+			const itemObjects = thisSuppliersOrderedItems.map(item => {
+				return {
+					item: item._id,
+					quantity: item.quantity,
+					totalPrice: item.quantity * item.price
+				}
+			})
 			return {
+				submittedBy: data.username,
+				submittedAt: new Date(),
+				supplier: supplier,
 				orderStatus: 'Pendiente',
 				paymentStatus: 'Pendiente de pago',
-				supplier: supplier,
-				id: data.getid(),
-				items: thisSuppliersOrderedItems,
+				totalPrice: thisSuppliersOrderedItems.reduce((a,b) => a + (b.price * b.quantity), 0),
 				isArchived: false,
-				totalPrice: thisSuppliersOrderedItems.reduce((a,b) => a + (b.price * b.quantity), 0)
+				items: itemObjects,
 			}
 		})
 
 		if (orderedItems.length > 0) {
-			const newOrder = {
-				orders: ordersBySupplier,
-				id: data.getid(),
-				submittedBy: data.username,
-				submittedAt: new Date(),
-				isArchived: false,
-				totalPrice: totalPrice,
-			};
-			const prevOrders = await data.getData(data.orderBinId);
-			const updatedOrders = prevOrders.concat(newOrder);
-			data.overwriteBin(data.orderBinId, updatedOrders)
-			.then(() => navigate('/pedidos'));
+			ordersBySupplier.forEach(async order => {
+				await axios.post('https://chiringuito-api.herokuapp.com/api/orders/new', order)
+			})
+			navigate('/pedidos')
 		}
 	};
 
@@ -128,7 +126,7 @@ export default function Checklist_Main() {
 			{filterBadges}
 			{!search && CheckList}
 			{search && searchResults()}
-			<button onClick={submitOrder2} className="button_primary button_group order_btn">
+			<button onClick={submitOrder} className="button_primary button_group order_btn">
 				Generar pedido
 			</button>
 

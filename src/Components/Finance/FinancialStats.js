@@ -14,7 +14,7 @@ export default function FinancialStats(props) {
 
     function thisWeeksEarnings() {
         const daysInThisWeek = financialData.days.filter(day =>
-            !day.isOpen && isSameWeek(new Date(day.timestamp), new Date()))
+            !day.isOpen && isSameWeek(new Date(day.timestamp), new Date(), { weekStartsOn: 1 }))
         const balance = daysInThisWeek.reduce(
             (prev, curr) => prev + curr.totalBalance, 0)
             return Number(balance)

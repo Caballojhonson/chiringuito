@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { data } from '../../data';
 import OrderItem from './OrderItem';
@@ -5,65 +6,53 @@ import OrderStatusModal from './OrderStatusModal';
 import PaymentStatusModal from './PaymentStatusModal';
 
 export default function SupplierBox(props) {
-	const { name, order, id } = props;
-	const [orderStatus, setOrderStatus] = useState(order.orderStatus);
-	const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus);
+	const { name, order, id, refreshOrders } = props;
+	//const [orderStatus, setOrderStatus] = useState(order.orderStatus);
+	//const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus);
 	const [orderModalVisible, setOrderModalVisible] = useState(false);
 	const [paymentModalVisible, setPaymentModalVisible] = useState(false);
 
 	const submitOrderStatus = async (status) => {
-		toggleModal('order');
-		setOrderStatus(status);
-		const orders = await data.getData(data.orderBinId);
-		const thisOrder = orders.find(order => order.id === id)
-		const thisSupplier = thisOrder.orders.find(order => order.supplier === name)
-		thisSupplier.orderStatus = status
-		data.overwriteBin(data.orderBinId, orders)
+		await axios
+		.put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
+		, {orderStatus: status})
+		toggleModal('order')
+		refreshOrders()
 	}
 
-	const submitDebt = async (debt) => {
+	const submitPaymentStatus = async (status) => {
+		await axios
+		.put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
+		, {paymentStatus: status})
+		toggleModal('payment');
+		refreshOrders()
+	};
+
+	async function submitDebt(debt) {
         let originalFinance = await data.getData(data.financeBinId);
         originalFinance.debts.out.push({
 			supplier: name,
 			generationDate: new Date(),
 			amount: debt,
-			orderId: id,
-			debtId: data.getid()
+			orderId: order._id,
 		})
 		data.overwriteBin(data.financeBinId, originalFinance)
     }
 
-	async function submitExpense(status, amount) {
-		toggleModal('payment');
-		setPaymentStatus(status);
+	async function submitExpense(amount) {
 		const orders = await data.getData(data.orderBinId);
-		const thisOrder = orders.find(order => order.id === id)
-		const thisSupplier = thisOrder.orders.find(order => order.supplier === name)
-		thisSupplier.paymentStatus = status
 		data.overwriteBin(data.orderBinId, orders);
 		const financeData = await data.getData(data.financeBinId)
 		financeData.expenses.push({
 			amount: amount,
 			order: order,
-			fromOrder: id,
+			fromOrder: order._id,
 			payedOn: new Date(),
 			payedBy: data.username,
-			id: data.getid()
+
 		})
 		data.overwriteBin(data.financeBinId, financeData)
 	}
-
-
-	const submitPaymentStatus = async (status, debtAmount) => {
-		toggleModal('payment');
-		setPaymentStatus(status);
-		const orders = await data.getData(data.orderBinId);
-		const thisOrder = orders.find(order => order.id === id)
-		const thisSupplier = thisOrder.orders.find(order => order.supplier === name)
-		thisSupplier.paymentStatus = status
-		data.overwriteBin(data.orderBinId, orders);
-		debtAmount && submitDebt(debtAmount);
-	};
 
 	const toggleModal = (str) => {
 		if (str === 'order') setOrderModalVisible((prev) => !prev);
@@ -71,20 +60,20 @@ export default function SupplierBox(props) {
 	};
 
 	const evaluateOrderColor = () => {
-		if (orderStatus === 'Pendiente') return 'bg-warning';
-		if (orderStatus === 'Pedido') return 'bg-primary';
-		if (orderStatus === 'Recibido') return 'bg-success';
+		if (order.orderStatus === 'Pendiente') return 'bg-warning';
+		if (order.orderStatus === 'Pedido') return 'bg-primary';
+		if (order.orderStatus === 'Recibido') return 'bg-success';
 	};
 
 	const evaluatePaymentColor = () => {
-		if (paymentStatus === 'Pendiente de pago') return 'bg-danger';
-		if (paymentStatus === 'Deuda pendiente') return 'bg-warning';
-		if (paymentStatus === 'Pagado') return 'bg-success';
+		if (order.paymentStatus === 'Pendiente de pago') return 'bg-danger';
+		if (order.paymentStatus === 'Deuda pendiente') return 'bg-warning';
+		if (order.paymentStatus === 'Pagado') return 'bg-success';
 	};
 
 	const supplierTotal = () => {
 		const sum = order.items.reduce((a, b) => {
-			return parseFloat(a) + parseFloat(b.price) * parseFloat(b.quantity);
+			return parseFloat(a) + parseFloat(b.item.price) * parseFloat(b.quantity);
 		}, 0);
 		return sum.toFixed(2) + '€';
 	};
@@ -94,14 +83,15 @@ export default function SupplierBox(props) {
 			{orderModalVisible && (
 				<OrderStatusModal
 					toggleModal={() => toggleModal('order')}
-					changeState={submitOrderStatus}
+					submitStatus={submitOrderStatus}
 				/>
 			)}
 			{paymentModalVisible && (
 				<PaymentStatusModal
 					toggleModal={() => toggleModal('payment')}
-					changeState={submitPaymentStatus}
+					submitStatus={submitPaymentStatus}
 					submitExpense={submitExpense}
+					submitDebt={submitDebt}
 				/>
 			)}
 			<div className="supplier_nameandstate">
@@ -110,7 +100,7 @@ export default function SupplierBox(props) {
 					onClick={() => toggleModal('order')}
 					className={`badge supplier_state_badge ${evaluateOrderColor()}`}
 				>
-					{orderStatus}
+					{order.orderStatus}
 				</span>
 			</div>
 			<div className="order_item_container">
@@ -123,7 +113,7 @@ export default function SupplierBox(props) {
 					onClick={() => toggleModal('payment')}
 					className={`badge supplier_state_badge ${evaluatePaymentColor()}`}
 				>
-					{paymentStatus}
+					{order.paymentStatus}
 				</span>
 
 				<h6 className="order_supplier_total">{supplierTotal()}</h6>

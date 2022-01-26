@@ -10,8 +10,8 @@ export default function PaymentStatusModal(props) {
 	const [debtInputVisible, setDebtInputVisible] = useState(false);
 	const [paymentInputVisible, setPaymentInputVisible] = useState(false)
 
-	const setPaymentStateAs = (state, debtAmount) => {
-		state && props.changeState(state, debtAmount);
+	const setPaymentStatusAs = (status) => {
+		status && props.submitStatus(status);
 	};
 
 	const handleDebtChange = (e) => {
@@ -39,12 +39,14 @@ export default function PaymentStatusModal(props) {
 	const handleSubmit = () => {
 		if (paymentStatus === 'Deuda pendiente') {
             !debt && setDebtIsValid(false)
-			debt && setPaymentStateAs(paymentStatus, debt);
+			debt && setPaymentStatusAs(paymentStatus);
+			debt && props.submitDebt(debt)
 		} else if (paymentStatus === 'Pagado') {
 			!realPayment && setPaymentIsValid(false)
-			realPayment && props.submitExpense(paymentStatus, realPayment)
+			realPayment && setPaymentStatusAs(paymentStatus);
+			realPayment && props.submitExpense(realPayment)
 		} else {
-			setPaymentStateAs(paymentStatus);
+			setPaymentStatusAs(paymentStatus);
 			setDebtInputVisible(false);
             setDebtIsValid(true)
 			setPaymentInputVisible(false)

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function Checklist_Item(props) {
 	const item = props.itemObject;
 	const updateQuantity = props.updateQuantity;
+	const editing = props.editing
 	const [quantity, setQuantity] = useState(item.quantity ? item.quantity : 0);
 
 	const add = () => {
@@ -30,8 +31,15 @@ export default function Checklist_Item(props) {
 	return (
 		<div className="checklist_item">
 			<div className="item_name_group">
-				<p className="item_name">{item.name}</p>
-				<p className="item_format"><strong>{`${item.price}€ / `}</strong> {item.format}</p>
+
+				{editing  
+				? <p className="item_name">{item.item.name}</p>  
+				: <p className="item_name">{item.name}</p>
+				}
+				{editing 
+				? <p className="item_format"><strong>{`${item.item.price}€ / `}</strong> {item.item.format}</p>
+				: <p className="item_format"><strong>{`${item.price}€ / `}</strong> {item.format}</p>
+				}
 			</div>
 			<div className="item_quantity_group">
 				<button

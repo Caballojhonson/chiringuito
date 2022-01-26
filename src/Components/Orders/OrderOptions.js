@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState} from 'react'
 import { data } from '../../data';
 import dotsIcon from '../../images/3-vertical-dots.png'
@@ -5,7 +6,7 @@ import Popup from '../UI/Popup';
 import EditOrder from './EditOrder';
 
 export default function OrderOptions(props) {
-    const {order} = props;
+    const {order, refreshOrders} = props;
 
     const [dropdownHidden, setdropdownHidden] = useState(true)
     const [archivePopup, setarchivePopup] = useState(false)
@@ -15,29 +16,32 @@ export default function OrderOptions(props) {
     const toggleDropdown = () => setdropdownHidden(prev => !prev)
 
     const archiveOrder = async () => {
-        const orders =  await data.getData(data.orderBinId);
-        const setArchived = () => orders.find(item => order.id === item.id).isArchived = true;
-        setArchived();
-        await data.overwriteBin(data.orderBinId, orders)
+        await axios
+        .put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
+		, {isArchived: true})
         setarchivePopup(false)
-        window.location.reload()
+        refreshOrders()
     }
 
     const deleteOrder = async () => {
-        const orders =  await data.getData(data.orderBinId);
-        const updatedOrders = orders.filter(val => val.id !== order.id)
-        await data.overwriteBin(data.orderBinId, updatedOrders)
+        await axios
+        .delete(`https://chiringuito-api.herokuapp.com/api/orders/delete/${order._id}`)
         setdeletionPopup(false)
-        window.location.reload()
+        refreshOrders()
     }
 
     const editOrder = async () => {
-        const orders = await data.getData(data.orderBinId);
-        const matchingOrder = orders.find(item => item.id === order.id)
-        matchingOrder.order = order.order
-        await data.overwriteBin(data.orderBinId, orders)
+        // const orders = await data.getData(data.orderBinId);
+        // const matchingOrder = orders.find(item => item.id === order.id)
+        // matchingOrder.order = order.order
+        // await data.overwriteBin(data.orderBinId, orders)
+        // window.location.reload()
+        await order.items.forEach(item => item.totalPrice = item.item.price * item.quantity)
+        await axios
+        .put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
+		, {items: order.items})
         seteditScreen(false)
-        window.location.reload()
+        refreshOrders()
     }
 
     const dropdownMenu = (
@@ -56,6 +60,7 @@ export default function OrderOptions(props) {
 
     return (
         <div>
+            {console.log(order)}
             {archivePopup && <Popup 
                 title="Archivar pedido"
                 textTitle="¿Archivar?"

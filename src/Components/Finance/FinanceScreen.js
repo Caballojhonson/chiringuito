@@ -73,7 +73,7 @@ export default function FinanceScreen() {
             {financialData && view.stats && <FinancialStats financialData={financialData} />}
             {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
             {financialData && view.calendar && <FinanceCalendar financialData={financialData} />}
-            {financialData && view.expenses && <Expenses financialData={financialData} />}
+            {financialData && view.expenses && <Expenses financialData={financialData} salaries={salaries} />}
             {salaries && view.getPayed && <GetPayed salaries={salaries} refreshSalaries={getSalaries} />}
             {salaries && view.mySalary && <MySalary salaries={salaries} refreshSalaries={getSalaries}/>}
             </div>

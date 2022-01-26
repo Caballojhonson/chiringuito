@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 
 export default function OrderStatusModal(props) {
-	const [orderStatus, setOrderStatus] = useState(null)
+	const [orderStatus, setOrderStatus] = useState('')
 
-	const setOrderStateAs = (state) => {
-		state && props.changeState(state);
+	const setOrderStatusAs = (status) => {
+		status && props.submitStatus(status);
 	};
 	return (
 		<div className="order_status_modal">
@@ -53,7 +53,7 @@ export default function OrderStatusModal(props) {
 							>
 								Cancelar
 							</button>
-							<button onClick={() => setOrderStateAs(orderStatus)} 
+							<button onClick={() => setOrderStatusAs(orderStatus)} 
 							type="button" 
 							className="btn btn-primary">
 								Confirmar

@@ -14,64 +14,61 @@ import Loadscreen from './Components/UI/Loadscreen';
 import FinanceScreen from './Components/Finance/FinanceScreen';
 import EventsMain from './Components/Events/EventsMain';
 import EditItems from './Components/Settings/EditItems';
-import { db } from './db';
 import axios from 'axios';
 
 export default function Router() {
-	function capitalize(word) {
-		return (
-			word.charAt(0).toUpperCase() + word.slice(1)
-		)
+
+	async function pushNewOrders () {
+		const oldData = await data.getData(data.orderBinId)
+		const newItems = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
+	
+		const allOrders = oldData.map(item => {
+			
+			const orders = item.orders
+	
+			orders.forEach(order => {
+				order.submittedBy = item.submittedBy
+				order.submittedAt = item.submittedAt
+			})
+	
+			return orders
+		})
+	
+		var merged = [].concat.apply([], allOrders)
+		
+		merged.forEach(order => {
+			const matchingItemIds = order.items.map(orderItem => {
+				const matchingItem = newItems.data.data.find(stockItem => stockItem.name === orderItem.name)
+				const matchingSupplierAndPrice = newItems.data.data.find(stockItem => stockItem.supplier === orderItem.supplier && stockItem.price === orderItem.price)
+				const matchingPrice = newItems.data.data.find(stockItem => stockItem.price === orderItem.price)
+				if(matchingItem) {
+					return {item: matchingItem._id, quantity: orderItem.quantity, totalPrice: orderItem.price * orderItem.quantity}
+				} else if(matchingSupplierAndPrice) {
+					return {item: matchingSupplierAndPrice._id, quantity: orderItem.quantity, totalPrice: orderItem.price * orderItem.quantity}
+				} else if(matchingPrice) {
+					return {item: matchingPrice._id, quantity: orderItem.quantity, totalPrice: orderItem.price * orderItem.quantity}
+				}
+				
+			})
+			order.items = matchingItemIds
+		})
+	
+		console.log(merged)
+		merged.forEach(async order => {
+			
+				await axios.post(`https://chiringuito-api.herokuapp.com/api/orders/new`, order)
+			
+		})
+		
 	}
-	  
-	async function getItems() {
-        const items = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
-        console.log(items.data.data)
-    }	
-getItems()
-
-	// async function PopulateDaysInMongo() {
-	// 	const financeBin = await data.getData(data.financeBinId)
-	// 	const days = financeBin.days
-	// 	days.forEach(day => {
-	// 		day.usr = day.by
-	// 		day.operations.forEach(operation => {
-	// 			operation.opType = operation.type
-	// 			operation.usr = operation.by
-	// 		})
-	// 	});
-
-	// 	days.forEach(async day => {
-	// 		await axios.post('https://chiringuito-api.herokuapp.com/api/days/new', day)
-	// 	})
-
-	// }
-
-	// async function populateItemsInMongo() {
-	// 	const  items = await data.getData(data.stockBinId)
-
-	// 	items.map(item => {
-	// 		item.iva = Number(item.iva)
-	// 		item.price = Number(item.price)
-	// 		item.packQuantity = Number(item.packQuantity)
-	// 		return item
-	// 	})
-
-	// 	items.forEach(async item => {
-	// 		await axios
-	// 		.post('http://localhost:5000/api/items/new', item)
-	// 	})
-	// }
-
-	//populateItemsInMongo()
-
-	// PopulateDaysInMongo()
+	
+//pushNewOrders()
 
 	//data.getData(data.orderBinId).then(val => console.log(val))
 	//data.getData(data.stockBinId).then(val => console.log(val))
 	//data.getData(data.financeBinId).then(val => console.log(val.days))
 	//data.getData(data.usersBinId).then(val => console.log(val))
-	data.getData(data.stockBinId).then(val => console.log(val))
+	//data.getData(data.stockBinId).then(val => console.log(val))
 	// data.overwriteBin(data.financeBinId, forceFinance)
 	
 	//data.getData(data.supplierBinId).then(val => console.log(val))
