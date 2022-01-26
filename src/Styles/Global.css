@@ -21,7 +21,7 @@ html, body {
 }
 .screen_title {
     text-align: center;
-    margin-top: 1.5rem;
+    padding-top: 1.5rem;
 }
 .form_container {
     display: flex;
@@ -106,4 +106,8 @@ html, body {
 }
 .form_spaced {
     width: 80%;
+}
+.chlogp {
+    font-size: 14px;
+    padding-left: 2rem;
 }
