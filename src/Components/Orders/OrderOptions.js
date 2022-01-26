@@ -31,12 +31,12 @@ export default function OrderOptions(props) {
     }
 
     const editOrder = async () => {
-        // const orders = await data.getData(data.orderBinId);
-        // const matchingOrder = orders.find(item => item.id === order.id)
-        // matchingOrder.order = order.order
-        // await data.overwriteBin(data.orderBinId, orders)
-        // window.location.reload()
-        await order.items.forEach(item => item.totalPrice = item.item.price * item.quantity)
+        order.items.forEach(async item => {
+            if(!item.quantity) {
+                order.items = order.items.filter(itm => itm._id !== item._id)
+            } else 
+            item.totalPrice = item.item.price * item.quantity
+        })
         await axios
         .put(`https://chiringuito-api.herokuapp.com/api/orders/update/${order._id}`
 		, {items: order.items})
