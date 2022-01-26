@@ -73,7 +73,7 @@ export default function Checklist_Main() {
 				await axios
 				.put(`https://chiringuito-api.herokuapp.com/api/orders/additem/${compatibleOrder._id}`,
 				item
-				)
+				).then(() => navigate('/pedidos'))
 			})
 			return true
 		}
@@ -112,7 +112,7 @@ export default function Checklist_Main() {
 				//IF IS MERGER.... MERGE else...
 				if(submitAsMerger(order)) return
 				else
-				await axios.post('https://chiringuito-api.herokuapp.com/api/orders/new', order)//.then(val => navigate('/pedidos'))
+				await axios.post('https://chiringuito-api.herokuapp.com/api/orders/new', order).then(() => navigate('/pedidos'))
 			})
 			
 		}
