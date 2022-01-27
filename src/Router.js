@@ -61,7 +61,19 @@ export default function Router() {
 		})
 		
 	}
+
+	async function uploadExpenses() {
+		const oldData = await data.getData(data.financeBinId)
+		const oldExpenses = oldData.expenses
+		console.log(oldExpenses)
+		oldExpenses.forEach(expense => expense.fromOrder = '61f1828116b6db2ff52bad95')
+		
+		oldExpenses.forEach(async expense => {
+			await axios.post(`https://chiringuito-api.herokuapp.com/api/expenses/new`, expense)
+		})
+	}
 	
+	//uploadExpenses()
 //pushNewOrders()
 
 	//data.getData(data.orderBinId).then(val => console.log(val))

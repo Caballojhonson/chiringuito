@@ -4,7 +4,7 @@ import React from 'react'
 import { data } from '../../data'
 
 export default function Expenses(props) {
-    const {financialData, salaries} = props
+    const {financialData, salaries, expenses} = props
 
     const totalExpenses = financialData.expenses
     .reduce((a, b) => a + b, 0)
@@ -18,7 +18,7 @@ export default function Expenses(props) {
         return (
         <div className='expense_item_container'>
             <span>{format(new Date(item.payedOn), 'P', {locale: es})}</span>
-            <p>{item.order.supplier}</p>
+            <p>{item.fromOrder.supplier}</p>
             <p><strong>{`-${item.amount}€`}</strong></p>
         </div>
         )
@@ -37,16 +37,16 @@ export default function Expenses(props) {
         )
     }
 
-    const allExpenseItems = financialData.expenses
+    const allExpenseItems = expenses
         .map(item => <ExpenseItem key={data.getid()} item={item} />)
 
     const allPayedSalaries = salaries
-    .map(item => <SalaryItem key={data.getid()} item={item} />)
+        .map(item => <SalaryItem key={data.getid()} item={item} />)
 
     return (
         <div className='finance_col_right'>
             <h3>Proveedores</h3>
-            {console.log(financialData.expenses)}
+            {console.log(salaries)}
             {allExpenseItems}
             <h3>Salarios</h3>
             {allPayedSalaries}

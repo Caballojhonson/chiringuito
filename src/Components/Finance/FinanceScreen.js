@@ -13,14 +13,15 @@ import MySalary from './MySalary'
 export default function FinanceScreen() {
     const [financialData, setfinancialData] = useState(null)
     const [view, setview] = useState({ daily: true })
+    const [loaded, setLoaded] = useState(false)
     const [salaries, setSalaries] = useState('')
     const [days, setDays] = useState('')
+    const [expenses, setExpenses] = useState('')
 
     useEffect(() => {
         data.getData(data.financeBinId)
         .then(val => setfinancialData(val))
-        getSalaries()
-        getDays()
+        loadData()
     }, [])
 
         // setInterval(() => {
@@ -28,6 +29,12 @@ export default function FinanceScreen() {
         //     getDays()
         //     console.log('Data refreshed')
         // }, 10000)
+    async function loadData() {
+        await getSalaries()
+        await getDays()
+        await getExpenses()
+        setLoaded(true)
+    }
 
     async function getSalaries() {
         await axios
@@ -40,6 +47,13 @@ export default function FinanceScreen() {
         await axios
         .get('https://chiringuito-api.herokuapp.com/api/days')
         .then(res => setDays(res.data.data))
+        .catch(err => console.log(err))
+    }
+
+    async function getExpenses() {
+        await axios
+        .get('https://chiringuito-api.herokuapp.com/api/expenses')
+        .then(res => setExpenses(res.data.data))
         .catch(err => console.log(err))
     }
 
@@ -70,12 +84,12 @@ export default function FinanceScreen() {
             </div>
             <div>
             {days && view.daily && <Daily days={days} refreshDays={getDays} />}
-            {financialData && view.stats && <FinancialStats financialData={financialData} />}
+            {financialData && loaded && view.stats && <FinancialStats financialData={financialData} days={days} salaries={salaries} expenses={expenses} />}
             {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
             {financialData && view.calendar && <FinanceCalendar financialData={financialData} />}
-            {financialData && view.expenses && <Expenses financialData={financialData} salaries={salaries} />}
-            {salaries && view.getPayed && <GetPayed salaries={salaries} refreshSalaries={getSalaries} />}
-            {salaries && view.mySalary && <MySalary salaries={salaries} refreshSalaries={getSalaries}/>}
+            {financialData && loaded && view.expenses && <Expenses financialData={financialData} salaries={salaries} expenses={expenses} />}
+            {loaded && view.getPayed && <GetPayed salaries={salaries} refreshSalaries={getSalaries} />}
+            {loaded && view.mySalary && <MySalary salaries={salaries} refreshSalaries={getSalaries}/>}
             </div>
         </div>
     )

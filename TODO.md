@@ -34,8 +34,6 @@ Matches :
 Big todo list:
         - Order merging if sameWeek && NOT ordered yet
         - Archived orders style
-        - Archived orders section
-        - Auto archive orders
         - League finance tracking
         - supplier view + edit
         - Daily balance calendar
@@ -51,6 +49,7 @@ Big todo list:
         - Add supplier to items when search
         - Addsuppliers to search criteria
         - Fixed expenses - periodic
+        - Add date/time frames to suppliers and implement in weekly orders
 
 
 Susana: 
@@ -76,6 +75,8 @@ Big Done list:
         // - Finance expenses screen OK
         // - Finance Debts screen OK
         // - Employee worked hours
+        - Archived orders section
+        - Auto archive orders
 
 
 Bugfix:

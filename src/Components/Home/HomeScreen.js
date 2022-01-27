@@ -1,7 +1,8 @@
 import React from 'react'
 import georgieDann from '../../images/58198803.jpg'
 import { useNavigate } from 'react-router-dom';
-import { data } from '../../data';
+import { data } from '../../data';import axios from 'axios';
+
 
 
 export default function HomeScreen() {
@@ -12,6 +13,7 @@ export default function HomeScreen() {
             {!data.username && navigate('/nuevo-usuario')}
             <h5 className="screen_title">Change Log</h5>
             <br/>
+            <h6 className='text-center'>Pedidos</h6>
             <p className='chlogp'>-Georgie Dann ha pasado a mejor vida</p>
             <p className='chlogp'>-Mudanza de pedidos a Frankfurt</p>
             <p className='chlogp'>-Los pedidos pasan a ser individuales por proveedor</p>
@@ -25,9 +27,16 @@ export default function HomeScreen() {
             <p className='chlogp'>-Toni pasa a ser el primer empleado del mes de la app 
             por recoger una croqueta del suelo y devolverla a su bandeja</p>
 
+            <h6 className='text-center'>Gastos</h6>
+            <p className='chlogp'>-Creada base de datos de gastos, modelo y router</p>
+            <p className='chlogp'>-Añadida tipología de gasto recurrente</p>
+            <p className='chlogp'>-Gastos antiguos volcados a la base de datos</p>
+            <p className='chlogp'>-Interpretación y saneado de gastos antiguos</p>
+            <p className='chlogp'>-Nuevas estadísticas</p>
+
 
             <div className="software_version_container">
-				<p className="software_version">El Chiringuito BETA v1.0.8</p>
+				<p className="software_version">El Chiringuito BETA v1.0.9</p>
 				<p className="copyright">©2022 - Caballojhonson</p>
 			</div>
 
