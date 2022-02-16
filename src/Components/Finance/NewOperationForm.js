@@ -54,6 +54,7 @@ export default function NewOperationForm(props) {
 							<option value="withdrawal">Saco pasta</option>
 							<option value="deposit">Meto pasta</option>
 							<option value="bizum">Bizum</option>
+                            <option value="course">Pista</option>
 						</select>
 					</div>
                 </div>
