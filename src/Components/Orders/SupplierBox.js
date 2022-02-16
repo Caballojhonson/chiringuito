@@ -38,30 +38,34 @@ export default function SupplierBox(props) {
 		refreshOrders()
 	};
 
-	async function submitDebt(debt) {
-        let originalFinance = await data.getData(data.financeBinId);
-        originalFinance.debts.out.push({
-			supplier: name,
-			generationDate: new Date(),
-			amount: debt,
-			orderId: order._id,
-		})
-		data.overwriteBin(data.financeBinId, originalFinance)
+	async function submitDebt(amount) {
+		const debt = {
+			amount: amount,
+			fromOrder: order._id,
+			generatedBy: data.username,
+			generatedOn: new Date(),
+			isRecurrent: false,
+			concept: order.supplier,
+			dueBy: false,
+		}
+
+		await axios.post(`https://chiringuito-api.herokuapp.com/api/debts/new`
+		, debt)
     }
 
 	async function submitExpense(amount) {
-		const orders = await data.getData(data.orderBinId);
-		data.overwriteBin(data.orderBinId, orders);
-		const financeData = await data.getData(data.financeBinId)
-		financeData.expenses.push({
+		const expense = {
 			amount: amount,
-			order: order,
 			fromOrder: order._id,
 			payedOn: new Date(),
 			payedBy: data.username,
+			isRecurrent: false,
+			concept: `order`
+		}
 
-		})
-		data.overwriteBin(data.financeBinId, financeData)
+		await axios
+		.post(`https://chiringuito-api.herokuapp.com/api/expenses/new`
+		, expense)
 	}
 
 	const toggleModal = (str) => {
@@ -83,6 +87,7 @@ export default function SupplierBox(props) {
 
 	const supplierTotal = () => {
 		const sum = order.items.reduce((a, b) => {
+			console.log(b)
 			return parseFloat(a) + parseFloat(b.item.price) * parseFloat(b.quantity);
 		}, 0);
 		return sum.toFixed(2) + '€';

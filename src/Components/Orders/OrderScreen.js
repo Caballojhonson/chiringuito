@@ -43,17 +43,17 @@ export default function OrderScreen() {
     // })
 
     const orderTypeHeader = (
-        <div class="btn-group ordertype_selection_wrapper" role="group" aria-label="Basic example">
+        <div className="btn-group ordertype_selection_wrapper" role="group" aria-label="Basic example">
 
             <button 
             type="button" 
-            class={`btn ${orderView.pending ? 'btn-success' : 'btn-secondary'}`}
+            className={`btn ${orderView.pending ? 'btn-success' : 'btn-secondary'}`}
             onClick={() => setOrderView({pending: true, archived: false})}
             >En curso</button>
 
             <button 
             type="button" 
-            class={`btn ${orderView.archived ? 'btn-success' : 'btn-secondary'}`}
+            className={`btn ${orderView.archived ? 'btn-success' : 'btn-secondary'}`}
             onClick={() => setOrderView({pending: false, archived: true})}
             >Archivados</button>
 

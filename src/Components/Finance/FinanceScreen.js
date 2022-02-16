@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
-import { data } from '../../data'
+import handleFixedExpenses from '../../runOnStartup'
 import '../../Styles/Finance.css'
 import Daily from './Daily'
 import DebtsOut from './DebtsOut'
@@ -11,28 +11,42 @@ import GetPayed from './GetPayed'
 import MySalary from './MySalary'
 
 export default function FinanceScreen() {
-    const [financialData, setfinancialData] = useState(null)
     const [view, setview] = useState({ daily: true })
     const [loaded, setLoaded] = useState(false)
     const [salaries, setSalaries] = useState('')
     const [days, setDays] = useState('')
     const [expenses, setExpenses] = useState('')
+    const [orders, setOrders] = useState('')
+    const [debts, setDebts] = useState('');
+    const [data, setData] = useState('')
 
     useEffect(() => {
-        data.getData(data.financeBinId)
-        .then(val => setfinancialData(val))
         loadData()
+        handleFixedExpenses()
     }, [])
 
-        // setInterval(() => {
-        //     getSalaries()
-        //     getDays()
-        //     console.log('Data refreshed')
-        // }, 10000)
     async function loadData() {
         await getSalaries()
         await getDays()
         await getExpenses()
+        await getOrders()
+        await getDebts()
+        
+        setData({
+            salaries: salaries,
+            days: days,
+            expenses: expenses,
+            orders: orders,
+            debts: debts,
+            refresh: {
+                salaries: getSalaries(),
+                days: getDays(),
+                expenses: getExpenses(),
+                orders: getOrders(),
+                debts: getDebts(),
+            }
+        })
+
         setLoaded(true)
     }
 
@@ -57,16 +71,28 @@ export default function FinanceScreen() {
         .catch(err => console.log(err))
     }
 
+    async function getOrders() {
+        await axios
+        .get('https://chiringuito-api.herokuapp.com/api/orders')
+        .then(res => setOrders(res.data.data))
+        .catch(err => console.log(err))
+    }
+
+    async function getDebts() {
+        await axios
+        .get('https://chiringuito-api.herokuapp.com/api/debts')
+        .then(res => setDebts(res.data.data))
+        .catch(err => console.log(err))
+    }
+
     function setView(viewKey) {
         const clearedViews = Object.keys(view).forEach(key => view[key] = false)
         setview(clearedViews) //Set all to false
         setview({ ...view, [viewKey]: true}) //Set param to true
     }
 
-
-    return (
-        <div className='app finance_main'>
-            <div className='finance_col_left'>
+    const leftMenu = (
+        <div className='finance_col_left'>
                 <div className='finance_btns_wrapper'>
                     <h6 className='finance_menu_btn' onClick={() => setView('daily')}>Caja</h6>
                     <h6 className='finance_menu_btn' onClick={() => setView('calendar')}>Calendario</h6>
@@ -82,12 +108,18 @@ export default function FinanceScreen() {
                         Cobrar dinero
                     </button>
             </div>
+    )
+
+
+    return (
+        <div className='app finance_main'>
+            {leftMenu}
             <div>
             {days && view.daily && <Daily days={days} refreshDays={getDays} />}
-            {financialData && loaded && view.stats && <FinancialStats financialData={financialData} days={days} salaries={salaries} expenses={expenses} />}
-            {financialData && view.debtOut && <DebtsOut financialData={financialData} />}
-            {financialData && view.calendar && <FinanceCalendar financialData={financialData} />}
-            {financialData && loaded && view.expenses && <Expenses financialData={financialData} salaries={salaries} expenses={expenses} />}
+            {loaded && view.stats && <FinancialStats days={days} salaries={salaries} expenses={expenses} />}
+            {loaded && view.debtOut && <DebtsOut orders={orders} salaries={salaries} debts={debts} data={data} refreshDebts={getDebts} />}
+            {view.calendar && <FinanceCalendar />}
+            {loaded && view.expenses && <Expenses salaries={salaries} expenses={expenses} />}
             {loaded && view.getPayed && <GetPayed salaries={salaries} refreshSalaries={getSalaries} />}
             {loaded && view.mySalary && <MySalary salaries={salaries} refreshSalaries={getSalaries}/>}
             </div>

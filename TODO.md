@@ -50,6 +50,10 @@ Big todo list:
         - Addsuppliers to search criteria
         - Fixed expenses - periodic
         - Add date/time frames to suppliers and implement in weekly orders
+        - Unarchive orders 
+        - Repeat an order + modification form
+        - Pistas, new movement type: alquiler pistas
+        
 
 
 Susana: 

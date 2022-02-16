@@ -4,21 +4,16 @@ import React from 'react'
 import { data } from '../../data'
 
 export default function Expenses(props) {
-    const {financialData, salaries, expenses} = props
-
-    const totalExpenses = financialData.expenses
-    .reduce((a, b) => a + b, 0)
-
-    const totalSalaries = financialData.salaries
-    .reduce((a, b) => a + b, 0)
+    const {salaries, expenses} = props
 
     function ExpenseItem(props) {
         const {item} = props
+        console.log(item);
 
         return (
         <div className='expense_item_container'>
             <span>{format(new Date(item.payedOn), 'P', {locale: es})}</span>
-            <p>{item.fromOrder.supplier}</p>
+            <p>{item.isRecurrent ? item.concept : item.fromOrder.supplier}</p>
             <p><strong>{`-${item.amount}€`}</strong></p>
         </div>
         )

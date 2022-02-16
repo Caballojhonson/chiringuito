@@ -48,6 +48,12 @@ export default function SettingsMain() {
 			>
 				Añadir proveedor
 			</button>
+			<button
+				className="button_primary add_new"
+				onClick={() => navigate('/nuevo-gasto-fijo')}
+			>
+				Añadir gasto fijo
+			</button>
 
 			<h5 className="screen_title">Editar</h5>
 

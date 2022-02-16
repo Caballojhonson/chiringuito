@@ -14,71 +14,17 @@ import Loadscreen from './Components/UI/Loadscreen';
 import FinanceScreen from './Components/Finance/FinanceScreen';
 import EventsMain from './Components/Events/EventsMain';
 import EditItems from './Components/Settings/EditItems';
-import axios from 'axios';
+import AddNewFixedExpense from './Components/Settings/AddNewFixedExpense';
+import run from './runOnStartup';
+import RunOnStartup from './runOnStartup';
 
 export default function Router() {
 
-	async function pushNewOrders () {
-		const oldData = await data.getData(data.orderBinId)
-		const newItems = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
 	
-		const allOrders = oldData.map(item => {
-			
-			const orders = item.orders
-	
-			orders.forEach(order => {
-				order.submittedBy = item.submittedBy
-				order.submittedAt = item.submittedAt
-			})
-	
-			return orders
-		})
-	
-		var merged = [].concat.apply([], allOrders)
-		
-		merged.forEach(order => {
-			const matchingItemIds = order.items.map(orderItem => {
-				const matchingItem = newItems.data.data.find(stockItem => stockItem.name === orderItem.name)
-				const matchingSupplierAndPrice = newItems.data.data.find(stockItem => stockItem.supplier === orderItem.supplier && stockItem.price === orderItem.price)
-				const matchingPrice = newItems.data.data.find(stockItem => stockItem.price === orderItem.price)
-				if(matchingItem) {
-					return {item: matchingItem._id, quantity: orderItem.quantity, totalPrice: orderItem.price * orderItem.quantity}
-				} else if(matchingSupplierAndPrice) {
-					return {item: matchingSupplierAndPrice._id, quantity: orderItem.quantity, totalPrice: orderItem.price * orderItem.quantity}
-				} else if(matchingPrice) {
-					return {item: matchingPrice._id, quantity: orderItem.quantity, totalPrice: orderItem.price * orderItem.quantity}
-				}
-				
-			})
-			order.items = matchingItemIds
-		})
-	
-		console.log(merged)
-		merged.forEach(async order => {
-			
-				await axios.post(`https://chiringuito-api.herokuapp.com/api/orders/new`, order)
-			
-		})
-		
-	}
-
-	async function uploadExpenses() {
-		const oldData = await data.getData(data.financeBinId)
-		const oldExpenses = oldData.expenses
-		console.log(oldExpenses)
-		oldExpenses.forEach(expense => expense.fromOrder = '61f1828116b6db2ff52bad95')
-		
-		oldExpenses.forEach(async expense => {
-			await axios.post(`https://chiringuito-api.herokuapp.com/api/expenses/new`, expense)
-		})
-	}
-	
-	//uploadExpenses()
-//pushNewOrders()
 
 	//data.getData(data.orderBinId).then(val => console.log(val))
 	//data.getData(data.stockBinId).then(val => console.log(val))
-	//data.getData(data.financeBinId).then(val => console.log(val.days))
+	data.getData(data.financeBinId).then(val => console.log(val.debts))
 	//data.getData(data.usersBinId).then(val => console.log(val))
 	//data.getData(data.stockBinId).then(val => console.log(val))
 	// data.overwriteBin(data.financeBinId, forceFinance)
@@ -123,6 +69,7 @@ export default function Router() {
 				<Route path="bienvenida" element={<Loadscreen />} />
 				<Route path="finanzas" element={<FinanceScreen />} />
 				<Route path="editar-referencias" element={<EditItems />} />
+				<Route path="nuevo-gasto-fijo" element={<AddNewFixedExpense />} />
 			</Routes>
 
 			<MainToolbar />
@@ -132,6 +79,7 @@ export default function Router() {
 
 	return (
 		<div >
+
 			{newSession && loadScreen()}
 			{data.isAuthorized && privateNavigation}
 			{!data.isAuthorized && loginScreen}
