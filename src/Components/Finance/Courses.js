@@ -1,14 +1,17 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import React from 'react'
-import { data } from '../../data'
 
 export default function Courses(props) {
     const {days} = props
 
     const allCourseOperations = () => {
        const allOperations = days.map(day => day.operations).flat()
-       const courseOperations = allOperations.filter(op => op.opType === 'course')
+       const courseOperations = allOperations.filter(op => {
+        return (op.opType === 'course_e' ||
+        op.opType === 'course_n' ||
+        op.opType === 'course_a')
+       })
        return courseOperations
     }
 
@@ -24,16 +27,33 @@ export default function Courses(props) {
         )
     }
 
-    function renderMovements() {
-        return allCourseOperations().map(item => <CourseItem item={item} />)
-    }
+    const schoolCourseOps = allCourseOperations().filter(op => op.opType === 'course_e')
+    const privateCourseOps = allCourseOperations().filter(op => op.opType === 'course_n')
+    const anualCourseOps = allCourseOperations().filter(op => op.opType === 'course_a')
 
+    const totalSchoolCourseCash = schoolCourseOps.reduce((acc, curr) => {
+        return acc + curr.amount
+    }, 0)
+    const totalPrivateCourseCash = privateCourseOps.reduce((acc, curr) => {
+        return acc + curr.amount
+    }, 0)
+    const totalAnualCourseCash = anualCourseOps.reduce((acc, curr) => {
+        return acc + curr.amount
+    }, 0)
     const totalCourseCash = allCourseOperations().reduce((acc, curr) => {
         return acc + curr.amount
     }, 0)
 
-    const ourReturns = totalCourseCash * 0.4
-    const toRepay = totalCourseCash * 0.6
+
+
+    const ourSchoolReturns = totalSchoolCourseCash * 0.4
+    const toRepay = totalSchoolCourseCash * 0.6
+
+    const totalReturns = ourSchoolReturns + totalPrivateCourseCash + totalAnualCourseCash
+
+    function renderAllOperations() {
+        return allCourseOperations().map(item => <CourseItem item={item} />)
+    }
 
     const footer = (
         <div className='course_stats_container'>
@@ -43,7 +63,7 @@ export default function Courses(props) {
             </div>
             <div className="dailybalance_container ">
                 <p style={{color: 'green'}} className="dailybalance dailybalance_tag">Beneficio</p>
-                <h1 className="dailybalance">{`${-ourReturns.toFixed(2)}€`}</h1>
+                <h1 className="dailybalance">{`${-totalReturns.toFixed(2)}€`}</h1>
             </div>
             <div className="dailybalance_container ">
                 <p style={{color: 'darkred'}} className="dailybalance dailybalance_tag">Club</p>
@@ -55,7 +75,7 @@ export default function Courses(props) {
     return (
         <div className='finance_col_right'>
             <h3>Pistas</h3>
-            {renderMovements()}
+            {renderAllOperations()}
             {footer}
         </div>
     )

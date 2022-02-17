@@ -85,6 +85,7 @@ Big Done list:
 
 
 
-Bugfix:
+TO Bugfix:
         -New items not ordering alphabetically on EDIT
+        - Expense screen breaks if there isn't a correlating order (WAS DELETED)
 
