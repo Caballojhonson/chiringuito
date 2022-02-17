@@ -1,18 +1,20 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import React from 'react'
+import { data } from '../../data'
 
 export default function Courses(props) {
     const {days} = props
 
     const allCourseOperations = () => {
-       const allOperations = days.map(day => day.operations).flat()
-       const courseOperations = allOperations.filter(op => {
-        return (op.opType === 'course_e' ||
-        op.opType === 'course_n' ||
-        op.opType === 'course_a')
-       })
-       return courseOperations
+        const allOperations = days.map(day => day.operations).flat()
+        const courseOperations = allOperations.filter(op => {
+        return (
+            op.opType === 'course_e' ||
+            op.opType === 'course_n' ||
+            op.opType === 'course_a')
+        })
+        return courseOperations
     }
 
     function CourseItem(props) {
@@ -44,15 +46,13 @@ export default function Courses(props) {
         return acc + curr.amount
     }, 0)
 
-
-
     const ourSchoolReturns = totalSchoolCourseCash * 0.4
     const toRepay = totalSchoolCourseCash * 0.6
 
     const totalReturns = ourSchoolReturns + totalPrivateCourseCash + totalAnualCourseCash
 
     function renderAllOperations() {
-        return allCourseOperations().map(item => <CourseItem item={item} />)
+        return allCourseOperations().map(item => <CourseItem key={data.getid()} item={item} />)
     }
 
     const footer = (
