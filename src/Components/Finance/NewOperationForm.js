@@ -22,16 +22,13 @@ export default function NewOperationForm(props) {
 
     const handleConfirm = async () => {
         const operation = newOperation
-        if(newOperation.opType === 'deposit') {
+        if(newOperation.opType === 'deposit' || newOperation.opType === 'course') {
             operation.amount = -operation.amount 
         }
         else if (newOperation.opType === 'bizum') {
             operation.bizum = true         
         }
         operation.amount = Number(operation.amount)
-        // lastOperations.push(operation)
-        // await data.overwriteBin(data.financeBinId, financialData)
-        // window.location.reload()
         await axios
         .put(`https://chiringuito-api.herokuapp.com/api/days/newop/${lastDay._id}`,
         operation

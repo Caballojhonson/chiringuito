@@ -127,3 +127,11 @@ transform: scale(1.1);
 .is_payed {
     margin-bottom:1rem;
 }
+.course_stats_container {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    background-color: white;
+}

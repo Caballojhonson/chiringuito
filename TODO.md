@@ -32,7 +32,6 @@ Matches :
         - when
 
 Big todo list:
-        - Order merging if sameWeek && NOT ordered yet
         - Archived orders style
         - League finance tracking
         - supplier view + edit
@@ -48,12 +47,11 @@ Big todo list:
         - filter edit screen or remake
         - Add supplier to items when search
         - Addsuppliers to search criteria
-        - Fixed expenses - periodic
         - Add date/time frames to suppliers and implement in weekly orders
         - Unarchive orders 
         - Repeat an order + modification form
-        - Pistas, new movement type: alquiler pistas
-        
+        - Pistas, Add new finance section
+        - Create period selection filter for financial section
 
 
 Susana: 
@@ -81,6 +79,10 @@ Big Done list:
         // - Employee worked hours
         - Archived orders section
         - Auto archive orders
+        - new movement type: alquiler pistas
+        - Fixed expenses - periodic
+        - Order merging if sameWeek && NOT ordered yet
+
 
 
 Bugfix:

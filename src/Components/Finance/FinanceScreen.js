@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import handleFixedExpenses from '../../runOnStartup'
 import '../../Styles/Finance.css'
+import Courses from './Courses'
 import Daily from './Daily'
 import DebtsOut from './DebtsOut'
 import Expenses from './Expenses'
@@ -100,6 +101,7 @@ export default function FinanceScreen() {
                     <h6 className='finance_menu_btn' onClick={() => setView('debtOut')}>Acreedores</h6>
                     <h6 className='finance_menu_btn' onClick={() => setView('expenses')}>Gastos</h6>
                     <h6 className='finance_menu_btn' onClick={() => setView('mySalary')}>Mi sueldo</h6>
+                    <h6 className='finance_menu_btn' onClick={() => setView('courses')}>Pistas</h6>
                 </div>
                 <button 
                 className='btn button_primary get_payed_btn'
@@ -122,6 +124,7 @@ export default function FinanceScreen() {
             {loaded && view.expenses && <Expenses salaries={salaries} expenses={expenses} />}
             {loaded && view.getPayed && <GetPayed salaries={salaries} refreshSalaries={getSalaries} />}
             {loaded && view.mySalary && <MySalary salaries={salaries} refreshSalaries={getSalaries}/>}
+            {loaded && view.courses && <Courses days={days} />}
             </div>
         </div>
     )
