@@ -73,10 +73,6 @@ const data = (() => {
 		return response.json();
 	}
 
-	const logAllBins = () => {
-		getBins().then((bins) => bins.forEach((bin) => console.log(bin)));
-	};
-
   const printAllBins = () => {
     getBins().then((bins) => bins.forEach((bin) => getData(bin)));
   }
@@ -94,7 +90,6 @@ const data = (() => {
 		getData,
 		printAllBins,
 		deleteAllBins,
-    	logAllBins,
     	overwriteBin,
 		getid,
 		stockBinId,

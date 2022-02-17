@@ -58,7 +58,6 @@ export default function MySalary(props) {
     return (
         <div className='finance_col_right'>
             <h3>Mis horas</h3>
-            {console.log(thisMonth)}
             {displayUserSalaries(thisMonth)}
             {displayTotalSalary(thisMonth)}
         </div>

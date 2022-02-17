@@ -60,7 +60,6 @@ export default function OrderOptions(props) {
 
     return (
         <div>
-            {console.log(order)}
             {archivePopup && <Popup 
                 title="Archivar pedido"
                 textTitle="¿Archivar?"

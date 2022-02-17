@@ -92,8 +92,6 @@ export default async function handleFixedExpenses() {
 
     function generateDebts() {
         data.fixed.forEach(fixedExpense => {
-            console.log(shouldBeGenerated(fixedExpense))
-            console.log(getAllExpensesFor(fixedExpense))
             if(shouldBeGenerated(fixedExpense)) {
                 postDebt(fixedExpense)
             }

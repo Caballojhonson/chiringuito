@@ -21,7 +21,7 @@ export default function HomeScreen() {
             <p className='chlogp'>-     Pistas Nuestras (100%)</p>
             <p className='chlogp'>-     Pistas Anuales (Alquileres anuales al 100%)</p>
             <p className='chlogp'>-Nueva sección de alquiler de pistas en contabilidad</p>
-            <p className='chlogp'>-Alisson queda nominada como empleada del mes por minoría absoluta por lo de la cocacola</p>
+            <p className='chlogp'>-Alisson queda nominada a empleada del mes por minoría absoluta por lo de la cocacola</p>
 
 
 

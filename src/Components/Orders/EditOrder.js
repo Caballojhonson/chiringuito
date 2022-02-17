@@ -3,7 +3,6 @@ import ChecklistItem from "../Checklist/ChecklistItem";
 
 export default function EditOrder(props) {
   const { order, closeModal, onConfirm } = props;
-  console.log(order)
 
   const uselessFunc = () => {};
 

@@ -41,7 +41,6 @@ export default function NewUserScreen() {
 	};
 
 	const handleKeypress = e => {
-		console.log(e.keyCode + ' pressed!')
 
 		if (e.keyCode === 13) {
 			handleSubmit();

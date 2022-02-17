@@ -20,27 +20,7 @@ import RunOnStartup from './runOnStartup';
 
 export default function Router() {
 
-	
-
-	//data.getData(data.orderBinId).then(val => console.log(val))
-	//data.getData(data.stockBinId).then(val => console.log(val))
 	data.getData(data.supplierBinId).then(val => console.log(val))
-	//data.getData(data.usersBinId).then(val => console.log(val))
-	//data.getData(data.stockBinId).then(val => console.log(val))
-	// data.overwriteBin(data.financeBinId, forceFinance)
-	
-	//data.getData(data.supplierBinId).then(val => console.log(val))
-	//data.overwriteBin(data.financeBinId, {})
-	//console.log(refranero[Math.floor(Math.random() * refranero.length )])
-	//data.createBin([]).then(val => console.log(val))
-
-	// async function resetExpenses() {
-	// 	const finance = await data.getData(data.financeBinId)
-	// 	finance.expenses = []
-	// 	await data.overwriteBin(data.financeBinId, finance)
-	// 	console.log(finance)
-	// }
-	// resetExpenses()
 
 	let newSession = localStorage.getItem('newSession')
 

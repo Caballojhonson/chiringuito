@@ -69,7 +69,6 @@ export default function Checklist_Main() {
 		if (compatibleOrder) 
 		{
 			order.items.forEach(async item => {
-				console.log(item)
 				await axios
 				.put(`https://chiringuito-api.herokuapp.com/api/orders/additem/${compatibleOrder._id}`,
 				item

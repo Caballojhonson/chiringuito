@@ -29,19 +29,6 @@ export default function OrderScreen() {
     const pendingOrders = orders && orders.filter(order => order.isArchived === false)
     const archivedOrders = orders && orders.filter(order => order.isArchived)
 
-    // const groupedOrdersByWeek = orders && orders.reduce((groups, item) => {
-    //     let week = item.week
-    //     let group = groups[week] || (groups[week] = [ ]);
-    //     group.push(item);
-    //     return groups;
-    // }, { })
-
-    const weekSet = orders && [...new Set(orders.map(order => order.week))]
-
-    // const pendingGroups = weekSet.map(weekDate => {
-
-    // })
-
     const orderTypeHeader = (
         <div className="btn-group ordertype_selection_wrapper" role="group" aria-label="Basic example">
 

@@ -68,7 +68,6 @@ export default function DebtsOut(props) {
     })
 
     const renderFixedDebt = debts && debts.map(debt => {
-        {console.log(debt)}
         return(
             debt.isRecurrent && <Debt key={data.getid()} debt= {debt} />
         )

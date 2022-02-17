@@ -8,9 +8,10 @@ export default function Expenses(props) {
 
     function ExpenseItem(props) {
         const {item} = props
-        console.log(item);
 
-        return (
+        if(!item.isRecurrent && !item.fromOrder) return  // ANTI SUSANA FAILSAFE
+
+        else return (
         <div className='expense_item_container'>
             <span>{format(new Date(item.payedOn), 'P', {locale: es})}</span>
             <p>{item.isRecurrent ? item.concept : item.fromOrder.supplier}</p>
