@@ -1,12 +1,11 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { data } from '../../data';
 import '../../Styles/Calendar.css'
 
-export default function GetPayed(props) {
-    const {financialData} = props
+export default function GetPayed() {
     const [calDate, onChange] = useState(new Date());
     const [salary, setSalary] = useState('')
     const [isPayed, setIsPayed] = useState(false)
@@ -27,9 +26,7 @@ export default function GetPayed(props) {
        .post('https://chiringuito-api.herokuapp.com/api/salaries/new', newSalary)
        .then(res => console.log(res))
        .catch(err => err.message)
-    // financialData.salaries.push(newSalary)
-    // await data.overwriteBin(data.financeBinId, financialData)
-    window.location.reload()
+        window.location.reload()
     }
 
     const formButtons = (

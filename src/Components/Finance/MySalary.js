@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { format, isSameMonth } from 'date-fns'
+import { format, isAfter, isBefore, isSameMonth } from 'date-fns'
 import { es } from 'date-fns/locale'
 import React, {useState} from 'react'
 import { data } from '../../data'
@@ -8,6 +8,8 @@ import PeriodSelectorBar from '../UI/PeriodSelectorBar'
 export default function MySalary(props) {
     const {salaries, refreshSalaries} = props
 
+    const [range, setRange] = useState('')
+
     async function togglePayed(salaryId) {
         const salary = salaries.find(item => item._id === salaryId)
         salary.isPayed = !salary.isPayed
@@ -15,8 +17,16 @@ export default function MySalary(props) {
         await refreshSalaries()
     }
 
+    function rangeHandler(start, end) {
+        setRange({
+            start: start,
+            end: end
+        })
+    }
+
     const thisUsersSalaries = salaries.filter(salary => salary.user === data.username)
     const thisMonth = thisUsersSalaries.filter(salary => isSameMonth(new Date(salary.date), new Date()) )
+    const thisPeriod = thisUsersSalaries.filter(salary => isBefore(new Date(salary.date), range.end) && isAfter(new Date(salary.date), range.start) )
 
     function UserSalaryItem(props) {
         const {item} = props
@@ -58,10 +68,10 @@ export default function MySalary(props) {
 
     return (
         <div className='finance_col_right'>
-            {<PeriodSelectorBar  />}
+            {<PeriodSelectorBar handler={rangeHandler} />}
             <h3>Mis horas</h3>
-            {displayUserSalaries(thisMonth)}
-            {displayTotalSalary(thisMonth)}
+            {displayUserSalaries(thisPeriod)}
+            {displayTotalSalary(thisPeriod)}
         </div>
     )
 }

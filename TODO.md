@@ -52,6 +52,7 @@ Big todo list:
         - Repeat an order + modification form
         - Pistas, Add new finance section
         - Create period selection filter for financial section
+        - Please fix order edition display !!! URGENT
 
 
 Susana: 
