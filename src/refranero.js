@@ -586,7 +586,8 @@ const refranero = [
 	' Zapatero, a tus zapatos.',
 	' Zurrón de mendigo, nunca bien henchido.',
 	'"La mayoría de nuestras importaciones vienen de fuera del país." (George W. Bush)',
-	'"Creo que el MATRIMONIO GAY debería ser entre un hombre y una mujer" (Arnold Schwarzenegger)'
+	'"Creo que el MATRIMONIO GAY debería ser entre un hombre y una mujer" (Arnold Schwarzenegger)',
+	'Vas a aprenderte el refranero por mis huevos'
 ];
 
 export default refranero

@@ -22,11 +22,13 @@ export default function HomeScreen() {
             <p className='chlogp'>-     Pistas Anuales (Alquileres anuales al 100%)</p>
             <p className='chlogp'>-Nueva sección de alquiler de pistas en contabilidad</p>
             <p className='chlogp'>-Alisson queda nominada a empleada del mes por minoría absoluta por lo de la cocacola</p>
+            <p className='chlogp'>Nueva barra de filtrado por fechas en 'Mi Sueldo'</p>
+            
 
 
 
             <div className="software_version_container">
-				<p className="software_version">El Chiringuito BETA v1.0.11</p>
+				<p className="software_version">El Chiringuito BETA v1.0.12</p>
 				<p className="copyright">©2022 - Caballojhonson</p>
 			</div>
 

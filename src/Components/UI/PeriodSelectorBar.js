@@ -41,6 +41,9 @@ export default function PeriodSelectorBar(props) {
   }
 
   function addStep() {
+    if(period === 'Este mes') {
+      setPeriod('Mes')
+    }
     if (period === 'Semana') {
       setStart(
         add(start, {weeks: 1})
@@ -71,6 +74,9 @@ export default function PeriodSelectorBar(props) {
   }
 
   function subStep() {
+    if(period === 'Este mes') {
+      setPeriod('Mes')
+    }
     if (period === 'Semana') {
       setStart(
         sub(start, {weeks: 1})
