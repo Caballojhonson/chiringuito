@@ -3,6 +3,7 @@ import { format, isSameMonth } from 'date-fns'
 import { es } from 'date-fns/locale'
 import React, {useState} from 'react'
 import { data } from '../../data'
+import PeriodSelectorBar from '../UI/PeriodSelectorBar'
 
 export default function MySalary(props) {
     const {salaries, refreshSalaries} = props
@@ -57,6 +58,7 @@ export default function MySalary(props) {
 
     return (
         <div className='finance_col_right'>
+            {<PeriodSelectorBar  />}
             <h3>Mis horas</h3>
             {displayUserSalaries(thisMonth)}
             {displayTotalSalary(thisMonth)}

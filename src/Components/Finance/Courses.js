@@ -20,8 +20,14 @@ export default function Courses(props) {
     function CourseItem(props) {
         const {item} = props
 
+        const colors = () => {
+            if (item.opType === 'course_e') return {backgroundColor: '#ffe0a7'}
+            if (item.opType === 'course_n') return {backgroundColor: '#9df39d'}
+            if (item.opType === 'course_a') return {backgroundColor: 'rgb(157 239 243)'}
+        }
+
         return (
-        <div className='expense_item_container'>
+        <div style={colors()} className='expense_item_container'>
             <span>{format(new Date(item.timestamp), 'P', {locale: es})}</span>
             <p>{item.concept}</p>
             <p><strong>{`${-item.amount}€`}</strong></p>

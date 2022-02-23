@@ -11,6 +11,7 @@ html, body {
 }
 .fullscreen {
     position: fixed;
+    display: flex;
     height: 100vh;
     width: 100vw;
     top: 0;
@@ -18,6 +19,8 @@ html, body {
     z-index: 99999;
     background-color: pink;
     padding: 3rem;
+    justify-content: center;
+    align-items: center;
 }
 .screen_title {
     text-align: center;

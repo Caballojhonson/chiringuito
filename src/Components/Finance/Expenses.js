@@ -36,13 +36,15 @@ export default function Expenses(props) {
     const allExpenseItems = expenses
         .map(item => <ExpenseItem key={data.getid()} item={item} />)
 
+    const tenExpenseItems = expenses.slice(0, 10)
+        .map(item => <ExpenseItem key={data.getid()} item={item} />)  //PLEASE FINISH MAXNUM OF EXPENSES
+
     const allPayedSalaries = salaries
         .map(item => <SalaryItem key={data.getid()} item={item} />)
 
     return (
         <div className='finance_col_right'>
             <h3>Proveedores</h3>
-            {console.log(salaries)}
             {allExpenseItems}
             <h3>Salarios</h3>
             {allPayedSalaries}

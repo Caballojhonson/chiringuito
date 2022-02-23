@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import handleFixedExpenses from '../../runOnStartup'
 import '../../Styles/Finance.css'
+import Loading from '../UI/Loading'
 import Courses from './Courses'
 import Daily from './Daily'
 import DebtsOut from './DebtsOut'
@@ -115,6 +116,7 @@ export default function FinanceScreen() {
 
     return (
         <div className='app finance_main'>
+            {!loaded && <Loading  />}
             {leftMenu}
             <div>
             {days && view.daily && <Daily days={days} refreshDays={getDays} />}

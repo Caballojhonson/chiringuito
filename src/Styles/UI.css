@@ -58,3 +58,12 @@
     margin-top: auto;
     margin-bottom: 7rem;
 }
+.period_selector_container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 0.1rem 0 0.1rem;
+}
+.period_selector_container * {
+    margin: 0 0.1rem 0 0.11rem;
+    font-size: 0.75rem;
+}
