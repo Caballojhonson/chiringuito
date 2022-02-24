@@ -1,8 +1,18 @@
-import { isSameMonth, isSameWeek } from 'date-fns'
-import React from 'react'
+import { isAfter, isBefore, isSameMonth, isSameWeek } from 'date-fns'
+import React, {useState} from 'react'
+import PeriodSelectorBar from '../UI/PeriodSelectorBar'
 
 export default function FinancialStats(props) {
     const {financialData, days, salaries, expenses} = props
+
+    const [range, setRange] = useState('')
+
+    function rangeHandler(start, end) {
+        setRange({
+            start: start,
+            end: end
+        })
+    }
 
     function thisMonthsEarnings() {
         const daysInThisMonth = days.filter(day =>
@@ -18,6 +28,18 @@ export default function FinancialStats(props) {
         const balance = daysInThisWeek.reduce(
             (prev, curr) => prev + curr.totalBalance, 0)
             return Number(balance)
+    }
+
+    function thisPeriodsEarnings() {
+        const daysInThisPeriod = days.filter(day => 
+            isBefore(new Date(day.timestamp), range.end) && 
+            isAfter(new Date(day.timestamp), range.start)
+            )
+        
+        const balance = daysInThisPeriod.reduce(
+            (prev, curr) => prev + curr.totalBalance, 0)
+
+        return Number(balance)
     }
 
     const totalExpenses = () => expenses
@@ -45,8 +67,15 @@ export default function FinancialStats(props) {
         )
     }
 
+    const financialStatement = (
+        <div>
+            
+        </div>
+    )
+
     return (
         <div className='stats_section_container'>
+            {<PeriodSelectorBar handler={rangeHandler} />}
             <StatBox
                 title= 'Facturación esta semana'
                 balanceFn= {thisWeeksEarnings}
@@ -73,5 +102,5 @@ export default function FinancialStats(props) {
                 detailLink= {'/'}
             />
         </div>
-    )
+    ) 
 }

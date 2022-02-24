@@ -25,7 +25,6 @@ export default function MySalary(props) {
     }
 
     const thisUsersSalaries = salaries.filter(salary => salary.user === data.username)
-    const thisMonth = thisUsersSalaries.filter(salary => isSameMonth(new Date(salary.date), new Date()) )
     const thisPeriod = thisUsersSalaries.filter(salary => isBefore(new Date(salary.date), range.end) && isAfter(new Date(salary.date), range.start) )
 
     function UserSalaryItem(props) {
