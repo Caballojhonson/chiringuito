@@ -85,6 +85,14 @@ transform: scale(1.1);
     align-items: center;
     margin: 0.5rem 0.5rem 2rem 0.5rem;
 }
+.stats_financial_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.stats_financial_row > p {
+    font-size: 0.9rem;
+    margin: 0px;
+}
 .statbox_wrapper{
     display: flex;
     flex-direction: column;

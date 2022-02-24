@@ -120,7 +120,7 @@ export default function FinanceScreen() {
             {leftMenu}
             <div>
             {days && view.daily && <Daily days={days} refreshDays={getDays} />}
-            {loaded && view.stats && <FinancialStats days={days} salaries={salaries} expenses={expenses} />}
+            {loaded && view.stats && <FinancialStats days={days} salaries={salaries} expenses={expenses} debts={debts} />}
             {loaded && view.debtOut && <DebtsOut orders={orders} salaries={salaries} debts={debts} data={data} refreshDebts={getDebts} />}
             {view.calendar && <FinanceCalendar />}
             {loaded && view.expenses && <Expenses salaries={salaries} expenses={expenses} />}
