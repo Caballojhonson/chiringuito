@@ -22,7 +22,7 @@ export default function NewOperationForm(props) {
 
     const handleConfirm = async () => {
         const operation = newOperation
-        if(newOperation.opType !== 'bizum' || newOperation.opType !== 'withdrawal') {
+        if(newOperation.opType !== 'bizum' && newOperation.opType !== 'withdrawal') {
             operation.amount = -operation.amount 
         }
         else if (newOperation.opType === 'bizum') {
