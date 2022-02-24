@@ -67,6 +67,8 @@ export default function FinancialStats(props) {
         return Number(balance)
     }
 
+    const totalEarnings = thisPeriodsBarCash() + -totalCourseCash
+
     // EXPENSES
 
     const supplierExpenses = expenses.filter(expense => expense.concept === 'order')
@@ -142,6 +144,8 @@ export default function FinancialStats(props) {
     Number(totalDebt()) +
     Number(coursesToRepay)
 
+    const totalBalance = (totalEarnings + totalExpenditure).toFixed(2)
+
     const financialStatement = (
         <div style={{width: '80%'}}>
 
@@ -157,7 +161,7 @@ export default function FinancialStats(props) {
             </div>
             <div className="stats_financial_row" style={{marginTop: '1rem'}}>
                 <span>Total</span>
-                <p><strong>{`${thisPeriodsBarCash() + -totalCourseCash}€`}</strong></p>
+                <p><strong>{`${totalEarnings}€`}</strong></p>
             </div>
 
             <h6 className='text-center' style={{marginTop: '1rem'}}>Gastos</h6>
@@ -187,6 +191,10 @@ export default function FinancialStats(props) {
                 <p><strong>{`${totalExpenditure}€`}</strong></p>
             </div>
 
+            <h6 className='text-center' style={{marginTop: '1rem'}}>Resultado</h6>
+            <div  style={{marginTop: '1rem'}}>
+                <p className="text-center" style={{fontSize: '1.2rem'}} ><strong>{`${totalBalance}€`}</strong></p>
+            </div>
         </div>
     )
 
