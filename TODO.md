@@ -50,8 +50,6 @@ Big todo list:
         - Add date/time frames to suppliers and implement in weekly orders
         - Unarchive orders 
         - Repeat an order + modification form
-        - Pistas, Add new finance section
-        - Create period selection filter for financial section
         - Please fix order edition display !!! URGENT
 
 
@@ -83,6 +81,8 @@ Big Done list:
         - new movement type: alquiler pistas
         - Fixed expenses - periodic
         - Order merging if sameWeek && NOT ordered yet
+        - Create period selection filter for financial section
+        - Pistas, Add new finance section
 
 
 

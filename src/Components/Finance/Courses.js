@@ -1,10 +1,12 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import React from 'react'
+import React, {useState} from 'react'
 import { data } from '../../data'
 
 export default function Courses(props) {
     const {days} = props
+
+    const [onlySchool, setOnlySchool] = useState(false)
 
     const allCourseOperations = () => {
         const allOperations = days.map(day => day.operations).flat()
@@ -15,6 +17,20 @@ export default function Courses(props) {
             op.opType === 'course_a')
         })
         return courseOperations
+    }
+
+    const onlySchoolOperations = () => {
+        const allOperations = days.map(day => day.operations).flat()
+        const courseOperations = allOperations.filter(op => {
+        return (
+            op.opType === 'course_e'
+        )
+        })
+        return courseOperations
+    }
+
+    function toggleOnlySchool() {
+        setOnlySchool(!onlySchool)
     }
 
     function CourseItem(props) {
@@ -61,6 +77,10 @@ export default function Courses(props) {
         return allCourseOperations().map(item => <CourseItem key={data.getid()} item={item} />)
     }
 
+    function renderOnlySchool() {
+        return onlySchoolOperations().map(item => <CourseItem key={data.getid()} item={item} />)
+    }
+
     const footer = (
         <div className='course_stats_container'>
             <div className="dailybalance_container ">
@@ -78,11 +98,38 @@ export default function Courses(props) {
         </div>
     )
 
+    const onlySchoolFooter = (
+        <div className='course_stats_container'>
+        <div className="dailybalance_container ">
+            <p style={{color: 'black'}} className="dailybalance dailybalance_tag">60% Club</p>
+            <h1 className="dailybalance">{`${-toRepay.toFixed(2)}€`}</h1>
+        </div>
+    </div>
+    )
+    
+
+    const toggleBtn = (
+        <div className="form-check form-switch is_payed">
+					<input
+						className="form-check-input"
+						type="checkbox"
+						checked={onlySchool}
+						onChange={() => toggleOnlySchool()}
+					/>
+					<label className="form-check-label" htmlFor="formSwitchCheckChecked">
+						Sólo escuela
+					</label>
+				</div>
+    )
+
     return (
         <div className='finance_col_right'>
             <h3>Pistas</h3>
-            {renderAllOperations()}
-            {footer}
+            {toggleBtn}
+            {!onlySchool && renderAllOperations()}
+            {onlySchool && renderOnlySchool()}
+            {!onlySchool && footer}
+            {onlySchool && onlySchoolFooter}
         </div>
     )
 }
