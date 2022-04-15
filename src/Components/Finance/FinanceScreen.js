@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
-import handleFixedExpenses from '../../runOnStartup'
 import '../../Styles/Finance.css'
 import Loading from '../UI/Loading'
 import Courses from './Courses'
@@ -24,7 +23,6 @@ export default function FinanceScreen() {
 
     useEffect(() => {
         loadData()
-        handleFixedExpenses()
     }, [])
 
     async function loadData() {

@@ -15,8 +15,6 @@ import FinanceScreen from './Components/Finance/FinanceScreen';
 import EventsMain from './Components/Events/EventsMain';
 import EditItems from './Components/Settings/EditItems';
 import AddNewFixedExpense from './Components/Settings/AddNewFixedExpense';
-import run from './runOnStartup';
-import RunOnStartup from './runOnStartup';
 
 export default function Router() {
 

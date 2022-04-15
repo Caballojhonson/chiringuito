@@ -87,6 +87,7 @@ export default function SupplierBox(props) {
 
 	const supplierTotal = () => {
 		const sum = order.items.reduce((a, b) => {
+			if(!b.item) {return console.error('Error at order ' + order._id)}
 			return parseFloat(a) + parseFloat(b.item.price) * parseFloat(b.quantity);
 		}, 0);
 		return sum.toFixed(2) + '€';
