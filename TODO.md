@@ -51,6 +51,9 @@ Big todo list:
         - Unarchive orders 
         - Repeat an order + modification form
         - Please fix order edition display !!! URGENT
+        - Update database download method
+        - Update user creation system and migrate to mongo
+        
 
 
 Susana: 

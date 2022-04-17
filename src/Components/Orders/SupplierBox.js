@@ -6,7 +6,7 @@ import OrderStatusModal from './OrderStatusModal';
 import PaymentStatusModal from './PaymentStatusModal';
 
 export default function SupplierBox(props) {
-	const { name, order, id, refreshOrders } = props;
+	const { name, order, refreshOrders } = props;
 	//const [orderStatus, setOrderStatus] = useState(order.orderStatus);
 	//const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus);
 	const [orderModalVisible, setOrderModalVisible] = useState(false);

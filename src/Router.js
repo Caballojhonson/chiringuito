@@ -15,11 +15,9 @@ import FinanceScreen from './Components/Finance/FinanceScreen';
 import EventsMain from './Components/Events/EventsMain';
 import EditItems from './Components/Settings/EditItems';
 import AddNewFixedExpense from './Components/Settings/AddNewFixedExpense';
+//
 
 export default function Router() {
-
-	data.getData(data.supplierBinId).then(val => console.log(val))
-
 	let newSession = localStorage.getItem('newSession')
 
 	useEffect(() => {
@@ -57,7 +55,6 @@ export default function Router() {
 
 	return (
 		<div >
-
 			{newSession && loadScreen()}
 			{data.isAuthorized && privateNavigation}
 			{!data.isAuthorized && loginScreen}

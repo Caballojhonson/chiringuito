@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { data } from '../../data';
 import '../../Styles/Orders.css'
 import OrderBox from './OrderBox'; 
 import newOrderIcon from '../../images/add-file.png';
@@ -15,8 +14,7 @@ export default function OrderScreen() {
 
     useEffect(() => {
         getOrders()
-        data.getData(data.supplierBinId).then(suppliers => setSuppliers(suppliers))
-
+        getSuppliers()
     }, [])
 
     async function getOrders() {
@@ -25,6 +23,14 @@ export default function OrderScreen() {
         .then(res => setOrders(res.data.data))
         .catch(err => console.log(err))
     }
+
+    async function getSuppliers() {
+        await axios
+        .get('https://chiringuito-api.herokuapp.com/api/suppliers')
+        .then(res => setSuppliers(res.data.data))
+        .catch(err => console.log(err))
+    }
+
 
     const pendingOrders = orders && orders.filter(order => order.isArchived === false)
     const archivedOrders = orders && orders.filter(order => order.isArchived)

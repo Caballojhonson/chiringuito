@@ -1,38 +1,42 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { data } from '../../data';
 
 export default function AddNewSupplier() {
 	let navigate = useNavigate();
 
 	const [newSupplier, setNewSupplier] = useState({
-		id: data.getid(),
 		name: '',
-		CIF: '',
-		contact: '+34 ',
+		cif: '',
+		phoneNumber: '+34 ',
 		delivers: false,
 		admitsDebt: false,
-		deliveries: '',
+		delivery: '',
 	});
 
 	const handleChange = (e) => {
 		const name = e.target.name;
 		let value = e.target.value;
-        if(name === 'delivers') {
-            value = !newSupplier.delivers
-        }
-        if(name === 'admitsDebt') {
-            value = !newSupplier.admitsDebt
-        }
+		if (name === 'delivers') {
+			value = !newSupplier.delivers;
+		}
+		if (name === 'admitsDebt') {
+			value = !newSupplier.admitsDebt;
+		}
 		setNewSupplier({ ...newSupplier, [name]: value });
 	};
 
-    const handleSubmit = async () => {
-        let supplierList = await data.getData(data.supplierBinId)
-        const updatedList = supplierList.concat(newSupplier)
-        data.overwriteBin(data.supplierBinId, updatedList)
-        .then(navigate('/opciones'))
-    }
+	const handleSubmit = async () => {
+		await submitSupplier();
+		navigate('/opciones');
+	};
+
+	async function submitSupplier() {
+		await axios.post(
+			`https://chiringuito-api.herokuapp.com/api/suppliers/new`,
+			newSupplier
+		);
+	}
 
 	return (
 		<div className="form_container">
@@ -64,7 +68,7 @@ export default function AddNewSupplier() {
 						CIF
 					</label>
 					<input
-						name="CIF"
+						name="cif"
 						value={newSupplier.CIF}
 						onChange={handleChange}
 						type="text"
@@ -79,7 +83,7 @@ export default function AddNewSupplier() {
 						Contacto
 					</label>
 					<input
-						name="contact"
+						name="phoneNumber"
 						value={newSupplier.contact}
 						onChange={handleChange}
 						type="text"
@@ -95,7 +99,7 @@ export default function AddNewSupplier() {
 					Días y horarios de entrega
 				</label>
 				<input
-					name="deliveries"
+					name="delivery"
 					value={newSupplier.deliveries}
 					onChange={handleChange}
 					type="text"
@@ -133,21 +137,17 @@ export default function AddNewSupplier() {
 				</div>
 			</div>
 
-            <div className="button_group">
-					<button
-						className="button_primary button_cancel"
-						onClick={() => navigate('/opciones')}
-					>
-						Cancelar
-					</button>
-					<button
-						className="button_primary button_accept"
-						onClick={handleSubmit}
-					>
-						Añadir
-					</button>
-				</div>
-
+			<div className="button_group">
+				<button
+					className="button_primary button_cancel"
+					onClick={() => navigate('/opciones')}
+				>
+					Cancelar
+				</button>
+				<button className="button_primary button_accept" onClick={handleSubmit}>
+					Añadir
+				</button>
+			</div>
 		</div>
 	);
 }

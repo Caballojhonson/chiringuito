@@ -1,39 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { data } from '../../data';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function AddNewItem(props) {
-	const {stockItem, closeFn} = props
+	const { stockItem, closeFn } = props;
 	let navigate = useNavigate();
 
 	const [suppliers, setSuppliers] = useState(null);
 	const [stockItems, setStockItems] = useState(null);
 
 	useEffect(() => {
-		getItems()
+		getItems();
+		!suppliers && getSuppliers()
+	}, []);
 
-		!suppliers &&
-		data.getData(data.supplierBinId).then((val) => setSuppliers(val));
-	}, [])
+	async function getItems() {
+		const items = await axios.get(
+			`https://chiringuito-api.herokuapp.com/api/items/`
+		);
+		setStockItems(items.data.data);
+	}
 
-		async function getItems() {
-			const items = await axios.get(`https://chiringuito-api.herokuapp.com/api/items/`)
-			setStockItems(items.data.data)
-		}
+	async function getSuppliers() {
+		const suppliers = await axios.get(
+			`https://chiringuito-api.herokuapp.com/api/suppliers/`
+		);
+		setSuppliers(suppliers.data.data);
+	}
 
 	const [newProduct, setNewProduct] = useState(
-		stockItem ? 
-		{...stockItem, price: stockItem.price / stockItem.iva} :
-			{
-			name: '',
-			price: 0,
-			iva: 0,
-			format: '',
-			supplier: '',
-			category: '',
-			packQuantity: 0,
-			} 
+		stockItem
+			? { ...stockItem, price: stockItem.price / stockItem.iva }
+			: {
+					name: '',
+					price: 0,
+					iva: 0,
+					format: '',
+					supplier: '',
+					category: '',
+					packQuantity: 0,
+			  }
 	);
 
 	const handleChange = (e) => {
@@ -44,40 +50,42 @@ export default function AddNewItem(props) {
 
 	const submitNewItem = async () => {
 		if (stockItems) {
-			const priceWithIVA = () => Number ((newProduct.price * newProduct.iva).toFixed(2))
-			const finalProduct = ({
+			const priceWithIVA = () =>
+				Number((newProduct.price * newProduct.iva).toFixed(2));
+			const finalProduct = {
 				...newProduct,
 				price: priceWithIVA(),
-				iva: Number (newProduct.iva),
-				packQuantity: Number (newProduct.packQuantity)
-				})
+				iva: Number(newProduct.iva),
+				packQuantity: Number(newProduct.packQuantity),
+			};
 
-			await axios
-			.post('https://chiringuito-api.herokuapp.com/api/items/new', 
-			finalProduct
-			)
-			navigate('/checklist')
+			await axios.post(
+				'https://chiringuito-api.herokuapp.com/api/items/new',
+				finalProduct
+			);
+			navigate('/checklist');
 		}
 	};
 
 	const updateEditedItem = async () => {
-		const priceWithIVA = () => Number ((newProduct.price * newProduct.iva).toFixed(2))
-		const finalProduct = ({
+		const priceWithIVA = () =>
+			Number((newProduct.price * newProduct.iva).toFixed(2));
+		const finalProduct = {
 			...newProduct,
 			price: priceWithIVA(),
-			iva: Number (newProduct.iva),
-			packQuantity: Number (newProduct.packQuantity)
-			})		
+			iva: Number(newProduct.iva),
+			packQuantity: Number(newProduct.packQuantity),
+		};
 
-		await axios
-		.put(`https://chiringuito-api.herokuapp.com/api/items/update/${stockItem._id}`,
-		finalProduct
-		)
+		await axios.put(
+			`https://chiringuito-api.herokuapp.com/api/items/update/${stockItem._id}`,
+			finalProduct
+		);
 
-		await getItems()
-		closeFn()
-		window.location.reload()
-	}
+		await getItems();
+		closeFn();
+		window.location.reload();
+	};
 
 	return (
 		stockItems &&
@@ -121,7 +129,6 @@ export default function AddNewItem(props) {
 					</div>
 				</div>
 
-
 				<div className="dropdown-contianer">
 					<div className="form-item">
 						<select
@@ -156,8 +163,6 @@ export default function AddNewItem(props) {
 						</select>
 					</div>
 				</div>
-
-
 
 				<div className="dropdown-contianer">
 					<div className="form-item">
@@ -195,26 +200,24 @@ export default function AddNewItem(props) {
 					</div>
 				</div>
 
-				{(newProduct.format === 'Pack' || newProduct.format === 'Caja') ? 
-
+				{newProduct.format === 'Pack' || newProduct.format === 'Caja' ? (
 					<div className="form-item">
-					<label htmlFor="packQuantity" className="form-label">
-						Unidades por pack
-					</label>
-					<div className="input-group">
-						<input
-							name="packQuantity"
-							value={newProduct.packQuantity}
-							onChange={handleChange}
-							type="number"
-							className="form-control"
-							id="packQuantity"
-							autoComplete="off"
-						></input>
+						<label htmlFor="packQuantity" className="form-label">
+							Unidades por pack
+						</label>
+						<div className="input-group">
+							<input
+								name="packQuantity"
+								value={newProduct.packQuantity}
+								onChange={handleChange}
+								type="number"
+								className="form-control"
+								id="packQuantity"
+								autoComplete="off"
+							></input>
+						</div>
 					</div>
-				</div>
-				: null
-				}
+				) : null}
 
 				<div className="button_group">
 					<button
