@@ -10,6 +10,8 @@ import Calendar from 'react-calendar'
 
 
 export default function PeriodSelectorBar(props) {
+  const {handler} = props
+
   const [period, setPeriod] = useState('Este mes')
   const [showStartCalendar, setShowStartCalendar] = useState(false)
   const [showEndCalendar, setShowEndCalendar] = useState(false)
@@ -17,7 +19,7 @@ export default function PeriodSelectorBar(props) {
   const [end, setEnd] = useState(new Date())
 
   useEffect(() => {
-    props.handler(start, end)
+    handler(start, end)
   }, [start, end])
   
 

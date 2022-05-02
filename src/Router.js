@@ -1,5 +1,5 @@
-import { Routes, BrowserRouter, Route, } from 'react-router-dom';
-import React, { useEffect} from 'react';
+import { Routes, BrowserRouter, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import ChecklistMain from './Components/Checklist/ChecklistMain';
 import SettingsMain from './Components/Settings/SettingsMain';
 import HomeScreen from './Components/Home/HomeScreen';
@@ -15,21 +15,21 @@ import FinanceScreen from './Components/Finance/FinanceScreen';
 import EventsMain from './Components/Events/EventsMain';
 import EditItems from './Components/Settings/EditItems';
 import AddNewFixedExpense from './Components/Settings/AddNewFixedExpense';
-//
+import NewMenuItemMainScreen from './Components/Menus/NewMenuItem/NewMenuItemMainScreen';
+
 
 export default function Router() {
-	let newSession = localStorage.getItem('newSession')
+	let newSession = localStorage.getItem('newSession');
 
 	useEffect(() => {
-		localStorage.setItem('newSession', '')
+		localStorage.setItem('newSession', '');
 		setTimeout(() => {
 			localStorage.setItem('newSession', true);
-		}, 900000) //Time of inactivity for session expiry 300000 = 5min
-	}, [])
+		}, 900000); //Time of inactivity for session expiry 300000 = 5min
+	}, []);
 
-
-	const loginScreen = <NewUserScreen/>
-	const loadScreen = () => window.location.href = '/bienvenida'
+	const loginScreen = <NewUserScreen />;
+	const loadScreen = () => (window.location.href = '/bienvenida');
 
 	const privateNavigation = (
 		<BrowserRouter>
@@ -46,19 +46,18 @@ export default function Router() {
 				<Route path="finanzas" element={<FinanceScreen />} />
 				<Route path="editar-referencias" element={<EditItems />} />
 				<Route path="nuevo-gasto-fijo" element={<AddNewFixedExpense />} />
+				<Route path="escandallar" element={<NewMenuItemMainScreen />} />
 			</Routes>
 
 			<MainToolbar />
-
 		</BrowserRouter>
 	);
 
 	return (
-		<div >
+		<div>
 			{newSession && loadScreen()}
 			{data.isAuthorized && privateNavigation}
 			{!data.isAuthorized && loginScreen}
 		</div>
-	)
+	);
 }
-
