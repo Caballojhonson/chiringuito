@@ -11,7 +11,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SettingsIcon from '@mui/icons-material/Settings';
 //import ScaleIcon from '@mui/icons-material/Scale';
-//import MenuBookIcon from '@mui/icons-material/MenuBook';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 //import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 //import PersonAddIcon from '@mui/icons-material/PersonAdd';
 //import AddIcon from '@mui/icons-material/Add';
@@ -99,6 +99,11 @@ export default function MenuSidebar(props) {
 			icon: <BalanceIcon fontSize="inherit" />,
 			title: 'Escandallar',
 			path: '/escandallar',
+		},
+		{
+			icon: <MenuBookIcon fontSize="inherit" />,
+			title: 'Carta',
+			path: '/carta',
 		},
 	];
 

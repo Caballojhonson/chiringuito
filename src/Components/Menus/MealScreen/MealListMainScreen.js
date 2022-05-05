@@ -38,9 +38,9 @@ export default function MealListMainScreen() {
 				<CircularProgress color="inherit" />
 			</Backdrop>
   )
-
+    // Please reconsider stupid backgroundColor 
 	return (
-		<Box sx={{m: 2, minHeight: '93vh'}}>
+		<Box sx={{p: 2, minHeight: '93vh', backgroundColor: '#ffe1f0'}}>  
 			{loadBackdrop}
 			{meals &&
 				categories().map((cat) => (
