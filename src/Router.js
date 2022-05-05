@@ -16,6 +16,7 @@ import EventsMain from './Components/Events/EventsMain';
 import EditItems from './Components/Settings/EditItems';
 import AddNewFixedExpense from './Components/Settings/AddNewFixedExpense';
 import NewMenuItemMainScreen from './Components/Menus/NewMenuItem/NewMenuItemMainScreen';
+import MealListMainScreen from './Components/Menus/MealScreen/MealListMainScreen';
 
 
 export default function Router() {
@@ -47,6 +48,7 @@ export default function Router() {
 				<Route path="editar-referencias" element={<EditItems />} />
 				<Route path="nuevo-gasto-fijo" element={<AddNewFixedExpense />} />
 				<Route path="escandallar" element={<NewMenuItemMainScreen />} />
+				<Route path="carta" element={<MealListMainScreen />} />
 			</Routes>
 
 			<MainToolbar />
