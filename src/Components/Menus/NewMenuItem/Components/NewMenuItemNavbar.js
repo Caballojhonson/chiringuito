@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import CalculateSharpIcon from '@mui/icons-material/CalculateSharp';
 
-export default function TopNavbar(props) {
+export default function NewMenuItemNavbar(props) {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="sticky">

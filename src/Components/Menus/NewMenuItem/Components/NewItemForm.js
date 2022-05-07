@@ -30,6 +30,7 @@ export default function NewItemForm(props) {
 		'Snack',
 		'Bocadillo',
 		'Preelaboración',
+		'Bebida',
 	];
 
 	function handleChange(e) {

@@ -56,7 +56,7 @@ export default function Submit(props) {
 			`https://chiringuito-api.herokuapp.com/api/meals/new`
 			, sanitizeData())
 		setSending(false)
-		setTimeout(() => window.location.href = '/platos', 1000)
+		setTimeout(() => window.location.href = '/carta', 1000)
 	}
 
 	return (

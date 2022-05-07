@@ -20,8 +20,6 @@ export default function MealListMainScreen() {
 		);
 
 		setMeals(response.data.data);
-		console.log(response.data.data);
-
 		setLoading(false);
 	}
 

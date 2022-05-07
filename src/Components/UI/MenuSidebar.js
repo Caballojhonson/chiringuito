@@ -13,7 +13,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 //import ScaleIcon from '@mui/icons-material/Scale';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 //import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
-//import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 //import AddIcon from '@mui/icons-material/Add';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -41,35 +41,39 @@ function MenuBtnGroup(props) {
 		maxHeight: 'max-content',
 	};
 
+	const drawer = (
+		<React.Fragment key={'drawer'}>
+			<Drawer anchor={'left'} open={isOpen} onClose={props.closeFn}>
+				{isSubmenu && (
+					<MainSidebarBtn
+						mainIcon={<ArrowBackIcon />}
+						closeFn={props.closeFn}
+					/>
+				)}
+
+				{iconList.map((icon) => {
+					return (
+						<MainSidebarBtn
+							mainIcon={icon.icon}
+							title={icon.title}
+							path={icon.path}
+							key={data.getid()}
+							subMenu={icon.subMenu}
+						/>
+					);
+				})}
+			</Drawer>
+		</React.Fragment>
+	);
+
 	return (
 		<Box sx={mainContainerStyle} color="primary">
-			<Box sx={btnContainerStyle}>
-				<Drawer anchor={'left'} open={isOpen} onClose={props.closeFn}>
-					{isSubmenu && (
-						<MainSidebarBtn
-							mainIcon={<ArrowBackIcon />}
-							closeFn={props.closeFn}
-						/>
-					)}
-
-					{iconList.map((icon) => {
-						return (
-							<MainSidebarBtn
-								mainIcon={icon.icon}
-								title={icon.title}
-								path={icon.path}
-								key={data.getid()}
-								subMenu={icon.subMenu}
-							/>
-						);
-					})}
-				</Drawer>
-			</Box>
+			<Box sx={btnContainerStyle}>{drawer}</Box>
 		</Box>
 	);
 }
 
-export default function MenuSidebar(props) {
+export default function MenuSidebar() {
 	const [menu, setMenu] = useState({ main: true });
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -107,6 +111,14 @@ export default function MenuSidebar(props) {
 		},
 	];
 
+	const supplierMenuList = [
+		{
+			icon: <PersonAddIcon fontSize="inherit" />,
+			title: 'Añadir',
+			path: '/nuevo-proveedor',
+		},
+	];
+
 	const mainMenuList = [
 		{
 			icon: <LocalShippingIcon fontSize="inherit" />,
@@ -126,6 +138,7 @@ export default function MenuSidebar(props) {
 		{
 			icon: <PeopleAltIcon fontSize="inherit" />,
 			title: 'Proveedores',
+			subMenu: () => setMenuScreen('suppliers')
 		},
 		{
 			icon: <AttachMoneyIcon fontSize="inherit" />,
@@ -139,16 +152,19 @@ export default function MenuSidebar(props) {
 		},
 	];
 
+	const mainMenu = isOpen && menu.main && (
+		<MenuBtnGroup
+			iconList={mainMenuList}
+			isOpen={isOpen}
+			closeFn={() => setIsOpen(false)}
+		/>
+	);
+
 	return (
-		<div style={{  }}>
-			<MenuIcon fontSize='large' onClick={() => setIsOpen(true)} sx={{ml: 2, mt: 1}} />
-			{isOpen && menu.main && (
-				<MenuBtnGroup
-					iconList={mainMenuList}
-					isOpen={isOpen}
-					closeFn={() => setIsOpen(false)}
-				/>
-			)}
+		<div>
+			<MenuIcon sx={{}} onClick={() => setIsOpen(true)} />
+
+			{mainMenu}
 			{menu.orders && (
 				<MenuBtnGroup
 					iconList={orderMenuList}
@@ -160,6 +176,14 @@ export default function MenuSidebar(props) {
 			{menu.menus && (
 				<MenuBtnGroup
 					iconList={menusMenuList}
+					isOpen={true}
+					closeFn={() => setMenuScreen('main')}
+					isSubmenu={true}
+				/>
+			)}
+			{menu.suppliers && (
+				<MenuBtnGroup
+					iconList={supplierMenuList}
 					isOpen={true}
 					closeFn={() => setMenuScreen('main')}
 					isSubmenu={true}

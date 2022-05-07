@@ -24,7 +24,6 @@ export default function GetPayed() {
 
        await axios
        .post('https://chiringuito-api.herokuapp.com/api/salaries/new', newSalary)
-       .then(res => console.log(res))
        .catch(err => err.message)
         window.location.reload()
     }
