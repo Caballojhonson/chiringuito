@@ -3,9 +3,10 @@ import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 
 export default function MealListItem(props) {
-	const { name, pvp, margin } = props;
+	const { name, pvp, margin, id } = props;
 
 	return (
+		<div onClick={() => window.location = `/carta/${id}`} >
 		<Paper elevation="1">
 			<Grid container sx={{ alignItems: 'center', mt:1, mb:1,  }}>
 				<Grid item xs={6} sx={{pl:1}} >
@@ -24,5 +25,6 @@ export default function MealListItem(props) {
 				</Grid>
 			</Grid>
 		</Paper>
+		</div>
 	);
 }

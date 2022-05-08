@@ -40,6 +40,7 @@ export default function Submit(props) {
 				return {
 					concept: item.concept,
 					percentage: Number(item.percentage),
+					quantity: Number(item.quantity),
 				};
 			});
 		}

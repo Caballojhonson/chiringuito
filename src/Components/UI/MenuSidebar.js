@@ -73,9 +73,9 @@ function MenuBtnGroup(props) {
 	);
 }
 
-export default function MenuSidebar() {
+export default function MenuSidebar(props) {
+	const {isOpen, setIsOpen} = props
 	const [menu, setMenu] = useState({ main: true });
-	const [isOpen, setIsOpen] = useState(false);
 
 	function setMenuScreen(viewKey) {
 		const clearedScreens = Object.keys(menu).forEach(
@@ -160,35 +160,39 @@ export default function MenuSidebar() {
 		/>
 	);
 
+	const orderMenu = (menu.orders && (
+		<MenuBtnGroup
+			iconList={orderMenuList}
+			isOpen={true}
+			closeFn={() => setMenuScreen('main')}
+			isSubmenu={true}
+		/>
+	))
+	const menusMenu = (menu.menus && (
+		<MenuBtnGroup
+			iconList={menusMenuList}
+			isOpen={true}
+			closeFn={() => setMenuScreen('main')}
+			isSubmenu={true}
+		/>
+	))
+	const supplierMenu = (menu.suppliers && (
+		<MenuBtnGroup
+			iconList={supplierMenuList}
+			isOpen={true}
+			closeFn={() => setMenuScreen('main')}
+			isSubmenu={true}
+		/>
+	))
+
 	return (
 		<div>
-			<MenuIcon sx={{}} onClick={() => setIsOpen(true)} />
+			<MenuIcon onClick={() => setIsOpen(true)} />
 
 			{mainMenu}
-			{menu.orders && (
-				<MenuBtnGroup
-					iconList={orderMenuList}
-					isOpen={true}
-					closeFn={() => setMenuScreen('main')}
-					isSubmenu={true}
-				/>
-			)}
-			{menu.menus && (
-				<MenuBtnGroup
-					iconList={menusMenuList}
-					isOpen={true}
-					closeFn={() => setMenuScreen('main')}
-					isSubmenu={true}
-				/>
-			)}
-			{menu.suppliers && (
-				<MenuBtnGroup
-					iconList={supplierMenuList}
-					isOpen={true}
-					closeFn={() => setMenuScreen('main')}
-					isSubmenu={true}
-				/>
-			)}
+			{orderMenu}
+			{menusMenu}
+			{supplierMenu}
 		</div>
 	);
 }

@@ -36,9 +36,10 @@ export default function Supplements(props) {
 	}
 
     function addSupplement() {
-		const idedSupplement = {...supplement, id: uuid()}
-		setSupplements(prev => [...prev, idedSupplement])
-		props.shareState({supplements: [...supplements, idedSupplement]})
+		const supplementQuantity = Math.ceil(((Number(supplement.percentage) / 100) * totalProductCost / newMenuItem.rationNumber) * 100) / 100
+		const idedSupplementWithQuant = {...supplement, id: uuid(), quantity: supplementQuantity}
+		setSupplements(prev => [...prev, idedSupplementWithQuant])
+		props.shareState({supplements: [...supplements, idedSupplementWithQuant]})
 		setShowSupplementModal(false)
 		setSupplement({})
 	}

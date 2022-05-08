@@ -2,7 +2,9 @@ import { Backdrop, CircularProgress } from '@mui/material';
 import { Box } from '@mui/system';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import TopNavbar from '../../UI/TopNavbar';
 import MealCategoryContainer from './Components/MealCategoryContainer'; 
+import BallotIcon from '@mui/icons-material/Ballot';
 
 export default function MealListMainScreen() {
 	const [meals, setMeals] = useState('');
@@ -38,6 +40,8 @@ export default function MealListMainScreen() {
   )
     // Please reconsider stupid backgroundColor 
 	return (
+		<div>
+			<TopNavbar title='Carta' icon={<BallotIcon fontSize='large' />} iconText='Escandallar' onClick={() => window.location.href = '/escandallar'} />
 		<Box sx={{p: 2, minHeight: '93vh', backgroundColor: '#ffe1f0'}}>  
 			{loadBackdrop}
 			{meals &&
@@ -48,5 +52,6 @@ export default function MealListMainScreen() {
 					/>
 				))}
 		</Box>
+		</div>
 	);
 }

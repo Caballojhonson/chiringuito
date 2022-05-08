@@ -1,5 +1,5 @@
 import { Routes, BrowserRouter, Route } from 'react-router-dom';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ChecklistMain from './Components/Checklist/ChecklistMain';
 import SettingsMain from './Components/Settings/SettingsMain';
 import HomeScreen from './Components/Home/HomeScreen';
@@ -17,18 +17,12 @@ import EditItems from './Components/Settings/EditItems';
 import AddNewFixedExpense from './Components/Settings/AddNewFixedExpense';
 import NewMenuItemMainScreen from './Components/Menus/NewMenuItem/NewMenuItemMainScreen';
 import MealListMainScreen from './Components/Menus/MealScreen/MealListMainScreen';
-import axios from 'axios';
-import  {loadStore}  from './db';
-import { StoreContext } from './StoreContext';
-//import { TestContext } from './Store';
-// import Store from './Store';
-
+import { loadDb } from './db';
+import { DbContext } from './DbContext';
+import MealItemScreen from './Components/Menus/MealScreen/MealItemScreen';
 
 export default function Router() {
-	const [store, setStore] = useState('')
-
-	
-
+	const [store, setStore] = useState('');
 	let newSession = localStorage.getItem('newSession');
 
 	useEffect(() => {
@@ -36,38 +30,38 @@ export default function Router() {
 		setTimeout(() => {
 			localStorage.setItem('newSession', true);
 		}, 900000); //Time of inactivity for session expiry 300000 = 5min
-		 loadStore(setStore)
+		loadDb(setStore);
 	}, []);
 
 	const loginScreen = <NewUserScreen />;
 	const loadScreen = () => (window.location.href = '/bienvenida');
 
-console.log(store)
-console.log(window.location.pathname)
+	console.log(store);
 
 	const privateNavigation = (
-		<StoreContext.Provider value={store}>
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<HomeScreen />} />
-				<Route path="checklist" element={<ChecklistMain />} />
-				<Route path="pedidos" element={<OrderScreen />} />
-				<Route path="eventos" element={<EventsMain />} />
-				<Route path="opciones" element={<SettingsMain />} />
-				<Route path="nueva-referencia" element={<AddNewItem />} />
-				<Route path="nuevo-proveedor" element={<AddNewSupplier />} />
-				<Route path="nuevo-usuario" element={<NewUserScreen />} />
-				<Route path="bienvenida" element={<Loadscreen />} />
-				<Route path="finanzas" element={<FinanceScreen />} />
-				<Route path="editar-referencias" element={<EditItems />} />
-				<Route path="nuevo-gasto-fijo" element={<AddNewFixedExpense />} />
-				<Route path="escandallar" element={<NewMenuItemMainScreen />} />
-				<Route path="carta" element={<MealListMainScreen />} />
-			</Routes>
+		<DbContext.Provider value={store}>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<HomeScreen />} />
+					<Route path="checklist" element={<ChecklistMain />} />
+					<Route path="pedidos" element={<OrderScreen />} />
+					<Route path="eventos" element={<EventsMain />} />
+					<Route path="opciones" element={<SettingsMain />} />
+					<Route path="nueva-referencia" element={<AddNewItem />} />
+					<Route path="nuevo-proveedor" element={<AddNewSupplier />} />
+					<Route path="nuevo-usuario" element={<NewUserScreen />} />
+					<Route path="bienvenida" element={<Loadscreen />} />
+					<Route path="finanzas" element={<FinanceScreen />} />
+					<Route path="editar-referencias" element={<EditItems />} />
+					<Route path="nuevo-gasto-fijo" element={<AddNewFixedExpense />} />
+					<Route path="escandallar" element={<NewMenuItemMainScreen />} />
+					<Route path="carta" element={<MealListMainScreen />} />
+					<Route path="carta/:id" element={<MealItemScreen />} />
+				</Routes>
 
-			<MainToolbar />
-		</BrowserRouter>
-		</StoreContext.Provider>
+				<MainToolbar />
+			</BrowserRouter>
+		</DbContext.Provider>
 	);
 
 	return (

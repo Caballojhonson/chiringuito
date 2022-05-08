@@ -21,7 +21,7 @@ collections.forEach(collection => {
 }
 })
 
-async function loadStore(setFn) {
+async function loadDb(setState) {
     const days = await db.days()
     const debts = await db.debts()
     const expenses = await db.expenses()
@@ -32,7 +32,7 @@ async function loadStore(setFn) {
     const orders = await db.orders()
     const suppliers = await db.suppliers()
 
-    setFn({
+    setState({
          days: days,
          debts: debts,
          expenses: expenses,
@@ -45,9 +45,9 @@ async function loadStore(setFn) {
         })
 }
 
-export {loadStore}
+export {loadDb}
 
 // Usage :
-// loadStore(setSTATE function in top level component)
+// loadDb(setSTATE function in top level component)
 // link state value to context provider
-// consume as useStore() in child elements
+// consume as useDb() in child elements
