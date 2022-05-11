@@ -10,7 +10,8 @@ export default function Changelog() {
         '- Arreglado infinito alquiler',
         '- Roto alquiler (Lo del gato de schrodinger)',
         '- Mañana será otro día',
-        '- Nueva pantalla de referencias carta'
+        '- Nueva pantalla de referencias carta',
+        '- Nueva vista de elementos de carta',
     ]
 
   return (

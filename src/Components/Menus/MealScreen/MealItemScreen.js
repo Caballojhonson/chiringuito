@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress } from '@mui/material';
+import { Backdrop, CircularProgress, Paper } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -6,6 +6,8 @@ import TopNavbar from '../../UI/TopNavbar';
 import MSIngredientSupplierContainer from './Components/MSIngredientSupplierContainer';
 import EditIcon from '@mui/icons-material/Edit';
 import MSAccordion from './Components/MSAccordion';
+import MSSupplement from './Components/MSSupplement';
+import MSStats from './Components/MSStats';
 
 export default function MealItemScreen() {
 	const { id } = useParams();
@@ -52,14 +54,33 @@ export default function MealItemScreen() {
 			/>
 		));
 
+	const supplements =
+		!loading &&
+		meal.supplements.map((supplement) => (
+			<MSSupplement
+				concept={supplement.concept}
+				percentage={supplement.percentage}
+				quantity={supplement.quantity}
+			/>
+		));
+
 	return (
 		<div>
 			{loading && backdrop}
 			<TopNavbar title={meal.name} icon={<EditIcon />} />
-            <MSAccordion title='Ingredientes' content={
-                !loading && supplierContainers
-            } />
-			
+			<MSAccordion
+				title="Estadísticas"
+				content={<MSStats stats= {{}} />}
+			/>
+				
+
+			<MSAccordion
+				title="Ingredientes"
+				content={!loading && supplierContainers}
+			/>
+			{supplements.length > 0 && (
+				<MSAccordion title="Suplementos" content={!loading && supplements} />
+			)}
 		</div>
 	);
 }

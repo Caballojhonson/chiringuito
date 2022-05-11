@@ -20,6 +20,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import React, { useEffect, useState } from 'react';
 import Submit from './Submit';
+import CostItem from '../../Components/CostItem';
 
 
 export default function CostAndMargin(props) {
@@ -105,40 +106,6 @@ export default function CostAndMargin(props) {
 		if (margin > 200 && margin < 400) return 'green';
 	}
 
-	function CostItem(props) {
-		return (
-			<div>
-				<ListItem
-					button
-					secondaryAction={
-						props.input || (
-							<Typography sx={{ fontSize: '1.2rem' }} variant="button">
-								{props.quantity}
-							</Typography>
-						)
-					}
-				>
-					<ListItemAvatar>
-						<Avatar>{props.icon}</Avatar>
-					</ListItemAvatar>
-					<ListItemText
-						primary={
-							<Typography
-								sx={{ lineHeight: 0.5, fontSize: '0.7rem', color: '#727272' }}
-								variant="overline"
-							>
-								{props.primary}
-							</Typography>
-						}
-						secondary={
-							<Typography variant="body1">{props.secondary}</Typography>
-						}
-					/>
-				</ListItem>
-				<Divider />
-			</div>
-		);
-	}
 
 	function FinalPriceManual() {
 		return (
