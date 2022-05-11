@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 
 export default function MSIngredient(props) {
-	const { ingredient, quantity } = props;
+	const { ingredient, quantity, rations, meal } = props;
 
 	const containerStyle = {
 		display: 'flex',
@@ -11,6 +11,11 @@ export default function MSIngredient(props) {
 		alignItems: 'center',
 		margin: '0.5rem 1rem 0.5rem 1rem',
 	};
+
+	function divideByRations(num) {
+		console.log(rations)
+		return ((num / meal.rationNumber) * rations).toFixed(2)
+	}
 
 	const calcPrice = () => {
 		if (ingredient.packQuantity) {
@@ -27,26 +32,22 @@ export default function MSIngredient(props) {
 	return (
 		<div style={containerStyle}>
 			<Grid container>
-				<Grid item xs={3} >
-					<Box >
-						<Typography variant="subtitle2">{`${quantity} ${formatUnits(
+				<Grid item xs={3}>
+					<Box>
+						<Typography variant="subtitle2">{`${divideByRations(quantity)} ${formatUnits(
 							ingredient.format
 						)}`}</Typography>
 					</Box>
 				</Grid>
-				<Grid item xs={7} >
+				<Grid item xs={7}>
 					<Typography variant="body2">{ingredient.name}</Typography>
 				</Grid>
 
-
 				<Grid item xs={2}>
 					<Box>
-						<Typography variant="subtitle2">{`${calcPrice().toFixed(
-							2
-						)}€`}</Typography>
+						<Typography variant="subtitle2">{`${divideByRations(calcPrice())}€`}</Typography>
 					</Box>
 				</Grid>
-
 			</Grid>
 		</div>
 	);

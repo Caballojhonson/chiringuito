@@ -1,6 +1,6 @@
 import { Backdrop, CircularProgress, Paper } from '@mui/material';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TopNavbar from '../../UI/TopNavbar';
 import MSIngredientSupplierContainer from './Components/MSIngredientSupplierContainer';
@@ -8,12 +8,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import MSAccordion from './Components/MSAccordion';
 import MSSupplement from './Components/MSSupplement';
 import MSStats from './Components/MSStats';
+import MSRationInput from './Components/MSRationInput';
 
 export default function MealItemScreen() {
 	const { id } = useParams();
 	const [meal, setMeal] = useState('');
 	const [loading, setLoading] = useState(true);
 	const [supplierSet, setSupplierSet] = useState('');
+	const [rations, setRations] = useState(1)
 
 	useEffect(() => {
 		getMeal();
@@ -51,6 +53,8 @@ export default function MealItemScreen() {
 					(ingredient) => ingredient.ingredient.supplier === supplier
 				)}
 				supplier={supplier}
+				rations={rations}
+				meal={meal}
 			/>
 		));
 
@@ -65,12 +69,14 @@ export default function MealItemScreen() {
 		));
 
 	return (
+
 		<div>
 			{loading && backdrop}
 			<TopNavbar title={meal.name} icon={<EditIcon />} />
+			<MSRationInput rations={rations} setRations={setRations} meal={meal} />
 			<MSAccordion
 				title="Estadísticas"
-				content={<MSStats stats= {{}} />}
+				content={<MSStats meal={meal} rations={rations} />}
 			/>
 				
 
@@ -82,5 +88,6 @@ export default function MealItemScreen() {
 				<MSAccordion title="Suplementos" content={!loading && supplements} />
 			)}
 		</div>
+
 	);
 }
