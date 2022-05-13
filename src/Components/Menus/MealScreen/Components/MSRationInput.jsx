@@ -1,5 +1,4 @@
-import { Typography, TextField, Button } from '@mui/material';
-import { Box } from '@mui/system';
+import { TextField, Button } from '@mui/material';
 import React from 'react';
 
 export default function MSRationInput(props) {
@@ -10,10 +9,10 @@ export default function MSRationInput(props) {
 	}
 
 	return (
-		<div style={{ display: 'flex', justifyContent: 'center' }}>
+		// <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div>
 			<TextField
 				sx={{
-					maxWidth: '30%',
 					textAlign: 'center',
 					m: 2,
 					mt: 5,
@@ -25,8 +24,8 @@ export default function MSRationInput(props) {
 				size="small"
 				label="Nº Raciones"
 			/>
-			<Button
-				variant="contained"
+			{/* <Button
+				variant="outlined"
 				size="small"
 				sx={{
 					m: 2,
@@ -35,7 +34,7 @@ export default function MSRationInput(props) {
 				onClick={() => setRations(meal.rationNumber)}
 			>
 				{meal.rationNumber} raciones
-			</Button>
+			</Button> */}
 		</div>
 	);
 }

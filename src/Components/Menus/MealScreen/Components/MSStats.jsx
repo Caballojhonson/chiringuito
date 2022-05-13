@@ -6,25 +6,46 @@ import PercentIcon from '@mui/icons-material/Percent';
 import ScaleIcon from '@mui/icons-material/Scale';
 
 import CostItem from '../../Components/CostItem';
-import React from 'react';
-import { Badge } from 'react-bootstrap';
-import { Paper, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Chip } from '@mui/material';
 
 export default function MSStats(props) {
 	const { meal, rations } = props;
 
+	const [rationSelect, setrationSelect] = useState(1);
+
 	function timesRations(num) {
-		return (num * rations).toFixed(2);
+		return (num * rationSelect).toFixed(2);
 	}
 
 	function getTotalWeight() {
-		if(meal.isIntermediate) {
-			return (meal.finalWeight / meal.rationNumber) * rations
+		if (meal.isIntermediate) {
+			return (meal.finalWeight / meal.rationNumber) * rations;
 		}
 	}
 
+	const rationBtns = (
+		<div style={{ display: 'flex' }}>
+			<Chip
+				sx={{ ml: 1, mr: 1 }}
+				label="Por ración"
+				size="small"
+				color={rationSelect === 1 ? 'success' : "default"}
+				onClick={() => setrationSelect(1)}
+			/>
+			<Chip
+				sx={{ ml: 1, mr: 1 }}
+				label="Cantidad manual"
+				size="small"
+				color={rationSelect === 1 ? 'default' : "success"}
+				onClick={() => setrationSelect(rations)}
+			/>
+		</div>
+	);
+
 	return (
 		<div>
+			{rationBtns}
 			<Box sx={{ display: 'flex' }}>
 				<CostItem
 					primary="PVP"
@@ -51,12 +72,20 @@ export default function MSStats(props) {
 				/>
 			</Box>
 
-			{meal.isIntermediate && 
-			<Box sx={{ display: 'flex' }}>
-				<CostItem primary="€ / Kg" secondary={`${meal.costPerKilo}€`} icon={<BalanceIcon />} />
-				<CostItem primary="Kg" secondary={`${getTotalWeight()}`} icon={<ScaleIcon />} />
-			</Box>
-			}
+			{meal.isIntermediate && (
+				<Box sx={{ display: 'flex' }}>
+					<CostItem
+						primary="€ / Kg"
+						secondary={`${meal.costPerKilo}€`}
+						icon={<BalanceIcon />}
+					/>
+					<CostItem
+						primary="Kg"
+						secondary={`${getTotalWeight()}`}
+						icon={<ScaleIcon />}
+					/>
+				</Box>
+			)}
 		</div>
 	);
 }

@@ -1,6 +1,6 @@
-import { Backdrop, CircularProgress, Paper } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
 import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TopNavbar from '../../UI/TopNavbar';
 import MSIngredientSupplierContainer from './Components/MSIngredientSupplierContainer';
@@ -9,13 +9,14 @@ import MSAccordion from './Components/MSAccordion';
 import MSSupplement from './Components/MSSupplement';
 import MSStats from './Components/MSStats';
 import MSRationInput from './Components/MSRationInput';
+import MSInfoBar from './Components/MSInfoBar';
 
 export default function MealItemScreen() {
 	const { id } = useParams();
 	const [meal, setMeal] = useState('');
 	const [loading, setLoading] = useState(true);
 	const [supplierSet, setSupplierSet] = useState('');
-	const [rations, setRations] = useState(1)
+	const [rations, setRations] = useState(1);
 
 	useEffect(() => {
 		getMeal();
@@ -33,7 +34,7 @@ export default function MealItemScreen() {
 			),
 		]);
 		setLoading(false);
-		console.log(supplierSet);
+		setRations(response.data.data[0].rationNumber);
 	};
 
 	const backdrop = (
@@ -69,16 +70,24 @@ export default function MealItemScreen() {
 		));
 
 	return (
-
 		<div>
 			{loading && backdrop}
 			<TopNavbar title={meal.name} icon={<EditIcon />} />
-			<MSRationInput rations={rations} setRations={setRations} meal={meal} />
+			<div style={{ display: 'flex'  }}>
+				
+					<MSRationInput
+						rations={rations}
+						setRations={setRations}
+						meal={meal}
+					/>
+					
+				<MSInfoBar meal={meal} />
+				
+			</div>
 			<MSAccordion
 				title="Estadísticas"
 				content={<MSStats meal={meal} rations={rations} />}
 			/>
-				
 
 			<MSAccordion
 				title="Ingredientes"
@@ -88,6 +97,5 @@ export default function MealItemScreen() {
 				<MSAccordion title="Suplementos" content={!loading && supplements} />
 			)}
 		</div>
-
 	);
 }
