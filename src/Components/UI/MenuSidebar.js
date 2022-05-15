@@ -19,7 +19,9 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MenuIcon from '@mui/icons-material/Menu';
 import MainSidebarBtn from './Components/MainSidebarBtn';
 //import KitchenIcon from '@mui/icons-material/Kitchen';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import BalanceIcon from '@mui/icons-material/Balance';
+import HomeIcon from '@mui/icons-material/Home';
 import { data } from '../../data';
 
 function MenuBtnGroup(props) {
@@ -96,6 +98,11 @@ export default function MenuSidebar(props) {
 			title: 'Pedir',
 			path: '/checklist',
 		},
+		{
+			icon: <QueryStatsIcon fontSize="inherit" />,
+			title: 'Estadísticas',
+			path: '/pedidos/estadisticas',
+		},
 	];
 
 	const menusMenuList = [
@@ -120,6 +127,11 @@ export default function MenuSidebar(props) {
 	];
 
 	const mainMenuList = [
+		{
+			icon: <HomeIcon fontSize="inherit" />,
+			title: 'Inicio',
+			path: '/',
+		},
 		{
 			icon: <LocalShippingIcon fontSize="inherit" />,
 			title: 'Pedidos',

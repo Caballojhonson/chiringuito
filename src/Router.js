@@ -20,6 +20,7 @@ import MealListMainScreen from './Components/Menus/MealScreen/MealListMainScreen
 import { loadDb } from './db';
 import { DbContext } from './DbContext';
 import MealItemScreen from './Components/Menus/MealScreen/MealItemScreen';
+import OrderStatScreen from './Components/Orders/Stats/OrderStatScreen';
 
 export default function Router() {
 	const [store, setStore] = useState('');
@@ -45,6 +46,7 @@ export default function Router() {
 					<Route path="/" element={<HomeScreen />} />
 					<Route path="checklist" element={<ChecklistMain />} />
 					<Route path="pedidos" element={<OrderScreen />} />
+					<Route path="pedidos/estadisticas" element={<OrderStatScreen />} />
 					<Route path="eventos" element={<EventsMain />} />
 					<Route path="opciones" element={<SettingsMain />} />
 					<Route path="nueva-referencia" element={<AddNewItem />} />

@@ -72,7 +72,8 @@ export default function NewMenuItemMainScreen() {
 	}
 
 	function prevScreen() {
-		setScreen(1);
+		screen > 1 && setScreen(1);
+		screen === 1 &&  window.history.back()
 	}
 
 	function CalculatorModal() {
