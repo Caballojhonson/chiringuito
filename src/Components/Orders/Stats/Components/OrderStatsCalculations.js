@@ -1,22 +1,11 @@
-import { useDb } from '../../../../DbContext';
-
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 export default function OrderStatsCalculations(props) {
-	const { setState, stats } = props;
-	const db = useDb();
+	const { setState, stats, db } = props;
 
-    useEffect(() => {
-        db && setState(...stats, {
-            itemTotalsSorted: db && orderedItemsSum(db.orders).map((item) => {
-                return {
-                    name: getItemNameFromId(item._id),
-                    quantity: item.quantity,
-                };
-            }).sort((a, b) =>  b.quantity - a.quantity)
-        })
-    }, [])
-    
+	useEffect(() => {
+		db && setState({...stats, itemTotalsSorted: orderedItemsSum(db.orders)});
+	}, [db]);
 
 	function flatten(arr) {
 		return arr.reduce(function (flat, toFlatten) {
@@ -31,20 +20,20 @@ export default function OrderStatsCalculations(props) {
 		return item.name;
 	}
 
-	// Sum all items ordered in order sample, groups as {_id, quantity} array
+	// Sum all items ordered in order sample, returns groups as 
+    // {_id, name, packQuantity, quantity} array
 
 	function orderedItemsSum(sample) {
 		const allOrders = sample.map((order) => {
 			return order.items.map((item) => {
 				return {
+                    name: item.item.name,
 					pack: item.item.packQuantity || 1,
 					quantity: item.quantity,
 					_id: item.item._id,
 				};
 			});
 		});
-
-		console.log(allOrders);
 
 		const flatOrders = flatten(allOrders);
 		const itemIDSet = [...new Set(flatOrders.map((item) => item._id))];
@@ -59,21 +48,26 @@ export default function OrderStatsCalculations(props) {
 			}, 0);
 			return {
 				_id: group[0]._id,
+				name: group[0].name,
 				quantity: sum * group[0].pack,
 			};
 		});
 
-		return summed;
+		const sorted = summed.sort((a, b) => b.quantity - a.quantity);
+
+		return sorted;
 	}
 
-	const namedAndSortedItemTotals = 
+	function getAllOrdersForItemsWithId(id) {
+		return (
+			db &&
+			db.orders.filter((order) =>
+				order.items.some((item) => item.item._id === id)
+			)
+		);
+	}
 
-	//function
-
-	console.log(db && orderedItemsSum(db.orders));
-	console.log(namedAndSortedItemTotals);
-
-    
+	console.log(db && getAllOrdersForItemsWithId('61e98f976466e642ebc49af1'));
 
 	return <div>Estadísticas</div>;
 }
