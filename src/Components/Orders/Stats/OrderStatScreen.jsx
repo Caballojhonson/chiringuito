@@ -1,9 +1,9 @@
 import { List, ListItem, ListItemText, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useDb } from '../../../DbContext'
-import OrderStatsCalculations from './Components/OrderStatsCalculations'
-import ItemLineChart from './ItemLineChart'
-import TotalItemsBoughtList from './TotalItemsBoughtList'
+import OrderStatsCalculations from './OrderStatsCalculations'
+import ItemLineChart from './Components/ItemLineChart'
+import TotalItemsBoughtList from './Components/TotalItemsBoughtList'
 import Backdrop from '@mui/material/Backdrop';
 
 import CircularProgress from '@mui/material/CircularProgress';
